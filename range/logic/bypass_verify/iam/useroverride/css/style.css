@@ -1,0 +1,358 @@
+/**
+ * HeaSec天积安全团队 - 用户覆盖靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-02-25
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 复用resetstepbp靶场样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 页面垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 增加卡片的最小宽度 */
+.tech-card {
+    min-width: 480px;
+    max-width: 650px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片内容区域优化 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* 登录Tab样式 */
+.login-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+.login-tab {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: #f8f9fa;
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s ease;
+}
+
+.login-tab:hover {
+    background: #e9ecef;
+}
+
+.login-tab.active {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.login-tab i {
+    margin-right: 8px;
+}
+
+/* 登录表单 */
+.login-form {
+    display: none;
+}
+
+.login-form.active {
+    display: block;
+}
+
+/* 验证码输入行 */
+.captcha-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.captcha-row .tech-input {
+    flex: 1;
+}
+
+.captcha-row .tech-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.captcha-img {
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #dee2e6;
+}
+
+/* 绿色成功按钮样式 */
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color, #28a745) 0%, #1e7e34 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* 橙色按钮样式 - 用于获取验证码按钮 */
+.tech-btn-orange {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.tech-btn-orange:hover {
+    background: linear-gradient(135deg, #e0a800 0%, #dc6502 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 成功提示样式 */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+/* 错误提示样式 */
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* 用户信息样式 */
+.user-info {
+    padding: 15px 0;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.info-value {
+    color: #495057;
+}
+
+.info-row.highlight {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    margin: 10px -15px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.info-value.passcode {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+    letter-spacing: 2px;
+}
+
+/* 模态框样式 */
+.heasec-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.heasec-modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.heasec-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heasec-modal-header h3 {
+    margin: 0;
+}
+
+.heasec-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.heasec-modal-close:hover {
+    color: #495057;
+}
+
+.heasec-modal-body {
+    padding: 20px;
+}
+
+/* 加载状态 */
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 倒计时按钮 */
+.tech-btn.countdown {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .captcha-row {
+        flex-direction: column;
+    }
+
+    .captcha-row .tech-btn {
+        width: 100%;
+    }
+
+    .captcha-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .login-tabs {
+        flex-direction: column;
+    }
+
+    .login-tab {
+        border-radius: 8px;
+    }
+}
+
+/* 小屏幕优化 - 适配手机屏幕 */
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .info-row {
+        flex-wrap: wrap;
+    }
+
+    .info-label {
+        width: 100px;
+    }
+}

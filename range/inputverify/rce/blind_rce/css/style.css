@@ -1,0 +1,533 @@
+/**
+ * HeaSec天积安全团队 - 无回显命令注入靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-21
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   Ping测试区域
+   ========================================== */
+
+.submit-section {
+    margin-top: 20px;
+}
+
+.submit-section .ip-input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.submit-section .ip-input-wrapper input {
+    flex: 1;
+    height: 48px;
+    font-size: 16px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-section .ip-input-wrapper input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.submit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* Ping结果展示 */
+.ping-result-wrapper {
+    margin-top: 20px;
+}
+
+.ping-result {
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.ping-result.text-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.ping-result.text-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.ping-result i.fa-check-circle {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.ping-result i.fa-times-circle {
+    color: #dc3545;
+    font-size: 18px;
+}
+
+/* ==========================================
+   任务目标卡片（第二关/第三关）
+   ========================================== */
+
+.target-string-display {
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+    border: 2px dashed #ffc107;
+    border-radius: 10px;
+    padding: 20px 25px;
+    text-align: center;
+    margin: 18px 0;
+}
+
+.target-string-display .target-label {
+    font-size: 13px;
+    color: #856404;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.target-string-display .target-value {
+    font-size: 26px;
+    font-weight: bold;
+    color: #e65100;
+    letter-spacing: 3px;
+    font-family: 'Courier New', Consolas, monospace;
+    word-break: break-all;
+}
+
+.task-description {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.task-description code {
+    background: #f1f3f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 13px;
+    color: #e83e8c;
+}
+
+/* 过滤规则说明（第三关） */
+.filter-rules {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+    border: 1px solid rgba(233, 30, 99, 0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #880e4f;
+}
+
+.filter-rules-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-chars {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.filter-char-item {
+    background: rgba(233, 30, 99, 0.15);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 文件检测按钮 */
+.check-file-section {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px dashed #dee2e6;
+}
+
+/* 检测结果 */
+.detection-result {
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.passcode-display {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 15px;
+}
+
+.passcode-display .passcode-label {
+    font-size: 13px;
+    color: #155724;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.passcode-display .passcode-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #155724;
+    letter-spacing: 2px;
+    font-family: 'Courier New', Consolas, monospace;
+    word-break: break-all;
+}
+
+.passcode-hint {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 8px;
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-info:hover {
+    background: linear-gradient(135deg, #117a8b 0%, #0c5460 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   卡片标题区域
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+/* ==========================================
+   动画
+   ========================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 加载动画 */
+.doc-loading {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.doc-loading i {
+    margin-right: 8px;
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .submit-section .ip-input-wrapper {
+        flex-direction: column;
+    }
+
+    .submit-actions {
+        flex-direction: column;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .target-string-display .target-value {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .filter-chars {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .alert-info,
+    .alert-warning {
+        font-size: 13px;
+        padding: 12px 15px;
+    }
+}

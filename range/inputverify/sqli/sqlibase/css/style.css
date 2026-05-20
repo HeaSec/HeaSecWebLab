@@ -1,0 +1,283 @@
+/**
+ * HeaSec天积安全团队 - SQL注入基础靶场样式
+ * 版本: v1.0.0
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+.heasec-sqlibase-layout {
+    align-items: flex-start;
+}
+
+.heasec-sqlibase-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    min-height: min-content;
+    padding-bottom: 20px;
+}
+
+.heasec-sqlibase-side {
+    flex: 0 0 360px;
+    max-width: 360px;
+    width: 360px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+}
+
+.heasec-panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ========== 分区布局 ========== */
+.heasec-user-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.heasec-content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.heasec-tools-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ========== 内嵌提示alert ========== */
+.heasec-inline-alert {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+}
+.heasec-inline-alert .alert-hint {
+    font-size: 13px;
+}
+
+/* ========== Tab切换组件 ========== */
+.heasec-tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.heasec-tab-nav {
+    display: flex;
+    gap: 4px;
+    background: rgba(0, 123, 255, 0.06);
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.heasec-tab-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #6c757d;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.heasec-tab-btn:hover {
+    color: #007bff;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.heasec-tab-btn.active {
+    background: #fff;
+    color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.12);
+    font-weight: 600;
+}
+
+.heasec-tab-content.active {
+    animation: tabFadeIn 0.25s ease-out;
+}
+
+@keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.heasec-sqlibase-main .tech-card {
+    flex-shrink: 0;
+    flex-basis: auto;
+    min-height: min-content;
+    margin-bottom: 0;
+}
+
+/* 搜索区域 */
+.heasec-sqlibase-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.heasec-sqlibase-search select {
+    flex: 1;
+}
+
+/* 资讯列表项 */
+.heasec-sqlibase-article-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(0, 123, 255, 0.08);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.heasec-sqlibase-article-item:hover {
+    background-color: rgba(0, 123, 255, 0.04);
+}
+
+.heasec-sqlibase-article-item h4 {
+    margin: 0 0 6px 0;
+    color: #2c3e50;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.heasec-sqlibase-article-item:last-child {
+    border-bottom: none;
+}
+
+.heasec-sqlibase-meta {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.heasec-sqlibase-meta span {
+    margin-right: 12px;
+}
+
+/* 资讯详情 */
+.heasec-sqlibase-detail-title {
+    margin: 16px 0 12px 0;
+    color: #2c3e50;
+    font-size: 22px;
+    line-height: 1.4;
+}
+
+.heasec-sqlibase-detail-content {
+    margin-top: 16px;
+    line-height: 1.8;
+    color: #333;
+    font-size: 15px;
+}
+
+/* 数据网格 */
+.heasec-data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.heasec-data-grid > div {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.heasec-data-grid span {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.heasec-data-grid strong {
+    display: block;
+    margin-top: 6px;
+    color: #212529;
+    word-break: break-word;
+}
+
+/* 下拉框 */
+.heasec-select {
+    appearance: none;
+    padding-right: 15px;
+}
+
+/* 文本域 */
+.heasec-textarea {
+    min-height: 100px;
+    padding-right: 15px;
+    resize: vertical;
+}
+
+/* 消息提示 */
+.heasec-sqlibase-message {
+    margin-top: 8px;
+    min-height: 20px;
+    font-size: 14px;
+}
+
+.heasec-sqlibase-message.success {
+    color: #27ae60;
+}
+
+.heasec-sqlibase-message.error {
+    color: #e74c3c;
+}
+
+/* 未登录时限制宽度 */
+#guestPanel {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 响应式 */
+@media (max-width: 1400px) {
+    .heasec-sqlibase-side {
+        flex-basis: 340px;
+        width: 340px;
+        max-width: 340px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .heasec-sqlibase-layout {
+        flex-direction: column;
+    }
+
+    .heasec-sqlibase-side {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        flex-basis: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .heasec-data-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .heasec-sqlibase-search {
+        flex-direction: column;
+    }
+
+    .heasec-sqlibase-search select {
+        width: 100%;
+    }
+}

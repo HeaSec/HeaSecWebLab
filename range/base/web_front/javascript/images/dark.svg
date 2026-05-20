@@ -1,0 +1,14 @@
+<!-- 暗的电灯 - light_off.svg -->
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 灯泡主体 -->
+  <ellipse cx="100" cy="100" rx="45" ry="55" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+  
+  <!-- 灯泡底座 -->
+  <rect x="75" y="145" width="50" height="20" fill="#888" stroke="#333" stroke-width="2"/>
+  <rect x="80" y="165" width="40" height="8" fill="#666" stroke="#333" stroke-width="1"/>
+  <rect x="80" y="173" width="40" height="8" fill="#666" stroke="#333" stroke-width="1"/>
+  
+  <!-- 灯丝 -->
+  <path d="M 85 100 Q 100 85, 115 100 T 85 100" fill="none" stroke="#666" stroke-width="2" opacity="0.5"/>
+  <path d="M 85 110 Q 100 95, 115 110 T 85 110" fill="none" stroke="#666" stroke-width="2" opacity="0.5"/>
+</svg>

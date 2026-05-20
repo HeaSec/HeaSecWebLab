@@ -1,0 +1,914 @@
+/**
+ * HeaSec天积安全团队 - 金额篡改靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-03-14
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+/* 页面垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 卡片样式增强 */
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+/* 任务提示样式 */
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-hint {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* 成功提示样式 */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+/* 信息提示样式 */
+.alert-info {
+    background: #e7f3ff;
+    color: #0c5460;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+}
+
+/* 错误提示样式 */
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   用户信息样式
+   ========================================== */
+
+.user-info {
+    padding: 15px 0;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.info-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.info-value {
+    color: #495057;
+}
+
+/* 余额高亮样式 */
+.info-value.balance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.info-value.balance::before {
+    content: '¥';
+    font-size: 18px;
+    margin-right: 2px;
+}
+
+/* 通关密码高亮样式 */
+.info-row.highlight {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    margin: 15px -20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.info-value.passcode {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+    letter-spacing: 2px;
+    word-break: break-all;
+}
+
+/* ==========================================
+   商品区域样式
+   ========================================== */
+
+.products-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.products-section h4,
+.cart-section h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.product-price {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.add-to-cart-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+}
+
+/* ==========================================
+   购物车区域样式
+   ========================================== */
+
+.cart-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-color: #ced4da;
+}
+
+.cart-item-name {
+    font-weight: 500;
+    color: #495057;
+    font-size: 15px;
+    flex: 1;
+    margin-right: 15px;
+}
+
+.cart-item-price {
+    color: #6c757d;
+    font-size: 14px;
+    min-width: 70px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 20px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    color: #495057;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+}
+
+.qty-btn:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.qty-btn:active {
+    background: #e9ecef;
+}
+
+.cart-item-quantity span {
+    min-width: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-item-subtotal {
+    color: #28a745;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.cart-remove-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-empty {
+    text-align: center;
+    color: #6c757d;
+    padding: 20px;
+    font-size: 14px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 0;
+    margin-top: 10px;
+    border-top: 1px solid #e9ecef;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cart-total span:first-child {
+    margin-right: 10px;
+    color: #6c757d;
+}
+
+.total-amount {
+    color: #28a745;
+    font-size: 20px;
+}
+
+/* ==========================================
+   优惠券区域样式
+   ========================================== */
+
+.coupon-section {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff8e1;
+    border-radius: 8px;
+    border: 1px solid #ffcc80;
+}
+
+.coupon-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.coupon-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.coupon-info {
+    flex: 1;
+}
+
+.coupon-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.coupon-value {
+    color: #e65100;
+    font-size: 14px;
+}
+
+.coupon-value::before {
+    content: '-¥';
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.tech-btn-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, #a71d2a 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+    color: white;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #545b62 0%, #3d4146 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    color: white;
+}
+
+.tech-btn-info:hover {
+    background: linear-gradient(135deg, #117a8b 0%, #0c5460 100%);
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   卡片标题区域布局
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+.header-logout-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.header-logout-btn:hover {
+    background: linear-gradient(135deg, #545b62 0%, #3d4146 100%);
+}
+
+.header-logout-btn i {
+    margin-right: 4px;
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   测试账号提示
+   ========================================== */
+
+.test-account-hint {
+    margin-top: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.test-account-hint i {
+    margin-right: 5px;
+}
+
+/* ==========================================
+   验证结果区域
+   ========================================== */
+
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .info-row {
+        flex-wrap: wrap;
+    }
+
+    .info-label {
+        width: 100px;
+    }
+
+    .product-item {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cart-item {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .info-value.balance {
+        font-size: 20px;
+    }
+
+    .info-value.passcode {
+        font-size: 14px;
+    }
+}
+
+/* ==========================================
+   订单列表样式
+   ========================================== */
+
+.orders-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.orders-section h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.orders-section h4 .refresh-btn {
+    font-size: 13px;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.orders-section h4 .refresh-btn:hover {
+    color: #0056b3;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.order-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    padding: 15px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.order-id {
+    font-weight: 600;
+    color: #495057;
+}
+
+.order-time {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.order-items {
+    margin-bottom: 10px;
+}
+
+.order-item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #495057;
+}
+
+.order-item-name {
+    flex: 1;
+}
+
+.order-item-qty {
+    color: #6c757d;
+    margin: 0 15px;
+}
+
+.order-item-price {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #e9ecef;
+}
+
+.order-total {
+    font-weight: 600;
+    color: #495057;
+}
+
+.order-total-amount {
+    color: #28a745;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.order-passcode {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-passcode i {
+    color: #ffc107;
+}
+
+.order-passcode-label {
+    font-weight: 600;
+    color: #856404;
+    font-size: 13px;
+}
+
+.order-passcode-value {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #28a745;
+    letter-spacing: 1px;
+    word-break: break-all;
+}
+
+.orders-empty {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px;
+    font-size: 14px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ced4da;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: #e9ecef;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-item-quantity span {
+    min-width: 24px;
+    text-align: center;
+}
+
+/* 订单列表标题样式 */
+.orders-section h4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.refresh-btn {
+    font-size: 13px;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.refresh-btn:hover {
+    color: #0056b3;
+}
+
+/* 订单空状态 */
+.orders-empty {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px;
+    font-size: 14px;
+}
+
+.orders-empty i {
+    display: block;
+    font-size: 40px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+/* 订单底部样式 */
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #e9ecef;
+}
+
+.order-total {
+    font-size: 14px;
+    color: #495057;
+}
+
+.order-total-amount {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 16px;
+}

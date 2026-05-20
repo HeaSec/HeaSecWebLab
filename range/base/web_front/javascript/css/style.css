@@ -1,0 +1,536 @@
+/**
+ * HeaSec天积安全团队 - JavaScript语言基础靶场样式文件
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-16
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 可折叠区域样式 - 参考httpxyjx靶场 */
+.collapsible-section {
+    margin-bottom: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 11px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(102, 126, 234, 0.08);
+    transform: translateY(0);
+    min-width: 500px;
+    width: auto;
+}
+
+.collapsible-section.expanded {
+    border-color: #667eea;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+    width: auto;
+    min-width: 500px;
+}
+
+/* 各区域展开时的特殊宽度设置 */
+#section2.expanded,
+#section3.expanded,
+#section4.expanded,
+#section5.expanded,
+#section6.expanded {
+    min-width: 700px;
+    width: auto;
+}
+
+.collapsible-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: all 0.3s ease;
+    min-height: 60px;
+    border-radius: 11px;
+    margin-bottom: 0;
+    border: none;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 展开状态下移除header的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-header {
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+/* 整个可折叠区域的悬停效果 - 只对展开状态生效 */
+.collapsible-section.expanded:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(102, 126, 234, 0.25);
+}
+
+/* 展开状态下的header悬停效果 */
+.collapsible-section.expanded:hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: translateY(-2px);
+}
+
+/* 收起状态下的header悬停效果 */
+.collapsible-section:not(.expanded):hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: none !important;
+}
+
+.collapsible-section:hover .collapsible-content {
+    background: #ffffff;
+}
+
+.toggle-text {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.toggle-text .fa {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 80px;
+    min-height: 44px;
+}
+
+/* 展开状态文字 */
+.collapsible-section:not(.expanded) .toggle-btn::after {
+    content: "展开";
+}
+
+/* 收起状态文字 */
+.collapsible-section.expanded .toggle-btn::after {
+    content: "收起";
+}
+
+.collapsible-content {
+    background: #ffffff;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 0 0 11px 11px;
+    margin-top: 0;
+    box-shadow: none;
+}
+
+/* 收起状态下完全隐藏content的样式 */
+.collapsible-section:not(.expanded) .collapsible-content {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* 展开状态下移除content的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-content {
+    box-shadow: none;
+    max-height: 8000px;
+    padding: 20px;
+}
+
+/* 展开状态下的header圆角调整 */
+.collapsible-section.expanded .collapsible-header {
+    border-radius: 11px 11px 0px 0px !important;
+}
+
+/* JavaScript语法展示区域样式 */
+.js-syntax-display {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.js-syntax-display h4 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    font-size: 16px;
+}
+
+/* Prism.js 代码块样式调整 */
+pre[class*="language-"] {
+    background: #1e1e1e;
+    border-radius: 6px;
+    margin: 0;
+    font-size: 14px;
+}
+
+code[class*="language-"] {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.5;
+}
+
+/* 章节标题样式 */
+.chapter-title {
+    color: #2d3748;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-title .fa {
+    color: #667eea;
+}
+
+.chapter-description {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* 语法说明样式 */
+.syntax-explanation {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.syntax-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.syntax-explanation h5 .fa {
+    color: #667eea;
+}
+
+.syntax-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.syntax-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.syntax-explanation code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* 示例解析样式 */
+.example-explanation {
+    background: #f0f9ff;
+    border-left: 4px solid #4299e1;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.example-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.example-explanation h5 .fa {
+    color: #4299e1;
+}
+
+.example-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.example-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.example-explanation code {
+    background: #bee3f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* 掌握按钮区域样式 */
+.mastery-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.mastery-section:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.mastery-button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heasec-mastery-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-mastery-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.heasec-mastery-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.heasec-mastery-btn:hover::before {
+    left: 100%;
+}
+
+.heasec-mastery-btn:active {
+    transform: translateY(0);
+}
+
+.heasec-mastery-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.heasec-mastery-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.mastery-description {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 自定义提示消息样式 */
+.heasec-alert {
+    border-radius: 8px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none;
+    animation: slideInRight 0.3s ease;
+    z-index: 10000;
+}
+
+.heasec-alert.alert-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.heasec-alert.alert-danger {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+}
+
+.heasec-alert .fa {
+    margin-right: 10px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1200px) {
+    #section2.expanded,
+    #section3.expanded,
+    #section4.expanded,
+    #section5.expanded,
+    #section6.expanded {
+        min-width: 1080px;
+    }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .collapsible-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    #section2.expanded,
+    #section3.expanded,
+    #section4.expanded,
+    #section5.expanded,
+    #section6.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-header {
+        padding: 14px 18px;
+        min-height: 50px;
+    }
+
+    .toggle-text {
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .toggle-text .fa {
+        font-size: 16px;
+    }
+
+    .toggle-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+
+    pre[class*="language-"] {
+        font-size: 12px;
+        padding: 15px;
+    }
+
+    .mastery-section {
+        padding: 20px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 14px 32px;
+        font-size: 16px;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collapsible-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-header {
+        padding: 12px 16px;
+        min-height: 48px;
+    }
+
+    .toggle-text {
+        font-size: 15px;
+        gap: 8px;
+    }
+
+    .toggle-text .fa {
+        font-size: 14px;
+    }
+
+    .toggle-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        min-width: 60px;
+        min-height: 36px;
+    }
+
+    .mastery-section {
+        padding: 15px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-width: 160px;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

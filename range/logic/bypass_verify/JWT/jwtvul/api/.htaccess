@@ -1,0 +1,21 @@
+# HeaSec天积安全团队 - API目录访问控制
+# 禁止目录浏览
+Options -Indexes
+
+# 转发 Authorization 请求头，兼容 phpStudy/Apache + FastCGI 环境
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# 只允许访问PHP文件
+<FilesMatch "\.(php)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# 禁止访问其他文件类型
+<FilesMatch "\.(sql|txt|md|log|json|xml|yml|yaml|ini|htaccess|htpasswd)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

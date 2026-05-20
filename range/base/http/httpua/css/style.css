@@ -1,0 +1,33 @@
+/**
+ * HeaSec天积安全团队 - HTTP User-Agent靶场样式
+ * 版本: v1.0.0 (优化版)
+ * 创建日期: 2025-11-05
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 此文件已整合到heasec_range.css中，仅保留站点特定样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 确保提示文字从新行开始 */
+.alert p.alert-hint {
+    margin-left: 0;
+    text-indent: 0;
+    flex-basis: 100%;
+}
+
+/* 特殊的alert布局处理 */
+.alert > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+
+/* .alert .alert-hint 调整 */
+.alert .alert-hint {
+    align-self: flex-start;
+    width: 100%;
+    margin-top: 0;
+}

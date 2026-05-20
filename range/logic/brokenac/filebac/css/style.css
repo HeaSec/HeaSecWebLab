@@ -1,0 +1,299 @@
+/**
+ * HeaSec天积安全团队 - 文件越权访问靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-03-06
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 信息行样式 */
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.info-label {
+    color: #666;
+    min-width: 120px;
+    font-weight: 500;
+}
+
+.info-label i {
+    margin-right: 8px;
+    color: #16537e;
+}
+
+.info-value {
+    color: #333;
+    font-weight: 600;
+}
+
+.info-value[title] {
+    cursor: help;
+    border-bottom: 1px dashed #999;
+}
+
+/* 高亮信息行 */
+.info-row.highlight {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.info-row.highlight .info-label {
+    color: #155724;
+}
+
+.info-row.highlight .info-value {
+    color: #155724;
+}
+
+.info-row.highlight .info-value.passcode {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* 订单列表样式 */
+.order-list {
+    margin-top: 10px;
+}
+
+.order-item {
+    transition: box-shadow 0.3s ease;
+}
+
+.order-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 测试账号提示 */
+.test-account-hint {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px dashed #dee2e6;
+}
+
+/* 结果区域样式 */
+.detection-result {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: 6px;
+}
+
+.detection-result .alert-success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #155724;
+    background: #d4edda;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.detection-result .alert-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #721c24;
+    background: #f8d7da;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+/* 图片预览区域 */
+#idcardImageContainer {
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#idcardImageContainer img {
+    display: block;
+}
+
+/* （原小按钮样式已移至底部增加权重） */
+
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-label {
+        margin-bottom: 5px;
+    }
+
+    .order-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* ==========================================
+   页面布局样式 (同步 vertbp)
+   ========================================== */
+
+/* 页面垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 卡片 */
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片头部 */
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 卡片内容区域优化 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.tech-form .form-group {
+    margin-bottom: 20px;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+}
+
+.alert-hint {
+    display: block;
+    margin-top: 8px;
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, var(--heasec-primary-color, #007bff) 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color, #28a745) 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+.tech-btn-danger {
+    background: linear-gradient(135deg, var(--heasec-danger-color, #dc3545) 0%, #bd2130 100%);
+    color: white;
+}
+
+.tech-btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+.tech-btn-outline {
+    background: transparent;
+    border: 1px solid var(--heasec-border-color, #ced4da);
+    color: #495057;
+}
+
+.tech-btn-outline:hover {
+    background: #e9ecef;
+}
+
+/* 小按钮样式覆盖 */
+.tech-btn.tech-btn-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+    height: auto;
+}

@@ -1,0 +1,498 @@
+/**
+ * HeaSec天积安全团队 - 科技蓝UI组件库动画系统
+ * Tech Blue UI Component Library Animations
+ * 版本: v1.0.0
+ * 创建日期: 2025-11-11
+ * 团队: 天积安全 (HeavenlySecret)
+ * 描述: 科技蓝风格的动画和微交互效果
+ */
+
+/* ==================== 动画基础定义 ==================== */
+
+/* 动画检查类 - 当动画被禁用时应用 */
+.heasec-tech-no-animations * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* ==================== 入场动画 ==================== */
+
+/* 淡入动画 */
+@keyframes heasec-tech-fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes heasec-tech-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heasec-tech-fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heasec-tech-fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes heasec-tech-fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 缩放动画 */
+@keyframes heasec-tech-scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes heasec-tech-scaleInUp {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 旋转动画 */
+@keyframes heasec-tech-rotateIn {
+    from {
+        opacity: 0;
+        transform: rotate(-180deg) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+/* ==================== 悬停动画 ==================== */
+
+/* 悬停浮起效果 */
+@keyframes heasec-tech-hoverLift {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-2px);
+    }
+}
+
+/* 悬停发光效果 */
+@keyframes heasec-tech-hoverGlow {
+    0% {
+        box-shadow: var(--heasec-tech-shadow);
+    }
+    100% {
+        box-shadow: var(--heasec-tech-shadow-neon);
+    }
+}
+
+/* 悬停脉冲效果 */
+@keyframes heasec-tech-hoverPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* ==================== 加载动画 ==================== */
+
+/* 旋转加载 */
+@keyframes heasec-tech-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 脉冲加载 */
+@keyframes heasec-tech-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* 闪烁加载 */
+@keyframes heasec-tech-blink {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0;
+    }
+}
+
+/* 波纹扩散 */
+@keyframes heasec-tech-ripple {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ==================== 科技特效动画 ==================== */
+
+/* 科技感扫描线 */
+@keyframes heasec-tech-scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* 科技感流动 */
+@keyframes heasec-tech-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 科技感闪烁 */
+@keyframes heasec-tech-flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    10%, 30%, 50%, 70%, 90% {
+        opacity: 0.8;
+    }
+    20%, 40%, 60%, 80% {
+        opacity: 1;
+    }
+}
+
+/* ==================== 交互动画 ==================== */
+
+/* 按钮点击涟漪 */
+@keyframes heasec-tech-buttonRipple {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 卡片翻转 */
+@keyframes heasec-tech-cardFlip {
+    from {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    to {
+        transform: perspective(1000px) rotateY(180deg);
+    }
+}
+
+/* 弹窗弹出 */
+@keyframes heasec-tech-modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ==================== 动画工具类 ==================== */
+
+/* 动画控制类 */
+.heasec-tech-animate-fadeIn {
+    animation: heasec-tech-fadeIn var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-fadeInUp {
+    animation: heasec-tech-fadeInUp var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-fadeInDown {
+    animation: heasec-tech-fadeInDown var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-fadeInLeft {
+    animation: heasec-tech-fadeInLeft var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-fadeInRight {
+    animation: heasec-tech-fadeInRight var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-slideIn {
+    animation: heasec-tech-fadeInRight var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-scaleIn {
+    animation: heasec-tech-scaleIn var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+.heasec-tech-animate-rotateIn {
+    animation: heasec-tech-rotateIn var(--heasec-tech-animation-duration) var(--heasec-tech-animation-easing);
+}
+
+/* 延迟动画类 */
+.heasec-tech-animate-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.heasec-tech-animate-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.heasec-tech-animate-delay-3 {
+    animation-delay: 0.3s;
+}
+
+.heasec-tech-animate-delay-4 {
+    animation-delay: 0.4s;
+}
+
+.heasec-tech-animate-delay-5 {
+    animation-delay: 0.5s;
+}
+
+/* ==================== 页面加载动画样式 ==================== */
+
+/* 页面内容渐入 */
+.heasec-tech-page-animate .heasec-tech-card {
+    animation: heasec-tech-fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.heasec-tech-page-animate .heasec-tech-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.heasec-tech-page-animate .heasec-tech-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.heasec-tech-page-animate .heasec-tech-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.heasec-tech-page-animate .heasec-tech-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ==================== 悬停效果样式 ==================== */
+
+/* 基础悬停效果 */
+.heasec-tech-hover-lift:hover {
+    transform: var(--heasec-tech-hover-transform);
+    transition: var(--heasec-tech-transition);
+}
+
+.heasec-tech-hover-glow:hover {
+    box-shadow: var(--heasec-tech-shadow-neon);
+    transition: var(--heasec-tech-transition);
+}
+
+.heasec-tech-hover-scale:hover {
+    transform: scale(1.02);
+    transition: var(--heasec-tech-transition);
+}
+
+/* 科技感悬停效果 */
+.heasec-tech-hover-tech:hover {
+    background: var(--heasec-tech-gradient-primary);
+    border-color: var(--heasec-tech-primary-dark);
+    box-shadow: var(--heasec-tech-shadow-neon);
+    transition: var(--heasec-tech-transition);
+}
+
+/* ==================== 加载状态动画 ==================== */
+
+/* 加载指示器 */
+.heasec-tech-loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--heasec-tech-border);
+    border-top-color: var(--heasec-tech-primary);
+    border-radius: var(--heasec-tech-radius-full);
+    animation: heasec-tech-spin 1s linear infinite;
+}
+
+.heasec-tech-loading-sm::before {
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-width: 1.5px;
+}
+
+.heasec-tech-loading-lg::before {
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border-width: 3px;
+}
+
+/* 进度条动画 */
+.heasec-tech-progress-bar {
+    position: relative;
+    overflow: hidden;
+    background: var(--heasec-tech-bg-tertiary);
+}
+
+.heasec-tech-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: heasec-tech-flow 2s ease-in-out infinite;
+}
+
+/* ==================== 科技特效样式 ==================== */
+
+/* 扫描线效果 */
+.heasec-tech-scanline {
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-tech-scanline::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--heasec-tech-primary), transparent);
+    animation: heasec-tech-scanline 3s linear infinite;
+}
+
+/* 发光边框效果 */
+.heasec-tech-glow-border {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--heasec-tech-bg-primary), var(--heasec-tech-bg-primary)) padding-box,
+                var(--heasec-tech-gradient-primary) border-box;
+}
+
+.heasec-tech-glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: var(--heasec-tech-gradient-primary);
+    filter: blur(8px);
+    opacity: 0;
+    transition: var(--heasec-tech-transition);
+    z-index: -1;
+}
+
+.heasec-tech-glow-border:hover::before {
+    opacity: 0.8;
+}
+
+/* ==================== 响应式动画优化 ==================== */
+
+/* 移动端动画优化 */
+@media (max-width: 768px) {
+    :root {
+        --heasec-tech-animation-duration: 0.2s;
+        --heasec-tech-animation-easing: ease-out;
+    }
+    
+    /* 禁用复杂动画 */
+    .heasec-tech-mobile-no-animation * {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==================== 性能优化类 ==================== */
+
+/* GPU加速 */
+.heasec-tech-gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 包含布局 */
+.heasec-tech-will-change-transform {
+    will-change: transform;
+}
+
+/* 包含透明度 */
+.heasec-tech-will-change-opacity {
+    will-change: opacity;
+}

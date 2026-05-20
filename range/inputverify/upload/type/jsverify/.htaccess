@@ -1,0 +1,8 @@
+# HeaSec天积安全团队 - 文件上传前端JS绕过靶场
+# 阻止web访问images目录下的secret.php文件
+
+# 使用简洁的Apache配置方式
+<Files "images/secret.php">
+    Order allow,deny
+    Deny from all
+</Files>

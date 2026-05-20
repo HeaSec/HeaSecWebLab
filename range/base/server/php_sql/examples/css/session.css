@@ -1,0 +1,146 @@
+/**
+ * HeaSec天积安全团队 - PHP Cookie和Session处理示例样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-30
+ * 说明: Session和Cookie管理页面的样式表
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin: 0;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+.btn-logout {
+    background: #f44336;
+}
+
+.btn-logout:hover {
+    background: #d32f2f;
+}
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.message.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
+}
+
+.message.error {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+.message.info {
+    background: #e3f2fd;
+    color: #1565c0;
+    border-left: 4px solid #2196F3;
+}
+
+.info-box {
+    background: #f5f5f5;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #667eea;
+}
+
+.info-box h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-list {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.info-list li {
+    margin: 5px 0;
+    line-height: 1.5;
+    color: #555;
+}
+
+code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #e83e8c;
+}

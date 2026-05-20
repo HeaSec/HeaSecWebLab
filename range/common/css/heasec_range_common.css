@@ -1,0 +1,559 @@
+/**
+ * HeaSec天积安全团队 - 靶场公共样式
+ * Common Styles for Ranges
+ * 版本: v1.0.0
+ * 创建日期: 2025-10-26
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 重置样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: linear-gradient(135deg, #007BFF 0%, #E3F2FD 100%);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 顶部导航栏 */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 123, 255, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0 3vw;
+    position: relative;
+    min-width: 320px;
+    gap: 20px;
+}
+
+/* 左上角Logo区域 */
+.logo-section {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 60px;
+    max-width: 200px;
+    z-index: 10;
+}
+
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.logo-link:focus {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.main-logo {
+    height: 50px;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+    transition: all 0.3s ease;
+    object-fit: cover;
+    display: block;
+}
+
+.main-logo:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 123, 255, 0.3);
+}
+
+.logo-link:hover .main-logo {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 123, 255, 0.3);
+}
+
+.logo-link:active .main-logo {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.25);
+    transition: all 0.1s ease;
+}
+
+/* 中间标题和口号区域 */
+.title-section {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    z-index: 5;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.title-slogan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    max-width: 100%;
+    min-height: auto;
+    overflow: hidden;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #007BFF;
+    margin: 0;
+    text-shadow: 0 3px 15px rgba(0, 123, 255, 0.2);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    animation: titleFadeIn 1s ease-out;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 120px;
+    max-width: 100%;
+}
+
+.main-slogan {
+    font-size: 14px;
+    color: #6C757D;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding: 6px 12px;
+    background: rgba(0, 123, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    animation: sloganFadeIn 1.5s ease-out;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    min-width: 0;
+}
+
+/* 右上角按钮区域 */
+.version-section {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    min-width: 140px;
+    max-width: 450px;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.range-info-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.range-info-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+}
+
+.reset-database-btn {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.reset-database-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.sms-simulator-btn {
+    background: linear-gradient(135deg, #c38d4a 0%, #ba813a 100%);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.sms-simulator-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(195, 141, 74, 0.4);
+}
+
+.version-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    animation: versionPulse 3s ease-in-out infinite;
+}
+
+/* 主要内容区域 */
+.content-wrapper {
+    margin-top: 80px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    max-width: 2400px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 宽屏适配 - 主容器 */
+@media (min-width: 1400px) {
+    .main-container {
+        max-width: 1800px !important;
+        padding: 20px 25px !important;
+    }
+}
+
+@media (min-width: 1800px) {
+    .main-container {
+        max-width: 2200px !important;
+        padding: 20px 30px !important;
+    }
+}
+
+@media (min-width: 2400px) {
+    .main-container {
+        max-width: 2600px !important;
+        padding: 20px 35px !important;
+    }
+}
+
+.content-area {
+    width: 100%;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.content-header h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* 底部版权信息 */
+.footer {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.footer-content p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer .fa-heart {
+    color: #e74c3c;
+}
+
+/* 动画关键帧 */
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sloganFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes versionPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    }
+}
+
+/* 响应式设计 - 采用更合理的断点策略 */
+@media (max-width: 1200px) {
+    .header-content {
+        gap: 15px;
+    }
+
+    .main-title {
+        font-size: 26px;
+    }
+
+    .main-slogan {
+        font-size: 13px;
+    }
+
+    .version-section {
+        gap: 6px;
+        min-width: 130px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header-content {
+        gap: 12px;
+        padding: 0 2vw;
+    }
+
+    .main-title {
+        font-size: 24px;
+        letter-spacing: 0.8px;
+    }
+
+    .main-slogan {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+
+    .version-section {
+        gap: 5px;
+        min-width: 120px;
+    }
+
+    .title-section {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        gap: 10px;
+        padding: 0 2vw;
+    }
+
+    .main-title {
+        font-size: 22px;
+        letter-spacing: 0.5px;
+    }
+
+    /* 在768px时隐藏口号，确保标题有足够空间 */
+    .main-slogan {
+        display: none;
+    }
+
+    .version-section {
+        gap: 4px;
+        min-width: 110px;
+    }
+
+    .title-section {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-content {
+        gap: 8px;
+        padding: 0 2vw;
+    }
+
+    .main-title {
+        font-size: 20px;
+        letter-spacing: 0;
+    }
+
+    .logo-section {
+        min-width: 50px;
+        max-width: 150px;
+    }
+
+    .main-logo {
+        height: 45px;
+    }
+
+    .version-section {
+        gap: 4px;
+        min-width: 100px;
+    }
+
+    .title-section {
+        padding: 0 8px;
+    }
+
+    .range-info-btn span:last-child,
+    .sms-simulator-btn span:last-child,
+    .reset-database-btn span:last-child {
+        display: none; /* 小屏幕时只显示图标 */
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        gap: 6px;
+        padding: 0 1.5vw;
+    }
+
+    .main-title {
+        font-size: 18px;
+    }
+
+    .logo-section {
+        min-width: 45px;
+        max-width: 120px;
+    }
+
+    .main-logo {
+        height: 40px;
+    }
+
+    .version-section {
+        gap: 3px;
+        min-width: 90px;
+    }
+
+    .title-section {
+        padding: 0 5px;
+    }
+
+    .content-wrapper {
+        margin-top: 65px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .header-content {
+        gap: 5px;
+        padding: 0 1.5vw;
+    }
+
+    .main-title {
+        font-size: 16px;
+    }
+
+    .logo-section {
+        min-width: 40px;
+        max-width: 100px;
+    }
+
+    .main-logo {
+        height: 35px;
+    }
+
+    .version-section {
+        gap: 2px;
+        min-width: 80px;
+    }
+
+    .title-section {
+        padding: 0 3px;
+    }
+
+    .content-wrapper {
+        margin-top: 60px !important;
+    }
+}

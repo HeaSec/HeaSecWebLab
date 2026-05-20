@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+    <name>示例商品</name>
+    <category>电子产品</category>
+    <price>99.99</price>
+    <description>这是一个示例商品描述</description>
+</product>

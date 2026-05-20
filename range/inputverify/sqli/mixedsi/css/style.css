@@ -1,0 +1,430 @@
+/**
+ * HeaSec天积安全团队 - SQL注入综合实战靶场样式
+ * 版本: v1.0.0
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid rgba(40, 167, 69, 0.4);
+    color: #155724;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+.alert-error i {
+    color: #dc3545;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* ==========================================
+   表单区域
+   ========================================== */
+
+.submit-section {
+    margin-top: 20px;
+}
+
+.query-form .form-group {
+    margin-bottom: 18px;
+}
+
+.query-form .form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   新闻搜索结果列表
+   ========================================== */
+
+.heasec-news-list {
+    margin-top: 15px;
+}
+
+.heasec-news-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.heasec-news-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.heasec-news-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.heasec-news-content {
+    font-size: 13px;
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+.heasec-news-empty {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* ==========================================
+   商品详情样式
+   ========================================== */
+
+.heasec-product-detail {
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.heasec-product-detail .product-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.heasec-product-detail .product-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 15px;
+    font-size: 14px;
+}
+
+.heasec-product-detail .product-info dt {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.heasec-product-detail .product-info dd {
+    color: #333;
+    margin: 0;
+}
+
+/* ==========================================
+   订单查询结果样式
+   ========================================== */
+
+.heasec-order-detail {
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.heasec-order-detail .order-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 15px;
+    font-size: 14px;
+}
+
+.heasec-order-detail .order-info dt {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.heasec-order-detail .order-info dd {
+    color: #333;
+    margin: 0;
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+    color: white;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #545b62 0%, #3d4349 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   卡片标题区域
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+/* ==========================================
+   验证结果区域
+   ========================================== */
+
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   结果展示区域
+   ========================================== */
+
+#searchResultArea,
+#productResultArea,
+#orderResultArea,
+#resultArea {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+}

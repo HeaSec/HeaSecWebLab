@@ -1,0 +1,8 @@
+# HeaSec 天积安全 - 文件相关XSS靶场配置
+# 配置 .mjs 文件的 MIME 类型
+<IfModule mod_mime.c>
+    AddType application/javascript .mjs
+</IfModule>
+
+# 启用符号链接
+Options +FollowSymLinks

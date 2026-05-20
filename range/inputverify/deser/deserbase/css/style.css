@@ -1,0 +1,504 @@
+/**
+ * HeaSec天积安全团队 - 反序列化练习靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-14
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   序列化数据输入区域
+   ========================================== */
+
+.submit-section {
+    margin-top: 20px;
+}
+
+.submit-section textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    background: #f8fafc;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.submit-section textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    background: #fff;
+}
+
+.submit-section textarea::placeholder {
+    color: #adb5bd;
+    font-size: 13px;
+}
+
+.submit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================
+   源码展示区域
+   ========================================== */
+
+.source-display {
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.source-display h4 {
+    color: #495057;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.source-code-block {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* PHP语法高亮配色 */
+.source-code-block .php-keyword {
+    color: #cba6f7;
+}
+
+.source-code-block .php-string {
+    color: #a6e3a1;
+}
+
+.source-code-block .php-comment {
+    color: #6c7086;
+    font-style: italic;
+}
+
+.source-code-block .php-variable {
+    color: #89b4fa;
+}
+
+.source-code-block .php-function {
+    color: #f9e2af;
+}
+
+.source-code-block .php-number {
+    color: #fab387;
+}
+
+/* 多段源码展示区域（用于需要展示多个代码区间的关卡） */
+.source-section {
+    margin-bottom: 20px;
+}
+
+.source-section:last-child {
+    margin-bottom: 0;
+}
+
+.source-section-title {
+    color: #495057;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 123, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.source-section-title i {
+    color: #007bff;
+    font-size: 13px;
+}
+
+/* 第二段代码块背景微调以示区分 */
+.source-section:nth-child(2) .source-code-block {
+    background: #1a1a2e;
+}
+
+/* ==========================================
+   反序列化结果区域
+   ========================================== */
+
+#resultArea {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.result-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.result-section h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.result-table th,
+.result-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.result-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    width: 120px;
+}
+
+.result-table td {
+    background: white;
+    color: #333;
+    word-break: break-all;
+}
+
+.result-content {
+    margin-top: 10px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #333;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-info:hover {
+    background: linear-gradient(135deg, #117a8b 0%, #0c5460 100%);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   卡片标题区域
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+/* ==========================================
+   验证结果区域
+   ========================================== */
+
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .submit-actions {
+        flex-direction: column;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}

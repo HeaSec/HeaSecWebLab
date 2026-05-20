@@ -1,0 +1,1860 @@
+/* 蓝白科技感内容管理框架 - 前台样式 */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 允许页面正常滚动 */
+html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #007BFF 0%, #E3F2FD 100%);
+    height: 100vh;
+    color: #333;
+}
+
+/* 顶部导航栏 */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 123, 255, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0 3vw;
+    position: relative;
+    min-width: 320px;
+}
+
+/* 左上角Logo区域 */
+.logo-section {
+    flex: 0 0 auto;
+    position: absolute;
+    left: 3vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.main-logo {
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.main-logo:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 123, 255, 0.3);
+}
+
+/* 中间标题和口号区域 */
+.title-section {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    max-width: 60vw;
+    min-width: 250px;
+    text-align: center;
+    z-index: 5;
+    /* HeaSec 修复 - 增强容器保护 */
+    overflow: hidden;
+}
+
+.title-slogan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    /* HeaSec修复：确保水平排列，禁用换行 */
+    flex-wrap: nowrap;
+    flex-direction: row;
+    max-width: 100%;
+    /* 为标题预留更多空间 */
+    min-height: auto;
+}
+
+.main-title {
+    /* 简化的自适应字体大小 - 使用CSS clamp替代复杂JavaScript */
+    font-size: clamp(24px, 3.5vw, 32px);
+    font-weight: 700;
+    color: #007BFF;
+    margin: 0;
+    text-shadow: 0 3px 15px rgba(0, 123, 255, 0.2);
+    letter-spacing: 2px;
+    animation: titleFadeIn 1s ease-out;
+    white-space: nowrap;
+    flex-shrink: 1;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 2;
+    position: relative;
+}
+
+.main-slogan {
+    font-size: 16px;
+    color: #6C757D;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 1px;
+    animation: sloganFadeIn 1.5s ease-out;
+    position: relative;
+    padding: 8px 16px;
+    background: rgba(0, 123, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    /* HeaSec修复：确保口号不会与标题重叠 */
+    flex-shrink: 0;
+    white-space: nowrap;
+    z-index: 1;
+    min-width: fit-content;
+}
+
+.main-slogan::before,
+.main-slogan::after {
+    display: none;
+}
+
+/* 右上角版本号区域 */
+.version-section {
+    position: absolute;
+    right: 3vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.version-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    animation: versionPulse 3s ease-in-out infinite;
+}
+
+/* HeaSec简化动画 - 移除复杂动画效果，保留基础过渡 */
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sloganFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 简化版本徽章动画 */
+@keyframes versionPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* 隐藏原有的logo样式 */
+.logo {
+    display: none;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.main-nav li {
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #555;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-nav li:hover {
+    background: rgba(0, 123, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.main-nav li.active {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* 主要内容区域 */
+.content-wrapper {
+    position: relative;
+    margin-top: 80px;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    margin: 0;
+    padding: 0;
+}
+
+/* 左侧导航栏 */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    /* Increased opacity slightly since blur is gone */
+    /* backdrop-filter: blur(10px); Removed to allow position:fixed children to break out */
+    box-shadow: 2px 0 20px rgba(0, 123, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    transition: all 0.3s ease;
+    position: relative;
+    /* HeaSec修复：将滚动移至内部wrapper，自身允许溢出以显示按钮 */
+    overflow: visible;
+    flex-shrink: 0;
+    /* HeaSec修复：防止侧边栏被压缩 */
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 新增：滚动容器 wrapper */
+.sidebar-scroll-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar.collapsed .category-header span,
+.sidebar.collapsed .subcategory-item span,
+.sidebar.collapsed .toggle-icon,
+.sidebar.collapsed .category-header::after {
+    display: none !important;
+}
+
+.sidebar.collapsed .category-item {
+    position: relative;
+}
+
+.sidebar.collapsed .category-header {
+    padding: 15px 0;
+    justify-content: center !important;
+    /* Force center alignment */
+    position: relative;
+    /* HeaSec修复：侧边栏收起时背景透明 */
+    background: transparent;
+}
+
+/* Ensure the first icon (main icon) is centered and visible */
+.sidebar.collapsed .category-header i:first-child {
+    margin-right: 0;
+    font-size: 18px;
+    position: static;
+    /* Reset any absolute positioning */
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+}
+
+.sidebar.collapsed .subcategory-list {
+    display: none;
+}
+
+/* Sidebar Toggle Button */
+/* Sidebar Toggle Button - Option B: Minimal Vertical Bar (Inside & Blue - Subtle Default) */
+/* Modified per user request: Faint default, Blue on hover */
+.sidebar-toggle {
+    position: absolute;
+    top: 50vh;
+    right: 0;
+    /* Flush with right edge (inside) */
+    width: 6px;
+    height: 60px;
+    background: rgba(0, 123, 255, 0.15);
+    /* Faint blue default */
+    border-radius: 6px 0 0 6px;
+    /* Rounded on inside edge */
+    box-shadow: none;
+    /* Remove shadow by default for subtlety */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    color: #007BFF;
+    /* Blue icon (hidden typically) */
+    transition: all 0.3s ease;
+    border: none;
+    transform: translateY(-50%);
+}
+
+.sidebar-toggle:hover {
+    width: 16px;
+    /* Expand inward on hover */
+    background: #007BFF;
+    /* Solid blue on hover */
+    color: white;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-toggle i {
+    transition: transform 0.3s ease, opacity 0.3s;
+    font-size: 10px;
+    opacity: 0;
+    /* Hide icon by default */
+}
+
+.sidebar-toggle:hover i {
+    opacity: 1;
+}
+
+/* Rotate ONLY the icon when collapsed */
+.sidebar.collapsed .sidebar-toggle {
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.sidebar.collapsed .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Collapsed Sidebar Active States */
+/* Collapsed Sidebar Active States */
+/* Moved specific active rule below to override hover */
+
+/* 修复：侧边栏收起时，hover状态也不显示背景色，只通过图标变化反馈 */
+.sidebar.collapsed .category-header:hover {
+    background: transparent;
+    transform: none;
+    /* 收起时不移动 */
+}
+
+.sidebar.collapsed .category-header:hover i:first-child {
+    color: #007BFF;
+    transform: scale(1.1);
+    /* 图标轻微放大作为反馈 */
+    transition: all 0.2s ease;
+}
+
+/* 修复：侧边栏收起时，active-parent（有子菜单选中）不显示背景色，只高亮图标 */
+/* 避免与当前选中的分类产生视觉混淆 */
+/* 修复：侧边栏收起时，active-parent（有子菜单选中）不显示背景色，只高亮图标 */
+/* 避免与当前选中的分类产生视觉混淆 */
+.sidebar.collapsed .category-header.active-parent {
+    background: transparent;
+    border-radius: 8px;
+    margin: 0 10px;
+}
+
+/* HeaSec修复：确保Active状态在Hover时也能保持背景色，防止"闪烁" */
+/* HeaSec Style Optimization: Hide background in collapsed mode for cleaner look (User Request) */
+.sidebar.collapsed .category-header.active,
+.sidebar.collapsed .category-header.active:hover {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 8px;
+    margin: 0 10px;
+    transform: none;
+}
+
+.sidebar.collapsed .category-header.active i:first-child,
+.sidebar.collapsed .category-header.active-parent i:first-child {
+    color: #007BFF;
+    font-weight: bold;
+}
+
+/* Tooltip Styles */
+.heasec-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    transform: translateY(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.heasec-tooltip.visible {
+    opacity: 1;
+}
+
+.heasec-tooltip::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 4px 4px 4px 0;
+    border-style: solid;
+    border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+}
+
+
+.sidebar-content {
+    padding: 90px 20px 20px;
+}
+
+.category-section {
+    margin-bottom: 15px;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    /* HeaSec修复：默认背景移至下方特定状态规则，避免收起时残留 */
+    /* background: rgba(0, 123, 255, 0.08); */
+    border-radius: 12px;
+    cursor: pointer;
+    cursor: pointer;
+    /* HeaSec修复：移除background的过渡效果，防止切换时的闪烁感 */
+    transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+    border: none;
+}
+
+/* HeaSec修复：仅在侧边栏展开且非选中状态时，显示默认的浅蓝背景 */
+/* 使用:not(.active)防止覆盖选中状态的渐变背景 */
+/* HeaSec修复：同时排除active-parent，防止覆盖父级高亮 */
+.sidebar:not(.collapsed) .category-header:not(.active):not(.active-parent) {
+    background: rgba(0, 123, 255, 0.08);
+}
+
+.category-header:hover {
+    background: rgba(0, 123, 255, 0.18);
+    transform: translateX(5px);
+    border: none;
+}
+
+/* HeaSec修复：增加 .active-parent 选择器，使其与 .active 共享高亮样式 */
+.category-header.active,
+.category-header.active-parent {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.category-header i:first-child {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* 右侧内容区的章节描述样式 */
+.category-description-container {
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.category-description-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #007BFF;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.category-description-content:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-left-color: #0056b3;
+}
+
+.description-icon {
+    color: #007BFF;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.description-text {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.description-text::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 123, 255, 0.03) 0%, transparent 70%);
+    z-index: -1;
+    animation: rotate 20s linear infinite;
+}
+
+/* 学习进度统计面板 */
+.category-stats-panel {
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+}
+
+.stat-card-total::before {
+    background: linear-gradient(90deg, #007BFF, #0056b3);
+}
+
+.stat-card-notstarted::before {
+    background: linear-gradient(90deg, #6c757d, #545b62);
+}
+
+.stat-card-inprogress::before {
+    background: linear-gradient(90deg, #ff9800, #f57c00);
+}
+
+.stat-card-mastered::before {
+    background: linear-gradient(90deg, #28a745, #1e7e34);
+}
+
+.stat-card-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.stat-card-total .stat-card-icon {
+    color: #007BFF;
+}
+
+.stat-card-notstarted .stat-card-icon {
+    color: #6c757d;
+}
+
+.stat-card-inprogress .stat-card-icon {
+    color: #ff9800;
+}
+
+.stat-card-mastered .stat-card-icon {
+    color: #28a745;
+}
+
+.stat-card-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.stat-card-total .stat-card-value {
+    color: #007BFF;
+}
+
+.stat-card-notstarted .stat-card-value {
+    color: #6c757d;
+}
+
+.stat-card-inprogress .stat-card-value {
+    color: #ff9800;
+}
+
+.stat-card-mastered .stat-card-value {
+    color: #28a745;
+}
+
+.stat-card-label {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+}
+
+.stat-progress-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.stat-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stat-progress-left {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.stat-progress-label {
+    font-size: 16px;
+    color: #2c3e50;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.stat-progress-label i {
+    color: #f39c12;
+    margin-right: 4px;
+}
+
+.stat-progress-hint {
+    font-size: 12px;
+    color: #95a5a6;
+    font-weight: 400;
+}
+
+.stat-progress-percent {
+    font-size: 14px;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.stat-progress-bar {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #5cb85c);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* 统计面板响应式 */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .stat-cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 16px 12px;
+    }
+
+    .stat-card-value {
+        font-size: 26px;
+    }
+
+    .stat-card-icon {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .stat-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px 10px;
+    }
+
+    .stat-card-value {
+        font-size: 24px;
+    }
+
+    .stat-card-icon {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .stat-card-label {
+        font-size: 12px;
+    }
+}
+
+/* HeaSec简化动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    margin: -4px;
+}
+
+.toggle-icon:hover {
+    background: rgba(0, 123, 255, 0.1);
+}
+
+.toggle-icon.expanded {
+    transform: rotate(180deg);
+}
+
+.subcategory-list {
+    margin-left: 20px;
+    max-height: 500px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.subcategory-list.collapsed {
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+.subcategory-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+    font-size: 14px;
+}
+
+.subcategory-item:hover {
+    background: rgba(0, 123, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.subcategory-item.active {
+    background: rgba(0, 123, 255, 0.2);
+    color: #007BFF;
+    font-weight: 600;
+}
+
+.subcategory-item i {
+    margin-right: 8px;
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 右侧内容区 */
+.content-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: visible;
+    height: auto;
+    min-width: 0;
+    /* HeaSec修复：使用Flex布局自适应，移除 width: 0 限制 */
+    width: auto;
+}
+
+/* 链接分组区域 */
+.links-section {
+    margin-bottom: 40px;
+}
+
+.section-header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.section-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #007BFF;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.section-header h3 i {
+    font-size: 20px;
+}
+
+.link-count {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007BFF;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.section-header.collapsible {
+    cursor: pointer;
+    user-select: none;
+}
+
+.section-header.collapsible:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 123, 255, 0.15);
+}
+
+.section-header .toggle-icon {
+    color: #007BFF;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.section-header.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 280px), 1fr));
+    gap: 16px;
+    width: 100%;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    /* overflow: visible;  Removed to prevent scrollbar issues */
+    align-items: stretch;
+}
+
+/* Ensure cards have a minimum width but can grow */
+/* Ensure cards have a minimum width but can grow */
+.heasec-card,
+.card {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Card Title Optimization: No wrap */
+.card-title {
+    white-space: nowrap;
+    overflow: visible;
+    /* Ensure it dictates width */
+    text-overflow: clip;
+    /* No ellipsis */
+    margin-right: 15px;
+    /* Spacing for icon */
+}
+
+/* 二级分类中直接链接的卡片网格间距 */
+.cards-grid:first-child {
+    margin-bottom: 30px;
+}
+
+/* HeaSec: 移除 @container 查询，完全依赖 JS 动态计算的 --card-min-width */
+@container (max-width: 599px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+.cards-grid.collapsed {
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 0;
+}
+
+/* 直属链接的样式 */
+.cards-grid.direct-links {
+    margin-bottom: 30px;
+}
+
+.content-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.content-header h2 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+}
+
+.cards-container {
+    width: 100%;
+    min-height: 200px;
+    overflow: visible;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    will-change: transform, box-shadow;
+    z-index: 1;
+    min-height: 140px;
+    width: 100%;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0, 123, 255, 0.15);
+    filter: brightness(1.02);
+    z-index: 10;
+}
+
+.card-content {
+    padding: 8px;
+    flex: 1;
+}
+
+.card-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    /* HeaSec修复：强制不换行且不截断 */
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+    flex: 1 0 auto;
+}
+
+.difficulty-badge {
+    padding: 3px 8px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.difficulty-basic {
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.difficulty-intermediate {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    color: #1565c0;
+    border: 1px solid #90caf9;
+}
+
+.difficulty-advanced {
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+    color: #f57f17;
+    border: 1px solid #ffe082;
+}
+
+.difficulty-practical {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.card:hover .difficulty-badge {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-external-link {
+    color: #007BFF;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.card:hover .card-external-link {
+    opacity: 0.8;
+    transform: translateX(0);
+}
+
+.card-description {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* 学习状态标签样式 */
+.learning-status-container {
+    position: relative;
+    align-self: flex-end;
+    margin-top: 8px;
+    margin-right: -6px;
+    margin-bottom: -6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    padding: 4px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 5;
+}
+
+.learning-status-container:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.learning-star {
+    font-size: 12px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.learning-star.not-started,
+.learning-star.not_started {
+    color: #e8e8e8 !important;
+    /* 更浅的灰色 */
+}
+
+/* 针对Font Awesome伪元素设置颜色 */
+.learning-star.not-started::before,
+.learning-star.not_started::before {
+    color: #e8e8e8 !important;
+}
+
+.learning-star.in-progress,
+.learning-star.in_progress {
+    background: linear-gradient(90deg, #ffd700 0%, #ffd700 50%, #e8e8e8 50%, #e8e8e8 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+    display: inline-block !important;
+    /* 确保渐变效果生效的额外属性 */
+    position: relative !important;
+}
+
+/* 针对Font Awesome伪元素设置渐变 */
+.learning-star.in-progress::before,
+.learning-star.in_progress::before {
+    background: linear-gradient(90deg, #ffd700 0%, #ffd700 50%, #e8e8e8 50%, #e8e8e8 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+.learning-star.mastered {
+    color: #ffd700;
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+.learning-status-text {
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.learning-status-text.not-started,
+.learning-status-text.not_started {
+    color: #9e9e9e !important;
+}
+
+.learning-status-text.in-progress,
+.learning-status-text.in_progress {
+    color: #ff9800 !important;
+}
+
+.learning-status-text.mastered {
+    color: #f57c00;
+}
+
+/* 学习状态切换动画 */
+.learning-status-container.updating {
+    animation: statusUpdate 0.5s ease;
+}
+
+@keyframes statusUpdate {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 卡片hover时学习状态标签效果 */
+.card:hover .learning-status-container {
+    transform: scale(1.1);
+    border-color: rgba(0, 123, 255, 0.3);
+}
+
+
+/* 无结果提示 */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: white;
+}
+
+.no-results i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+}
+
+.no-results p {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* 底部版权信息 */
+.footer {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ========================================
+ * HeaSec 简化响应式设计 - 4个核心断点
+ * ======================================== */
+
+/* 平板端 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .top-header {
+        height: 60px;
+    }
+
+    .content-wrapper {
+        margin-top: 60px;
+        height: calc(100vh - 60px);
+    }
+
+    .header-content {
+        padding: 0 12px;
+        height: 60px;
+    }
+
+    .logo-section {
+        left: 12px;
+        transform: translateY(-50%);
+    }
+
+    .main-logo {
+        height: 40px;
+    }
+
+    .title-section {
+        max-width: calc(100% - 180px);
+    }
+
+    .main-title {
+        font-size: 26px;
+    }
+
+    .main-slogan {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    .sidebar {
+        width: 240px;
+    }
+
+    .content-area {
+        padding: 25px;
+    }
+
+    .cards-grid {
+        gap: 14px;
+        grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 220px), 1fr));
+    }
+
+    .card {
+        min-height: 130px;
+        padding: 16px;
+    }
+
+    .version-section {
+        gap: 6px;
+        min-width: 100px;
+    }
+
+    .reset-database-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* 桌面端 (1024px - 1365px) - HeaSec修复：避免断点重叠 */
+@media (min-width: 1024px) and (max-width: 1365px) {
+    .cards-grid {
+        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 260px), 1fr));
+    }
+
+    .card {
+        min-height: 140px;
+        padding: 18px;
+    }
+
+    .content-area {
+        padding: 30px;
+    }
+
+    .main-title {
+        font-size: 30px;
+    }
+
+    .main-slogan {
+        font-size: 15px;
+    }
+}
+
+/* 大屏桌面端 (≥1366px) - HeaSec优化：自适应紧凑布局 */
+@media (min-width: 1366px) and (max-width: 1919px) {
+    .cards-grid {
+        gap: 16px;
+        max-width: 1400px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 280px), 1fr));
+    }
+
+    .card {
+        min-height: 140px;
+        padding: 16px;
+    }
+
+    .content-area {
+        padding: 35px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .main-title {
+        font-size: 32px;
+        /* HeaSec优化：更平滑的字体过渡 */
+    }
+
+    .main-slogan {
+        font-size: 15px;
+    }
+}
+
+/* 超宽屏优化 (≥1920px) - HeaSec扩展：自动适应更多列 */
+@media (min-width: 1920px) {
+    .cards-grid {
+        gap: 18px;
+        max-width: 1600px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width, 320px), 1fr));
+    }
+
+    .card {
+        min-height: 140px;
+        padding: 16px;
+    }
+
+    .content-area {
+        padding: 35px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .main-title {
+        font-size: 34px;
+    }
+
+    .main-slogan {
+        font-size: 16px;
+    }
+}
+
+/* 移动端 (<768px) */
+@media (max-width: 767px) {
+    .top-header {
+        height: 50px;
+    }
+
+    .content-wrapper {
+        margin-top: 50px;
+        height: calc(100vh - 50px);
+    }
+
+    .header-content {
+        padding: 0 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        height: 35px;
+    }
+
+    .main-logo {
+        height: 35px;
+    }
+
+    .title-section {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        flex: 1;
+        margin: 0 8px;
+        min-width: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title-slogan-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .main-title {
+        font-size: clamp(18px, 4vw, 22px);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .main-slogan {
+        font-size: 11px;
+        padding: 3px 6px;
+        flex-shrink: 0;
+        white-space: nowrap;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .version-section {
+        display: none;
+    }
+
+    /* HeaSec修复：移动端保持侧边栏完整显示，不简化 */
+    .sidebar {
+        width: 200px;
+        /* 优化：从240px减少到200px，更适合移动端 */
+        flex-shrink: 0;
+    }
+
+    .sidebar-content {
+        padding: 50px 12px 20px;
+        /* 优化：减少左右内边距，与50px高度的header对齐 */
+    }
+
+    /* 优化：移动端侧边栏字体大小调整 */
+    .category-header {
+        font-size: 14px;
+        /* 从默认大小缩小到14px */
+        padding: 12px 15px;
+        /* 减少内边距 */
+    }
+
+    .category-header i:first-child {
+        font-size: 14px;
+        /* 从16px缩小到14px */
+        width: 14px;
+        height: 14px;
+    }
+
+    .subcategory-item {
+        font-size: 13px;
+        /* 从默认14px缩小到13px */
+        padding: 8px 12px;
+        /* 减少内边距 */
+    }
+
+    .subcategory-item i {
+        font-size: 11px;
+        /* 从12px缩小到11px */
+        width: 11px;
+        height: 11px;
+    }
+
+    .category-header span,
+    .subcategory-item span {
+        display: inline;
+        /* 保持文字显示 */
+    }
+
+    .toggle-icon {
+        display: inline-block;
+        /* 保持展开/收缩图标 */
+    }
+
+    .content-area {
+        padding: 15px;
+        flex: 1;
+        min-width: 0;
+        width: 0;
+        /* 确保正确计算宽度 */
+    }
+
+    /* 移动端特殊布局：当屏幕过小时，改为垂直布局 */
+    @media (max-width: 480px) {
+        .main-container {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 100%;
+            max-width: 200px;
+            /* 修复：添加最大宽度限制，覆盖之前的200px设置 */
+            order: 2;
+        }
+
+        .content-area {
+            order: 1;
+            padding: 10px;
+        }
+
+        .sidebar-content {
+            padding: 10px 15px;
+        }
+
+        /* 更小屏幕优化 */
+        @media (max-width: 360px) {
+            .sidebar {
+                max-width: 180px;
+                /* 在极小屏幕上进一步减少宽度 */
+            }
+        }
+    }
+
+    .cards-grid {
+        gap: 12px;
+        padding: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        min-height: 120px;
+        padding: 14px;
+        width: 100%;
+    }
+
+    .section-header {
+        padding: 12px 16px;
+    }
+
+    .section-header h3 {
+        font-size: 16px;
+    }
+
+    .links-section {
+        margin-bottom: 25px;
+    }
+
+    .category-description-content {
+        padding: 15px 20px;
+        margin: 0 5px 20px;
+    }
+
+    .description-text {
+        font-size: 14px;
+    }
+}
+
+/* 加载动画 */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 123, 255, 0.2);
+    border-top: 4px solid #007BFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 123, 255, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 123, 255, 0.7);
+}
+
+/* Flyout Menu Styles */
+.flyout-menu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 200px;
+    background: white;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-left: 5px;
+    /* Gap correction */
+}
+
+.flyout-menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.flyout-header {
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #007BFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 5px;
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.flyout-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #666;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.flyout-item:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007BFF;
+}
+
+.flyout-item.active {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007BFF;
+    font-weight: 600;
+}
+
+.flyout-item i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Ensure parent has relative positioning for correct flyout placement */
+.category-section {
+    position: relative;
+}
+
+
+/* Flyout Menu Styles */
+.flyout-menu {
+    position: fixed;
+    /* Changed to fixed to break out of sidebar overflow */
+    /* top and left will be set via inline styles from Vue */
+    width: 220px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    /* Initial state for animation */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.flyout-menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.flyout-menu::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    transform: rotate(45deg);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: -1;
+}
+
+.flyout-header {
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 5px;
+    font-size: 14px;
+    background: rgba(0, 123, 255, 0.05);
+    border-radius: 8px 8px 0 0;
+    margin-top: -10px;
+}
+
+.flyout-item {
+    padding: 8px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.flyout-item:hover {
+    background: rgba(0, 123, 255, 0.08);
+    color: #007bff;
+    padding-left: 25px;
+}
+
+.flyout-item.active {
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.05);
+    font-weight: 500;
+    border-left: 3px solid #007bff;
+}
+
+.flyout-item i {
+    width: 16px;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* Ensure flyout is visible on hover even if mouse moves to gap */
+.category-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -20px;
+    height: 100%;
+    width: 20px;
+    display: none;
+}
+
+.sidebar.collapsed .category-section:hover::after {
+    display: block;
+}

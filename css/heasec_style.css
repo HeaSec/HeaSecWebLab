@@ -1,0 +1,868 @@
+/* HeaSec 天积安全团队样式 */
+
+/* ========================================
+ * 数据库重置按钮样式
+ * ======================================== */
+
+/* 版本号区域容器调整 - HeaSec优化布局 */
+.version-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    /* 确保版本号区域有足够空间避免重叠 */
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+/* 重置按钮 - 与靶场网站样式保持一致 */
+.reset-database-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.reset-database-btn:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.reset-database-btn:active {
+    transform: translateY(0);
+    transition: transform 0.1s ease;
+}
+
+.reset-database-btn i {
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.reset-database-btn .btn-text {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* 响应式设计 - HeaSec优化 (整合到主样式文件的4断点系统中) */
+
+/* 平板端 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .version-section {
+        gap: 6px;
+        min-width: 100px;
+    }
+
+    .reset-database-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .reset-database-btn .btn-text {
+        display: inline;
+    }
+}
+
+/* 移动端 (<768px) */
+@media (max-width: 767px) {
+    .version-section {
+        display: none;
+    }
+}
+
+/* ========================================
+ * 模态框样式
+ * ======================================== */
+
+/* 模态框遮罩层 - 三层显示控制：v-cloak防闪烁 / v-show控制显隐 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+}
+
+/*
+ * 显示优先级（从高到低）：
+ *
+ * 1. [v-cloak]          — Vue编译前：强制隐藏，防止闪烁（最高优先级）
+ * 2. [style*="none"]    — v-show=false：Vue注入style="display:none"，隐藏
+ * 3. :not(...)兜底      — v-show=true：Vue移除style属性且移除v-cloak，显示flex
+ */
+
+/* 第1层：Vue编译前，v-cloak属性存在时强制隐藏（防止模态框闪烁）*/
+[v-cloak] {
+    display: none !important;
+}
+
+/* 第2层：Vue编译后，v-show=false时Vue会设置style="display:none"，匹配此规则隐藏 */
+.modal-overlay[style*="display: none"],
+.modal-overlay[style*="none"] {
+    display: none !important;
+}
+
+/* 第3层：Vue编译后，v-show=true时Vue移除style属性+移除v-cloak，匹配此规则显示 */
+/* 条件：没有v-cloak 且 没有style="display:none" → 说明v-show为true，应显示 */
+.modal-overlay:not([v-cloak]):not([style*="display: none"]):not([style*="none"]) {
+    display: flex !important;
+}
+
+/* 模态框容器 */
+.modal-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 模态框头部 */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #495057;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: rgba(108, 117, 125, 0.1);
+    color: #495057;
+}
+
+/* 模态框主体 */
+.modal-body {
+    padding: 24px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+/* 初始化消息样式 */
+.init-message, .reset-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.init-message {
+    background: rgba(23, 162, 184, 0.1);
+    border-left: 4px solid #17a2b8;
+}
+
+.reset-warning {
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #ffc107;
+}
+
+.init-message i, .reset-warning i {
+    color: #17a2b8;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.reset-warning i {
+    color: #ffc107;
+}
+
+.init-message p, .reset-warning p {
+    margin: 0;
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 初始化警告样式补充 */
+.init-warning {
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #ffc107;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.init-warning i {
+    color: #ffc107;
+    font-size: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.init-warning p {
+    margin: 0;
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 严重警告（不可操作时） */
+.warning-critical {
+    background: rgba(220, 53, 69, 0.1) !important;
+    border-left: 4px solid #dc3545 !important;
+}
+
+.warning-critical i {
+    color: #dc3545 !important;
+}
+
+/* ========== 数据库初始化错误详情样式（增强版）========== */
+.error-detail-section {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(248, 249, 250, 0.8);
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 16px;
+}
+
+.error-type-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
+/* 不同错误类型的图标颜色 */
+.error-type-server_unreachable {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.error-type-database_not_exists {
+    background: rgba(255, 193, 7, 0.15);
+    color: #e0a800;
+}
+
+.error-type-tables_missing {
+    background: rgba(255, 152, 0, 0.1);
+    color: #f57c00;
+}
+
+.error-type-data_empty {
+    background: rgba(23, 162, 184, 0.1);
+    color: #17a2b8;
+}
+
+.error-type-connection_error,
+.error-type-response_error,
+.error-type-unknown {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+}
+
+.error-message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.error-main-message {
+    font-size: 15px !important;
+    font-weight: 600;
+    color: #212529 !important;
+    margin: 0 0 12px 0 !important;
+    line-height: 1.4;
+}
+
+.error-detail-info {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border-left: 3px solid #17a2b8;
+}
+
+.error-detail-info strong {
+    color: #495057;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.error-detail-info p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.error-suggestion {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(40, 167, 69, 0.08);
+    border-radius: 6px;
+    border-left: 3px solid #28a745;
+}
+
+.error-suggestion i {
+    color: #28a745;
+    font-size: 14px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.error-suggestion strong {
+    color: #28a745;
+    font-size: 13px;
+}
+
+.error-suggestion {
+    color: #155724;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.reset-warning ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.reset-warning li {
+    margin-bottom: 4px;
+}
+
+/* 重置确认输入区域 */
+.reset-confirmation {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.reset-confirmation p {
+    margin: 0 0 12px 0;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.reset-confirmation code {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+}
+
+.reset-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #dc3545;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.reset-input:focus {
+    outline: none;
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.reset-input:disabled {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+/* 模态框底部 */
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* 按钮样式 */
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #5a6268;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #c82333;
+}
+
+.fa-spinner.fa-spin {
+    animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 消息提示动画 */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* HeaSec消息提示样式 */
+.heasec-toast {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.heasec-toast.success {
+    border-left: 4px solid #28a745;
+}
+
+.heasec-toast.error {
+    border-left: 4px solid #dc3545;
+}
+
+/* 响应式模态框 - 整合到4断点系统 */
+
+/* 平板端 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .modal-container {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 16px 20px;
+    }
+
+    .modal-header h3 {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 10px 14px;
+        font-size: 13px;
+        min-width: 80px;
+    }
+}
+
+/* 移动端 (<768px) */
+@media (max-width: 767px) {
+    .modal-container {
+        width: 98%;
+        margin: 10px;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 12px 16px;
+    }
+
+    .modal-header h3 {
+        font-size: 15px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn {
+        width: 100%;
+        font-size: 13px;
+        padding: 12px 16px;
+    }
+
+    .btn-secondary {
+        order: 1;
+    }
+
+    .btn-primary, .btn-danger {
+        order: 2;
+    }
+}
+
+/* 团队Logo样式 */
+.heasec-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+/* 网站Logo图片样式 */
+.site-logo-img {
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+/* Logo容器样式 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo .heasec-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+/* 顶部团队口号样式 */
+.team-slogan-header {
+    font-size: 0.9rem;
+    color: #6C757D;
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.heasec-logo-cn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 0.2rem;
+}
+
+.heasec-logo-en {
+    font-size: 0.9rem;
+    color: #6C757D;
+    margin-bottom: 0.1rem;
+}
+
+.heasec-logo-abbr {
+    font-size: 0.8rem;
+    color: #17A2B8;
+    background: linear-gradient(135deg, #007BFF 0%, #E3F2FD 100%);
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+}
+
+.team-slogan {
+    font-size: 1.1rem;
+    color: #6C757D;
+    font-style: italic;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* SAsec品牌色彩 */
+.heasec-primary { color: #007BFF; }
+.heasec-secondary { color: #6C757D; }
+.heasec-accent { color: #17A2B8; }
+
+.heasec-bg-primary { background-color: #007BFF; }
+.heasec-bg-secondary { background-color: #6C757D; }
+.heasec-bg-accent { background-color: #17A2B8; }
+
+/* SAsec按钮样式 */
+.heasec-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.heasec-btn-primary {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+}
+
+.heasec-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+.heasec-btn-secondary {
+    background: linear-gradient(135deg, #6C757D 0%, #545b62 100%);
+    color: white;
+}
+
+.heasec-btn-accent {
+    background: linear-gradient(135deg, #17A2B8 0%, #138496 100%);
+    color: white;
+}
+
+/* SAsec卡片样式增强 */
+.heasec-card {
+    border: 1px solid #E3F2FD;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.heasec-card:hover {
+    border-color: #007BFF;
+    box-shadow: 0 8px 16px rgba(0,123,255,0.2);
+    transform: translateY(-4px);
+}
+
+/* SAsec团队标识显示 */
+.heasec-team-badge {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #007BFF 0%, #E3F2FD 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+.heasec-team-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+}
+
+/* SAsec加载动画 */
+.heasec-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007BFF;
+    border-radius: 50%;
+    animation: heasec-spin 1s linear infinite;
+}
+
+@keyframes heasec-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* HeaSec自适应标题样式 */
+.heasec-title-no-wrap {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: block !important;
+    transition: font-size 0.3s ease-in-out !important;
+}
+
+.heasec-title-container {
+    min-width: 180px !important;
+    overflow: visible !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    /* 为自适应标题预留足够空间 */
+    flex: 1 !important;
+    max-width: 70vw !important;
+}
+
+/* HeaSec响应式设计 - 整合到4断点系统 */
+
+/* 平板端 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .heasec-logo-cn {
+        font-size: 1.3rem;
+    }
+
+    .heasec-logo-en {
+        font-size: 0.85rem;
+    }
+
+    .heasec-team-badge {
+        top: 8px;
+        right: 8px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .heasec-title-container {
+        min-width: 170px !important;
+    }
+}
+
+/* 移动端 (<768px) */
+@media (max-width: 767px) {
+    .heasec-logo-cn {
+        font-size: 1.1rem;
+    }
+
+    .heasec-logo-en {
+        font-size: 0.75rem;
+    }
+
+    .heasec-team-badge {
+        top: 5px;
+        right: 5px;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .heasec-title-container {
+        min-width: 140px !important;
+    }
+}
+
+/* SAsec错误提示样式 */
+.heasec-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+}
+
+.heasec-error::before {
+    content: "[HeaSec] ";
+    font-weight: bold;
+}
+
+/* SAsec成功提示样式 */
+.heasec-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+}
+
+.heasec-success::before {
+    content: "[HeaSec] ";
+    font-weight: bold;
+}
+
+/* SAsec信息提示样式 */
+.heasec-info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+}
+
+.heasec-info::before {
+    content: "[HeaSec] ";
+    font-weight: bold;
+}

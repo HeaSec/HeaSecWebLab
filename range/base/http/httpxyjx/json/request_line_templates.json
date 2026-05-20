@@ -1,0 +1,77 @@
+{
+    "description": "HTTP请求行解析模板",
+    "version": "1.0.0",
+    "team": "HeaSec天积安全团队",
+    "templates": {
+        "methods": {
+            "GET": {
+                "current_value": "GET",
+                "analysis": "本次请求中使用的请求方法为GET，该方法的作用是请求指定的页面信息。\n特点：参数通过URL传递，有长度限制，可被缓存，安全性较低。\n安全考虑：GET请求可能被记录在浏览器历史、服务器日志中，敏感数据不应通过GET传递。"
+            },
+            "POST": {
+                "current_value": "POST",
+                "analysis": "本次请求中使用的请求方法为POST，该方法的作用是向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。\n特点：参数包含在请求体中，没有长度限制，不被缓存，安全性较高。\n安全考虑：POST请求不会被记录在浏览器历史、服务器日志中，敏感数据应通过POST传递。"
+            },
+            "PUT": {
+                "current_value": "PUT",
+                "analysis": "本次请求中使用的请求方法为PUT，该方法的作用是更新服务器上的资源，要求客户端提供完整的资源表示。\n特点：具有幂等性，多次执行结果相同，需要服务器验证权限。\n安全考虑：PUT操作会修改服务器状态，需要严格的权限验证。"
+            },
+            "DELETE": {
+                "current_value": "DELETE",
+                "analysis": "本次请求中使用的请求方法为DELETE，该方法的作用是请求删除服务器上的资源。\n特点：具有幂等性，删除操作不可恢复，需要谨慎使用。\n安全考虑：DELETE操作会永久删除数据，需要严格的权限验证和确认机制。"
+            },
+            "HEAD": {
+                "current_value": "HEAD",
+                "analysis": "本次请求中使用的请求方法为HEAD，该方法的作用是获取资源的头部信息，不返回实体内容。\n特点：与GET方法类似，仅返回响应头信息，不返回实际内容。\n安全考虑：常用于检查资源是否存在、获取元数据，相对安全。"
+            },
+            "OPTIONS": {
+                "current_value": "OPTIONS",
+                "analysis": "本次请求中使用的请求方法为OPTIONS，该方法的作用是请求获取服务器支持的请求方法和其他选项。\n特点：用于CORS预检请求，获取服务器允许的HTTP方法。\n安全考虑：帮助客户端了解服务器能力，常用于跨域请求前的预检。"
+            },
+            "TRACE": {
+                "current_value": "TRACE",
+                "analysis": "本次请求中使用的请求方法为TRACE，该方法的作用是回显服务器收到的请求，主要用于诊断和调试。\n特点：服务器会原样返回收到的请求内容。\n安全考虑：可能泄露敏感信息，许多服务器默认禁用此方法。"
+            },
+            "CONNECT": {
+                "current_value": "CONNECT",
+                "analysis": "本次请求中使用的请求方法为CONNECT，该方法的作用是用于建立隧道连接，通常用于HTTPS代理。\n特点：建立双向网络连接，用于SSL/TLS隧道。\n安全考虑：主要用于代理服务器，需要注意安全配置。"
+            }
+        },
+        "paths": {
+            "example1": {
+                "current_value": "/index.php?username=claudetest&password=123456",
+                "analysis": "本次请求的资源路径为index.php文件；\n?username=claudetest&password=123456表示传递了两个参数，分别是username和password，对应的值分别是claudetest和123456。"
+            },
+            "example2": {
+                "current_value": "/claudetest/range/base/http/httpxyjx/",
+                "analysis": "本次请求的资源路径为claudetest/range/base/http/httpxyjx/目录下的资源，没有指定具体的资源文件，因此服务器会返回该目录下的默认资源，如index.php文件；\n本次请求路径中没有传递任何参数。"
+            },
+            "example3": {
+                "current_value": "/api/users?id=123&action=update",
+                "analysis": "本次请求的资源路径为api/users；\n?id=123&action=update表示传递了两个参数，分别是id和action，对应的值分别是123和update。"
+            },
+            "example4": {
+                "current_value": "/search?q=%E4%B8%AD%E6%96%87&lang=zh-CN",
+                "analysis": "本次请求的资源路径为search；\n?q=%E4%B8%AD%E6%96%87&lang=zh-CN表示传递了两个参数，其中q的值为URL编码的中文（解码后为'中文'），lang的值为zh-CN。"
+            },
+            "example5": {
+                "current_value": "/",
+                "analysis": "本次请求的资源路径为网站根目录；\n没有指定具体的资源文件，服务器会返回默认首页，如index.html或index.php；\n本次请求路径中没有传递任何参数。"
+            }
+        },
+        "versions": {
+            "HTTP/1.0": {
+                "current_value": "HTTP/1.0",
+                "analysis": "本次请求中使用的HTTP版本为HTTP/1.0，该版本的主要特点是每次请求都需要建立新的TCP连接，请求完成后连接即关闭。\n优点：实现简单，兼容性好。\n缺点：每次建立连接都有开销，性能较差。"
+            },
+            "HTTP/1.1": {
+                "current_value": "HTTP/1.1",
+                "analysis": "本次请求中使用的HTTP版本为HTTP/1.1，该版本的主要特点是支持持久连接（keep-alive），可以在一个TCP连接上发送多个请求和响应，减少了连接建立和关闭的开销。\n优点：性能更好，支持管道化，缓存机制更完善。\n缺点：协议相对复杂，存在队头阻塞问题。"
+            },
+            "HTTP/2.0": {
+                "current_value": "HTTP/2",
+                "analysis": "本次请求中使用的HTTP版本为HTTP/2，该版本的主要特点是基于二进制协议，支持多路复用（multiple requests over a single connection），可以同时发送多个请求和响应，提高了传输效率。\n优点：性能大幅提升，支持服务器推送，头部压缩。\n缺点：实现复杂，需要TLS支持。"
+            }
+        }
+    }
+}

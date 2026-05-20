@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <ellipse cx="100" cy="115" rx="50" ry="55" fill="#805ad5"/>
+  <ellipse cx="100" cy="115" rx="50" ry="55" fill="url(#grapeGrad)"/>
+  <circle cx="80" cy="100" r="15" fill="#9f7aea"/>
+  <circle cx="120" cy="100" r="15" fill="#9f7aea"/>
+  <circle cx="90" cy="120" r="15" fill="#9f7aea"/>
+  <circle cx="110" cy="120" r="15" fill="#9f7aea"/>
+  <circle cx="100" cy="135" r="15" fill="#9f7aea"/>
+  <path d="M100 65 Q98 40 105 25" fill="none" stroke="#744210" stroke-width="3" stroke-linecap="round"/>
+  <path d="M105 30 Q115 22 125 28" fill="none" stroke="#48bb78" stroke-width="2"/>
+  <defs>
+    <radialGradient id="grapeGrad" cx="40%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#d6bcfa"/>
+      <stop offset="50%" stop-color="#805ad5"/>
+      <stop offset="100%" stop-color="#6b46c1"/>
+    </radialGradient>
+  </defs>
+</svg>

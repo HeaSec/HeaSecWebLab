@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 红苹果 -->
+  <ellipse cx="100" cy="120" rx="70" ry="65" fill="#e53e3e"/>
+  <ellipse cx="100" cy="120" rx="70" ry="65" fill="url(#appleGrad)"/>
+  <!-- 高光 -->
+  <ellipse cx="75" cy="95" rx="20" ry="25" fill="rgba(255,255,255,0.25)" transform="rotate(-15,75,95)"/>
+  <!-- 苹果顶部凹陷 -->
+  <path d="M85 58 Q100 70 115 58" fill="none" stroke="#c53030" stroke-width="2"/>
+  <!-- 茎 -->
+  <path d="M100 58 Q98 35 105 20" fill="none" stroke="#744210" stroke-width="4" stroke-linecap="round"/>
+  <!-- 叶子 -->
+  <path d="M105 32 Q120 20 135 28 Q120 35 105 32Z" fill="#48bb78"/>
+  <path d="M108 32 Q118 25 130 30" fill="none" stroke="#38a169" stroke-width="1"/>
+  <defs>
+    <radialGradient id="appleGrad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#fc8181"/>
+      <stop offset="50%" stop-color="#e53e3e"/>
+      <stop offset="100%" stop-color="#c53030"/>
+    </radialGradient>
+  </defs>
+</svg>

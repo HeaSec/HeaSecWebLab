@@ -1,0 +1,266 @@
+<?php
+/**
+ * HeaSec天积安全团队 - 暴力破解靶场
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-09
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+// 设置响应头
+header('X-HeavenlySecret: HeaSec 暴力破解 Range v1.0.0');
+header('Content-Type: text/html; charset=utf-8');
+
+// 设置页面变量
+$pageTitle = '暴力破解基础靶场';
+$rangeName = '暴力破解基础';
+$showVersion = false;
+$showResetButton = true;
+$version = 'v1.0.0';
+
+// 设置公共组件的基础路径（从靶场目录到range/common/的相对路径）
+$commonBasePath = '../../../common/';
+
+// 设置重置功能相关变量
+$initSqlFile = 'database/init_database.sql';
+$databaseName = 'heasec_base';
+$useDatabase = true;  // 此靶场使用数据库
+
+// 注意：数据库状态检查已移至公共组件header.php中自动处理
+
+// 引入公共头部
+require_once $commonBasePath . 'includes/header.php';
+
+// 引入数据库组件
+require_once $commonBasePath . 'includes/HeaSec_Database.php';
+
+// 引入学习状态更新组件
+require_once $commonBasePath . 'includes/HeaSec_LearningStatusUpdater.php';
+
+// 引入星星系统组件（用于恭喜弹窗）
+require_once $commonBasePath . 'components/star-system/includes/HeaSec_StarSystem.php';
+
+// 定义访问常量
+define('HEASEC_RANGE_ACCESS', true);
+
+// 启动输出缓冲
+ob_start();
+
+/**
+ * 生成四位随机密码（第一位为字母，后三位为数字）
+ *
+ * @param int $length 密码长度（默认为4）
+ * @return string 生成的密码
+ */
+function generatePassword($length = 4)
+{
+    // 第一位：字母（大小写字母）
+    $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $password = $letters[mt_rand(0, strlen($letters) - 1)];
+
+    // 后三位：数字
+    $digits = '0123456789';
+    for ($i = 1; $i < $length; $i++) {
+        $password .= $digits[mt_rand(0, strlen($digits) - 1)];
+    }
+
+    return $password;
+}
+
+/**
+ * 检查并创建admin用户
+ * 如果数据库中没有admin用户，则创建一个
+ *
+ * @param PDO $pdo 数据库连接
+ * @return array 用户信息数组，包含用户名和密码哈希
+ */
+function ensureAdminUser($pdo)
+{
+    // 检查admin用户是否存在（第一关）
+    $stmt = $pdo->prepare("SELECT username, password FROM heasec_brute_users WHERE username = 'admin' AND level = 1 LIMIT 1");
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // 用户已存在，返回哈希密码
+        return [
+            'username' => $user['username'],
+            'password_hash' => $user['password']
+        ];
+    }
+
+    // 不存在则创建
+    $password = generatePassword(4);
+    $passwordHash = md5($password); // 使用MD5哈希存储
+
+    $stmt = $pdo->prepare("INSERT INTO heasec_brute_users (username, password, level, created_at) VALUES (?, ?, 1, NOW())");
+    $stmt->execute(['admin', $passwordHash]);
+
+    return [
+        'username' => 'admin',
+        'password' => $password, // 返回明文密码（仅用于首次创建时的信息展示）
+        'password_hash' => $passwordHash
+    ];
+}
+
+// 获取数据库连接
+try {
+    $pdo = HeaSec_Database::getConnection('heasec_base');
+
+    // 检查并创建admin用户
+    $adminUser = ensureAdminUser($pdo);
+    $adminPasswordHash = $adminUser['password_hash']; // 哈希密码
+
+    // 注意：如果用户已存在，返回的数组中可能没有'password'键（只有'password_hash'）
+    // 验证时只使用哈希密码进行比较
+
+    // 处理登录表单提交
+    $loginResult = null; // 登录结果：null表示未提交，array表示结果
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+
+        if ($username === 'admin') {
+            // 验证密码
+            $inputPasswordHash = md5($password);
+
+            if ($inputPasswordHash === $adminPasswordHash) {
+                // 登录成功，更新学习状态：从"待学习"更新为"学习中"
+                HeaSec_UpdateLearningStatusIfNeeded('brute');
+
+                $loginResult = [
+                    'type' => 'success',
+                    'message' => '登录成功，点击按钮进入下一关'
+                ];
+            } else {
+                // 登录失败
+                $loginResult = [
+                    'type' => 'error',
+                    'message' => '登录失败，账号或密码错误'
+                ];
+            }
+        } else {
+            $loginResult = [
+                'type' => 'error',
+                'message' => '登录失败，账号或密码错误'
+            ];
+        }
+    }
+} catch (Exception $e) {
+    error_log('[HeaSec] 数据库连接失败: ' . $e->getMessage());
+    die('数据库连接失败，请检查数据库配置。');
+}
+
+// 引入星星系统组件资源（包含恭喜弹窗）
+echo HeaSec_StarSystem::renderAssets($commonBasePath, [
+    'css' => true,
+    'js' => true,
+    'congrats' => true
+]);
+
+// 如果需要显示恭喜弹窗，则准备JavaScript代码
+$showCongrats = false;
+$congratsConfig = [];
+
+// 第一关不显示恭喜弹窗，恭喜弹窗在第三关显示
+?>
+
+<!-- 引入统一样式文件 -->
+<link rel="stylesheet" href="<?php echo $commonBasePath; ?>css/heasec_range.css">
+<!-- 引入站点特定样式文件（用于覆盖和扩展） -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- 引入交互脚本 -->
+<script src="js/interactions.js?v=<?php echo $version; ?>"></script>
+
+<!-- 靶场主要内容 -->
+<div class="tech-container">
+    <!-- 登录表单区域 -->
+    <div class="tech-card">
+        <div class="tech-card-header">
+            <h3>
+                <i class="fa fa-sign-in"></i>
+                第一关 请尝试登录admin账号
+            </h3>
+        </div>
+        <div class="tech-card-body">
+            <!-- 登录表单 -->
+            <form class="tech-form" method="post">
+                <!-- 用户名输入 -->
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <i class="fa fa-user"></i>
+                        用户名
+                    </label>
+                    <input type="text" id="username" name="username" class="tech-input" placeholder="请输入用户名"
+                        aria-label="用户名">
+                </div>
+
+                <!-- 密码输入 -->
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fa fa-lock"></i>
+                        密码
+                    </label>
+                    <input type="password" id="password" name="password" class="tech-input" placeholder="请输入密码"
+                        autocomplete="off" aria-label="密码">
+                </div>
+
+                <!-- 提交按钮 -->
+                <div class="form-actions">
+                    <button type="submit" class="tech-btn tech-btn-primary">
+                        <i class="fa fa-sign-in"></i>
+                        登录
+                    </button>
+                    <?php if ($loginResult && $loginResult['type'] === 'success'): ?>
+                        <a href="brute2.php" class="tech-btn tech-btn-success">
+                            <i class="fa fa-arrow-right"></i>
+                            下一关
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+
+            <!-- 登录结果消息 -->
+            <?php if ($loginResult): ?>
+                <div class="detection-result" style="margin-top: 20px;">
+                    <div class="alert alert-<?php echo $loginResult['type']; ?>">
+                        <div>
+                            <i
+                                class="fa fa-<?php echo $loginResult['type'] === 'success' ? 'check-circle' : 'exclamation-triangle'; ?>"></i>
+                            <strong><?php echo htmlspecialchars($loginResult['message']); ?></strong>
+                        </div>
+                        <?php if ($loginResult['type'] === 'error'): ?>
+                            <p class="alert-hint">
+                                <small>密码是4位字符串（第一位为字母，后三位为数字）</small>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<?php if ($showCongrats): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 等待页面加载完成后显示恭喜弹窗
+            setTimeout(function () {
+                if (typeof HeaSecCongratsModal !== 'undefined') {
+                    HeaSecCongratsModal.show(<?php echo json_encode($congratsConfig); ?>);
+                } else {
+                    console.error('[HeaSec] 恭喜弹窗组件未加载');
+                    // 降级处理：显示简单提示
+                    alert('恭喜你掌握了http暴力破解攻击的实现方式！');
+                }
+            }, 500); // 延迟500ms确保组件已加载
+        });
+    </script>
+<?php endif; ?>
+
+<?php
+// 引入公共底部
+require_once $commonBasePath . 'includes/footer.php';
+?>

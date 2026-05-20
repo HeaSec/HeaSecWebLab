@@ -1,0 +1,600 @@
+/**
+ * HeaSec天积安全团队 - JavaScript上下文XSS过滤绕过靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-01-29
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+
+
+/* 页面容器 - 居中布局 */
+.range-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 关卡区域 - 居中 */
+.level-section {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* 卡片容器布局 */
+.tech-container {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+/* 卡片样式 - 自适应内容 */
+.tech-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+/* 卡片内容区域 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* 关卡描述样式 */
+.tech-card-header .level-description {
+    margin: 12px 0 0 0;
+    font-size: 14px;
+    color: #6c757d;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* 关卡提示样式 */
+.level-tip {
+    margin-bottom: 20px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #e7f3ff 0%, #f0f8ff 100%);
+    border-left: 4px solid var(--heasec-primary-color, #007bff);
+    border-radius: 6px;
+    font-size: 14px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.6;
+}
+
+.level-tip i {
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.level-tip strong {
+    color: #495057;
+    font-weight: 600;
+}
+
+/* 表单组间距 */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* 输入框样式 */
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* 文本域输入框 */
+.tech-input[type="textarea"],
+textarea.tech-input {
+    min-height: 100px;
+    padding: 12px 15px;
+    resize: vertical;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* 表单标签 */
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* 搜索框样式 */
+.search-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-hint {
+    font-size: 13px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background: #fff9e6;
+    border-left: 3px solid #ffc107;
+    border-radius: 4px;
+    line-height: 1.5;
+}
+
+.search-hint code {
+    background: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 12px;
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 50px;
+    padding: 15px 15px;
+    transition: all 0.3s ease;
+    min-height: auto;
+}
+
+.search-input-wrapper:focus-within {
+    border-color: var(--heasec-primary-color, #007bff);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-icon {
+    color: #6c757d;
+    font-size: 18px;
+    padding: 0 10px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px 60px 12px 15px;
+    font-size: 16px;
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    color: #495057;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 300px;
+}
+
+.search-input::placeholder {
+    color: #a8a8a8;
+    font-style: italic;
+}
+
+/* Textarea特定样式 */
+.search-input.auto-resize-textarea {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* 滚动条样式 */
+.search-input::-webkit-scrollbar {
+    width: 6px;
+}
+
+.search-input::-webkit-scrollbar-track {
+    background: rgba(0, 123, 255, 0.05);
+    border-radius: 3px;
+}
+
+.search-input::-webkit-scrollbar-thumb {
+    background: rgba(0, 123, 255, 0.3);
+    border-radius: 3px;
+}
+
+.search-input::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 123, 255, 0.5);
+}
+
+.search-submit-btn {
+    background: linear-gradient(135deg, var(--heasec-primary-color, #007bff) 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-submit-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.search-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* 搜索结果样式 */
+.search-result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid var(--heasec-primary-color, #007bff);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-result-title {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-result-content {
+    font-size: 16px;
+    color: #212529;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    word-break: break-all;
+}
+
+/* 表单操作按钮 */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* 绿色成功按钮 */
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color) 0%, #1e7e34 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 按钮滑入动画 */
+.form-actions .tech-btn-success {
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==========================================
+   自定义模态框样式
+   ========================================== */
+
+/* 遮罩层 */
+.heasec-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.heasec-modal-overlay.heasec-overlay-hiding {
+    opacity: 0;
+}
+
+/* 模态框容器 */
+.heasec-modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 9999;
+    min-width: 400px;
+    max-width: 500px;
+    width: 90%;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.heasec-modal-container.heasec-modal-hiding {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* 模态框主体 */
+.heasec-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* 模态框头部 */
+.heasec-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.heasec-modal-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.heasec-modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.heasec-modal-close:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+/* 模态框内容 */
+.heasec-modal-body {
+    padding: 25px;
+}
+
+.heasec-modal-message {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #495057;
+}
+
+/* 不同类型的模态框颜色 */
+.heasec-modal-error .heasec-modal-header {
+    background-color: #f8d7da;
+    border-bottom-color: #f5c6cb;
+}
+
+.heasec-modal-error .heasec-modal-title {
+    color: #721c24;
+}
+
+.heasec-modal-success .heasec-modal-header {
+    background-color: #d4edda;
+    border-bottom-color: #c3e6cb;
+}
+
+.heasec-modal-success .heasec-modal-title {
+    color: #155724;
+}
+
+.heasec-modal-warning .heasec-modal-header {
+    background-color: #fff3cd;
+    border-bottom-color: #ffeeba;
+}
+
+.heasec-modal-warning .heasec-modal-title {
+    color: #856404;
+}
+
+.heasec-modal-info .heasec-modal-header {
+    background-color: #d1ecf1;
+    border-bottom-color: #bee5eb;
+}
+
+.heasec-modal-info .heasec-modal-title {
+    color: #0c5460;
+}
+
+/* 模态框底部按钮 */
+.heasec-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 25px;
+    border-top: 1px solid #e9ecef;
+}
+
+.heasec-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.heasec-modal-btn-default {
+    background-color: #6c757d;
+    color: white;
+}
+
+.heasec-modal-btn-default:hover {
+    background-color: #5a6268;
+}
+
+.heasec-modal-btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.heasec-modal-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.heasec-modal-btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.heasec-modal-btn-success:hover {
+    background-color: #1e7e34;
+}
+
+.heasec-modal-btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.heasec-modal-btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* 响应式调整 */
+@media (max-width: 1024px) {
+    .range-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .range-container {
+        padding: 20px 15px;
+    }
+
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .heasec-modal-container {
+        min-width: unset;
+        width: 95%;
+    }
+
+    .heasec-modal-header,
+    .heasec-modal-body,
+    .heasec-modal-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .form-actions {
+        gap: 10px;
+    }
+
+    .heasec-modal-footer {
+        flex-direction: column;
+    }
+
+    .heasec-modal-btn {
+        width: 100%;
+    }
+}

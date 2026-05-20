@@ -1,0 +1,26 @@
+/**
+ * HeaSec天积安全团队 - 目录浏览靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-03-29
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 站点特定样式，补充公共样式库
+ */
+
+/* 目录链接区域的样式增强 */
+.tech-info-panel .info-item a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.tech-info-panel .info-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.tech-info-panel .info-item code {
+    font-size: 0.95em;
+    padding: 2px 6px;
+    background: rgba(0, 123, 255, 0.08);
+    border-radius: 3px;
+}

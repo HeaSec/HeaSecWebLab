@@ -1,0 +1,90 @@
+/**
+ * HeaSec天积安全团队 - PHP表单处理示例样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-30
+ * 说明: 表单处理页面的样式表
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.form-container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+button {
+    background: #667eea;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #5568d3;
+}
+
+.result {
+    background: #e8f5e9;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #4caf50;
+}
+
+.result strong {
+    color: #2e7d32;
+    display: block;
+    margin-bottom: 8px;
+}

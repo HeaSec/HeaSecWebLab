@@ -1,0 +1,10 @@
+# 禁止PHP执行 - phpStudy兼容配置
+<FilesMatch "\.php$">
+    php_flag engine off
+</FilesMatch>
+
+# 禁止访问敏感文件
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

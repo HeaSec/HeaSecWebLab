@@ -1,0 +1,1070 @@
+/**
+ * HeaSec天积安全团队 - 科技蓝UI组件库
+ * Tech Blue UI Component Library
+ * 版本: v1.0.0
+ * 创建日期: 2025-11-11
+ * 团队: 天积安全 (HeavenlySecret)
+ * 描述: 基于科技蓝风格的完整UI组件库
+ */
+
+/* 引入变量和动画 */
+@import url('./heasec-tech-blue-variables.css');
+@import url('./heasec-tech-blue-animations.css');
+
+/* ==================== 基础样式重置 ==================== */
+.heasec-tech *,
+.heasec-tech *::before,
+.heasec-tech *::after {
+    box-sizing: border-box;
+}
+
+.heasec-tech {
+    font-family: var(--heasec-tech-font-family);
+    line-height: 1.6;
+    color: var(--heasec-tech-text-primary);
+    background: var(--heasec-tech-bg-gradient);
+    min-height: 100vh;
+}
+
+/* ==================== 卡片组件 ==================== */
+.heasec-tech-card {
+    background: var(--heasec-tech-bg-primary);
+    border: 1px solid var(--heasec-tech-border);
+    border-radius: var(--heasec-tech-radius-lg);
+    box-shadow: var(--heasec-tech-shadow);
+    backdrop-filter: var(--heasec-tech-backdrop-blur);
+    overflow: hidden;
+    transition: var(--heasec-tech-transition);
+    position: relative;
+}
+
+/* 卡片顶部装饰线已移除 */
+
+/* 卡片悬停效果 */
+.heasec-tech-card:hover {
+    transform: var(--heasec-tech-hover-transform);
+    box-shadow: var(--heasec-tech-shadow-lg);
+    border-color: var(--heasec-tech-border-dark);
+}
+
+/* 卡片头部 */
+.heasec-tech-card-header {
+    background: var(--heasec-tech-bg-secondary);
+    padding: var(--heasec-tech-space-5) var(--heasec-tech-space-6);
+    border-bottom: 1px solid var(--heasec-tech-border);
+    position: relative;
+}
+
+.heasec-tech-card-title {
+    margin: 0;
+    color: var(--heasec-tech-primary);
+    font-size: var(--heasec-tech-font-size-xl);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--heasec-tech-space-2);
+    text-shadow: 0 1px 2px rgba(0, 123, 255, 0.1);
+}
+
+.heasec-tech-card-title i {
+    color: var(--heasec-tech-primary);
+    opacity: 0.8;
+}
+
+.heasec-tech-card-subtitle {
+    margin: var(--heasec-tech-space-1) 0 0 0;
+    color: var(--heasec-tech-text-muted);
+    font-size: var(--heasec-tech-font-size-sm);
+    font-weight: 400;
+}
+
+/* 卡片内容区 */
+.heasec-tech-card-body {
+    padding: var(--heasec-tech-space-6);
+}
+
+/* 卡片底部 */
+.heasec-tech-card-footer {
+    padding: var(--heasec-tech-space-4) var(--heasec-tech-space-6) var(--heasec-tech-space-5);
+    background: var(--heasec-tech-bg-secondary);
+    border-top: 1px solid var(--heasec-tech-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==================== 按钮组件 ==================== */
+.heasec-tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+    background: var(--heasec-tech-bg-primary);
+    color: var(--heasec-tech-text-primary);
+    border: 1px solid var(--heasec-tech-border);
+}
+
+/* 按钮光波效果 */
+.heasec-tech-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.heasec-tech-btn:hover::before {
+    left: 100%;
+}
+
+/* 按钮尺寸变体 */
+.heasec-tech-btn-sm {
+    padding: var(--heasec-tech-space-2) var(--heasec-tech-space-3);
+    font-size: var(--heasec-tech-font-size-sm);
+    min-height: var(--heasec-tech-component-height-sm);
+}
+
+.heasec-tech-btn-lg {
+    padding: var(--heasec-tech-space-4) var(--heasec-tech-space-6);
+    font-size: var(--heasec-tech-font-size-lg);
+    min-height: var(--heasec-tech-component-height-lg);
+}
+
+/* 按钮类型变体 */
+.heasec-tech-btn-primary {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+    border: 1px solid var(--heasec-tech-primary);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.heasec-tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.heasec-tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: 1px solid var(--heasec-tech-success);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.heasec-tech-btn-success:hover {
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.heasec-tech-btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+    border: 1px solid var(--heasec-tech-warning);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.heasec-tech-btn-warning:hover {
+    background: linear-gradient(135deg, #e0a800 0%, #dc6502 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+.heasec-tech-btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: 1px solid var(--heasec-tech-danger);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.heasec-tech-btn-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.heasec-tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+    border: 1px solid var(--heasec-tech-info);
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.heasec-tech-btn-info:hover {
+    background: linear-gradient(135deg, #138496 0%, #117a8b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+}
+
+/* 次要按钮样式 */
+.heasec-tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    border: 1px solid #6c757d;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.heasec-tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+/* 按钮禁用状态 */
+.heasec-tech-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* ==================== 提示框组件 ==================== */
+.alert {
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    min-height: 60px;
+}
+
+.alert:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.08) 0%, rgba(40, 167, 69, 0.04) 100%);
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+.alert-success i {
+    color: #28a745;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.08) 0%, rgba(255, 193, 7, 0.04) 100%);
+    border-left-color: #ffc107;
+    color: #856404;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.alert-error {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.08) 0%, rgba(220, 53, 69, 0.04) 100%);
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+.alert-error i {
+    color: #dc3545;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, rgba(23, 162, 184, 0.08) 0%, rgba(23, 162, 184, 0.04) 100%);
+    border-left-color: #17a2b8;
+    color: #0c5460;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.alert strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.alert div {
+    flex: 1;
+    line-height: 1.5;
+}
+
+/* 关闭按钮样式 */
+.heasec-tech-alert-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    opacity: 0.7;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.heasec-tech-alert-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+/* ==================== 动态提示框组件样式 ==================== */
+.heasec-tech-alert-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+.heasec-tech-alert-container > * {
+    pointer-events: auto;
+}
+
+.heasec-tech-alert-container .heasec-tech-alert {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10001;
+    opacity: 0;
+    transition: all 0.3s ease;
+    min-width: 300px;
+    max-width: 80%;
+    width: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    margin-bottom: var(--heasec-tech-space-2);
+}
+
+/* 类型特定样式 - 覆盖默认背景 */
+.heasec-tech-alert-container .heasec-tech-alert.heasec-tech-alert-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34) !important;
+    color: white !important;
+    border: none;
+}
+
+.heasec-tech-alert-container .heasec-tech-alert.heasec-tech-alert-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+    color: #212529 !important;
+    border: none;
+}
+
+.heasec-tech-alert-container .heasec-tech-alert.heasec-tech-alert-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333) !important;
+    color: white !important;
+    border: none;
+}
+
+.heasec-tech-alert-container .heasec-tech-alert.heasec-tech-alert-info {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+    color: white !important;
+    border: none;
+}
+
+.heasec-tech-alert {
+    background: #ffffff;
+    border-radius: var(--heasec-tech-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: var(--heasec-tech-space-4);
+    margin-bottom: var(--heasec-tech-space-2);
+    min-width: 300px;
+    max-width: 400px;
+    border-left: 4px solid var(--heasec-tech-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    min-height: auto;
+    gap: var(--heasec-tech-space-3);
+}
+
+
+.heasec-tech-alert-icon {
+    flex-shrink: 0;
+    margin-right: var(--heasec-tech-space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heasec-tech-alert-content {
+    line-height: 1.5;
+    flex: 1;
+    text-align: left;
+}
+
+.heasec-tech-alert-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.heasec-tech-alert-message {
+    font-size: 14px;
+}
+
+/* Toast header样式 - 与后台保持一致 */
+.heasec-tech-alert-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.heasec-tech-alert-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 4px;
+    line-height: 1;
+    margin-left: var(--heasec-tech-space-2);
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.heasec-tech-alert-close:hover {
+    color: #374151;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 动态提示框类型样式 */
+.heasec-tech-alert-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heasec-tech-alert-success .heasec-tech-alert-content {
+    color: white;
+}
+
+.heasec-tech-alert-success .heasec-tech-alert-close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heasec-tech-alert-success .heasec-tech-alert-close:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.heasec-tech-alert-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #212529;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heasec-tech-alert-warning .heasec-tech-alert-content {
+    color: #212529;
+}
+
+.heasec-tech-alert-warning .heasec-tech-alert-close {
+    color: rgba(33, 37, 41, 0.7);
+}
+
+.heasec-tech-alert-warning .heasec-tech-alert-close:hover {
+    color: #212529;
+    background-color: rgba(33, 37, 41, 0.1);
+}
+
+.heasec-tech-alert-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heasec-tech-alert-danger .heasec-tech-alert-content {
+    color: white;
+}
+
+.heasec-tech-alert-danger .heasec-tech-alert-close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heasec-tech-alert-danger .heasec-tech-alert-close:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.heasec-tech-alert-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heasec-tech-alert-info .heasec-tech-alert-content {
+    color: white;
+}
+
+.heasec-tech-alert-info .heasec-tech-alert-close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heasec-tech-alert-info .heasec-tech-alert-close:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 提示框动画 */
+@keyframes heasec-tech-alertSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes heasec-slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.heasec-tech-alert.heasec-tech-animate-fadeInDown {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 支持show/hide状态的动画 */
+.heasec-tech-alert.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.heasec-tech-alert.hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+/* 兼容旧样式 - 保持向后兼容 */
+.heasec-tech-alert-success {
+    /* 与上面定义的样式保持一致 */
+}
+
+.heasec-tech-alert-warning {
+    /* 与上面定义的样式保持一致 */
+}
+
+.heasec-tech-alert-danger {
+    /* 与上面定义的样式保持一致 */
+}
+
+.heasec-tech-alert-info {
+    /* 与上面定义的样式保持一致 */
+}
+
+
+/* ==================== 表单组件 ==================== */
+.heasec-tech-form-group {
+    margin-bottom: var(--heasec-tech-space-5);
+}
+
+.heasec-tech-form-label {
+    display: block;
+    margin-bottom: var(--heasec-tech-space-2);
+    font-weight: 500;
+    color: var(--heasec-tech-text-primary);
+    font-size: var(--heasec-tech-font-size-sm);
+}
+
+.heasec-tech-form-label .required {
+    color: var(--heasec-tech-danger);
+    margin-left: var(--heasec-tech-space-1);
+}
+
+.heasec-tech-form-label i {
+    color: var(--heasec-tech-primary);
+    margin-right: var(--heasec-tech-space-2);
+    font-size: var(--heasec-tech-font-size-sm);
+}
+
+.heasec-tech-form-input,
+.heasec-tech-form-textarea,
+.heasec-tech-form-select {
+    width: 100%;
+    padding: var(--heasec-tech-space-3) var(--heasec-tech-space-4);
+    border: 1px solid var(--heasec-tech-border);
+    border-radius: var(--heasec-tech-radius);
+    font-size: var(--heasec-tech-font-size);
+    background: var(--heasec-tech-bg-primary);
+    color: var(--heasec-tech-text-primary);
+    transition: var(--heasec-tech-transition);
+    outline: none;
+    min-height: var(--heasec-tech-component-height);
+}
+
+.heasec-tech-form-input:focus,
+.heasec-tech-form-textarea:focus,
+.heasec-tech-form-select:focus {
+    border-color: var(--heasec-tech-primary);
+    box-shadow: var(--heasec-tech-focus-outline);
+    background: white;
+}
+
+.heasec-tech-form-input::placeholder,
+.heasec-tech-form-textarea::placeholder {
+    color: var(--heasec-tech-text-muted);
+}
+
+.heasec-tech-form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* 表单尺寸变体 */
+.heasec-tech-form-sm .heasec-tech-form-input,
+.heasec-tech-form-sm .heasec-tech-form-textarea,
+.heasec-tech-form-sm .heasec-tech-form-select {
+    padding: var(--heasec-tech-space-2) var(--heasec-tech-space-3);
+    font-size: var(--heasec-tech-font-size-sm);
+    min-height: var(--heasec-tech-component-height-sm);
+}
+
+.heasec-tech-form-lg .heasec-tech-form-input,
+.heasec-tech-form-lg .heasec-tech-form-textarea,
+.heasec-tech-form-lg .heasec-tech-form-select {
+    padding: var(--heasec-tech-space-4) var(--heasec-tech-space-5);
+    font-size: var(--heasec-tech-font-size-lg);
+    min-height: var(--heasec-tech-component-height-lg);
+}
+
+/* 复选框和单选框 */
+.heasec-tech-checkbox,
+.heasec-tech-radio {
+    display: flex;
+    align-items: center;
+    gap: var(--heasec-tech-space-2);
+    margin-bottom: var(--heasec-tech-space-2);
+    cursor: pointer;
+}
+
+.heasec-tech-checkbox input,
+.heasec-tech-radio input {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--heasec-tech-border);
+    background: var(--heasec-tech-bg-primary);
+    cursor: pointer;
+    transition: var(--heasec-tech-transition);
+    accent-color: var(--heasec-tech-primary);
+}
+
+
+/* ==================== 表格组件 ==================== */
+.heasec-tech-table-container {
+    background: var(--heasec-tech-bg-primary);
+    border: 1px solid var(--heasec-tech-border);
+    border-radius: var(--heasec-tech-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--heasec-tech-shadow);
+}
+
+.heasec-tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.heasec-tech-table th,
+.heasec-tech-table td {
+    padding: var(--heasec-tech-space-3) var(--heasec-tech-space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--heasec-tech-border);
+}
+
+.heasec-tech-table th {
+    background: var(--heasec-tech-bg-secondary);
+    font-weight: 600;
+    color: var(--heasec-tech-text-primary);
+    font-size: var(--heasec-tech-font-size-sm);
+    position: relative;
+}
+
+.heasec-tech-table th::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--heasec-tech-border);
+}
+
+.heasec-tech-table tbody tr {
+    transition: var(--heasec-tech-transition);
+}
+
+.heasec-tech-table tbody tr:hover {
+    background: var(--heasec-tech-bg-tertiary);
+}
+
+.heasec-tech-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.heasec-tech-table td {
+    color: var(--heasec-tech-text-secondary);
+    font-size: var(--heasec-tech-font-size-sm);
+}
+
+/* 表格状态样式 */
+.heasec-tech-table .success td {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--heasec-tech-success);
+}
+
+.heasec-tech-table .warning td {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--heasec-tech-warning);
+}
+
+.heasec-tech-table .danger td {
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--heasec-tech-danger);
+}
+
+/* ==================== 可折叠区域组件 ==================== */
+.heasec-tech-collapse {
+    border: 1px solid var(--heasec-tech-border);
+    border-radius: var(--heasec-tech-radius);
+    overflow: hidden;
+    background: var(--heasec-tech-bg-primary);
+}
+
+.heasec-tech-collapse-item {
+    border-bottom: 1px solid var(--heasec-tech-border);
+}
+
+.heasec-tech-collapse-item:last-child {
+    border-bottom: none;
+}
+
+.heasec-tech-collapse-header {
+    padding: var(--heasec-tech-space-4) var(--heasec-tech-space-5);
+    background: var(--heasec-tech-bg-secondary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--heasec-tech-transition);
+    user-select: none;
+}
+
+.heasec-tech-collapse-header:hover {
+    background: var(--heasec-tech-bg-tertiary);
+}
+
+.heasec-tech-collapse-title {
+    font-weight: 500;
+    color: var(--heasec-tech-text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--heasec-tech-space-2);
+}
+
+.heasec-tech-collapse-title i {
+    color: var(--heasec-tech-primary);
+    font-size: var(--heasec-tech-font-size);
+    width: 16px;
+    text-align: center;
+}
+
+.heasec-tech-collapse-arrow {
+    transition: transform 0.3s ease;
+    color: var(--heasec-tech-text-muted);
+    font-size: var(--heasec-tech-font-size-xs);
+}
+
+.heasec-tech-collapse-item.active .heasec-tech-collapse-arrow {
+    transform: rotate(180deg);
+}
+
+.heasec-tech-collapse-content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--heasec-tech-transition), padding var(--heasec-tech-transition);
+}
+
+.heasec-tech-collapse-item.active .heasec-tech-collapse-content {
+    padding: var(--heasec-tech-space-5);
+    max-height: 1000px;
+}
+
+.heasec-tech-collapse-body {
+    color: var(--heasec-tech-text-secondary);
+    line-height: 1.6;
+}
+
+/* 禁用状态 */
+.heasec-tech-collapse-item.disabled .heasec-tech-collapse-header {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background: var(--heasec-tech-bg-disabled);
+}
+
+.heasec-tech-collapse-item.disabled .heasec-tech-collapse-header:hover {
+    background: var(--heasec-tech-bg-disabled);
+}
+
+.heasec-tech-collapse-item.disabled .heasec-tech-collapse-title {
+    color: var(--heasec-tech-text-muted);
+}
+
+/* ==================== 徽章组件 ==================== */
+.heasec-tech-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--heasec-tech-space-1) var(--heasec-tech-space-3);
+    border-radius: var(--heasec-tech-radius-full);
+    font-size: var(--heasec-tech-font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--heasec-tech-primary);
+    color: var(--heasec-tech-text-inverse);
+}
+
+.heasec-tech-badge-success {
+    background: var(--heasec-tech-success);
+}
+
+.heasec-tech-badge-warning {
+    background: var(--heasec-tech-warning);
+    color: var(--heasec-tech-text-primary);
+}
+
+.heasec-tech-badge-danger {
+    background: var(--heasec-tech-danger);
+}
+
+.heasec-tech-badge-info {
+    background: var(--heasec-tech-info);
+}
+
+.heasec-tech-badge-secondary {
+    background: var(--heasec-tech-bg-secondary);
+    color: var(--heasec-tech-text-primary);
+    border: 1px solid var(--heasec-tech-border);
+}
+
+/* ==================== 工具类 ==================== */
+/* 文本对齐 */
+.heasec-tech-text-center { text-align: center; }
+.heasec-tech-text-left { text-align: left; }
+.heasec-tech-text-right { text-align: right; }
+
+/* 显示控制 */
+.heasec-tech-d-flex { display: flex; }
+.heasec-tech-d-block { display: block; }
+.heasec-tech-d-inline { display: inline; }
+.heasec-tech-d-inline-block { display: inline-block; }
+.heasec-tech-d-none { display: none; }
+
+/* Flexbox */
+.heasec-tech-flex-column { flex-direction: column; }
+.heasec-tech-flex-row { flex-direction: row; }
+.heasec-tech-justify-center { justify-content: center; }
+.heasec-tech-justify-between { justify-content: space-between; }
+.heasec-tech-justify-around { justify-content: space-around; }
+.heasec-tech-align-center { align-items: center; }
+.heasec-tech-align-start { align-items: flex-start; }
+.heasec-tech-align-end { align-items: flex-end; }
+
+/* 间距工具类 */
+.heasec-tech-m-0 { margin: 0; }
+.heasec-tech-m-1 { margin: var(--heasec-tech-space-1); }
+.heasec-tech-m-2 { margin: var(--heasec-tech-space-2); }
+.heasec-tech-m-3 { margin: var(--heasec-tech-space-3); }
+.heasec-tech-m-4 { margin: var(--heasec-tech-space-4); }
+
+.heasec-tech-mt-0 { margin-top: 0; }
+.heasec-tech-mt-1 { margin-top: var(--heasec-tech-space-1); }
+.heasec-tech-mt-2 { margin-top: var(--heasec-tech-space-2); }
+.heasec-tech-mt-3 { margin-top: var(--heasec-tech-space-3); }
+.heasec-tech-mt-4 { margin-top: var(--heasec-tech-space-4); }
+
+.heasec-tech-mb-0 { margin-bottom: 0; }
+.heasec-tech-mb-1 { margin-bottom: var(--heasec-tech-space-1); }
+.heasec-tech-mb-2 { margin-bottom: var(--heasec-tech-space-2); }
+.heasec-tech-mb-3 { margin-bottom: var(--heasec-tech-space-3); }
+.heasec-tech-mb-4 { margin-bottom: var(--heasec-tech-space-4); }
+
+.heasec-tech-p-0 { padding: 0; }
+.heasec-tech-p-1 { padding: var(--heasec-tech-space-1); }
+.heasec-tech-p-2 { padding: var(--heasec-tech-space-2); }
+.heasec-tech-p-3 { padding: var(--heasec-tech-space-3); }
+.heasec-tech-p-4 { padding: var(--heasec-tech-space-4); }
+
+/* ==================== 响应式设计 ==================== */
+/* 平板设备 */
+@media (max-width: 768px) {
+    .heasec-tech-card-header {
+        padding: var(--heasec-tech-space-4) var(--heasec-tech-space-5);
+    }
+
+    .heasec-tech-card-title {
+        font-size: var(--heasec-tech-font-size-lg);
+    }
+
+    .heasec-tech-card-body {
+        padding: var(--heasec-tech-space-5);
+    }
+
+    .heasec-tech-alert {
+        padding: var(--heasec-tech-space-3) var(--heasec-tech-space-4);
+        flex-direction: column;
+        text-align: center;
+        gap: var(--heasec-tech-space-2);
+    }
+
+    .heasec-tech-table-container {
+        overflow-x: auto;
+    }
+
+    .heasec-tech-table {
+        min-width: 600px;
+    }
+
+    .heasec-tech-table th,
+    .heasec-tech-table td {
+        padding: var(--heasec-tech-space-2) var(--heasec-tech-space-3);
+        font-size: var(--heasec-tech-font-size-xs);
+    }
+
+  }
+
+/* 手机设备 */
+@media (max-width: 480px) {
+    .heasec-tech-card-header {
+        padding: var(--heasec-tech-space-3) var(--heasec-tech-space-4);
+    }
+
+    .heasec-tech-card-title {
+        font-size: var(--heasec-tech-font-size);
+    }
+
+    .heasec-tech-card-body {
+        padding: var(--heasec-tech-space-4);
+    }
+
+    
+  }
+
+/* ==================== 深色模式适配 ==================== */
+@media (prefers-color-scheme: dark) {
+    .heasec-tech-card {
+        background: rgba(30, 40, 50, 0.95);
+        border-color: rgba(0, 123, 255, 0.3);
+    }
+
+    .heasec-tech-card-header {
+        background: rgba(20, 30, 40, 0.9);
+    }
+
+    .heasec-tech-alert {
+        background: rgba(40, 50, 60, 0.8);
+    }
+
+    .heasec-tech-form-input,
+    .heasec-tech-form-textarea,
+    .heasec-tech-form-select {
+        background: rgba(40, 50, 60, 0.9);
+        color: #e9ecef;
+    }
+}
+
+/* ==================== 滚动条样式 ==================== */
+.heasec-tech::-webkit-scrollbar {
+    width: 6px;
+}
+
+.heasec-tech::-webkit-scrollbar-track {
+    background: var(--heasec-tech-bg-tertiary);
+    border-radius: 3px;
+}
+
+.heasec-tech::-webkit-scrollbar-thumb {
+    background: var(--heasec-tech-primary);
+    border-radius: 3px;
+    opacity: 0.6;
+}
+
+.heasec-tech::-webkit-scrollbar-thumb:hover {
+    background: var(--heasec-tech-primary-dark);
+    opacity: 0.8;
+}

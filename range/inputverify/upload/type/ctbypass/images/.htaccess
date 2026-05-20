@@ -1,0 +1,21 @@
+# HeaSec天积安全团队 - Content-Type绕过靶场上传目录配置
+# 允许上传的PHP文件正常执行（教学目的）
+
+# 禁止直接访问secret.php文件（只能通过服务器端include访问）
+<Files "secret.php">
+    Require all denied
+</Files>
+
+# 允许PHP文件执行（为了让用户能够成功利用漏洞进行学习）
+AddType application/x-httpd-php .php
+AddHandler php5-script .php
+AddHandler fcgid-script .php
+
+# 允许目录列表（便于查看上传的文件）
+Options +Indexes
+
+# 设置默认字符编码
+AddDefaultCharset UTF-8
+
+# 访问控制
+Require all granted

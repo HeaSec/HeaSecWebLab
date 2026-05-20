@@ -1,0 +1,314 @@
+/**
+ * HeaSec天积安全团队 - HTML前端校验绕过靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-13
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 表单容器布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 卡片最小宽度 */
+.tech-card {
+    min-width: 500px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片内容区域优化 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* 表单组间距 */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* 输入框样式 */
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: var(--heasec-primary-color, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* 文本域样式 */
+.tech-input[type="textarea"] {
+    height: auto;
+    padding: 12px 15px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* 只读输入框样式 */
+.tech-input[readonly] {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* 表单标签 */
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+/* 单选按钮组 */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* 单选按钮标签 */
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #495057;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+    background-color: #f8f9fa;
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+/* 自定义单选按钮 */
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    border-color: #007bff;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio-label input[type="radio"]:checked ~ i {
+    color: #007bff;
+}
+
+/* FontAwesome图标 */
+.radio-label i {
+    color: #6c757d;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+/* 表单提示文字 */
+.form-hint {
+    display: block;
+    font-size: 13px;
+    color: #6c757d;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* 表单操作区域 */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* 主按钮样式 */
+.tech-btn-primary {
+    background: linear-gradient(135deg, var(--heasec-primary-color, #007bff) 0%, #0056b3 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 警告提示 */
+.alert {
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert i {
+    font-size: 18px;
+}
+
+/* 提示文字区域 */
+.alert-hint {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-basis: 100%;
+}
+
+.alert-hint small {
+    color: #856404;
+    font-weight: 500;
+}
+
+.alert-error .alert-hint small {
+    color: #721c24;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .radio-group {
+        gap: 8px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* 小屏幕优化 */
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .tech-input[type="textarea"] {
+        min-height: 80px;
+    }
+
+    .form-actions {
+        gap: 10px;
+    }
+}
+
+/* 动画效果 */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.input-error {
+    border-color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.05) !important;
+}
+
+.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}

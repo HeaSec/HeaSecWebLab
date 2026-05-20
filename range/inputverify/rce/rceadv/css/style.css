@@ -1,0 +1,306 @@
+/**
+ * HeaSec天积安全团队 - 命令执行实战靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-23
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 左右布局 */
+.rceadv-left-col {
+    flex: 1 1 65%;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rceadv-right-col {
+    flex: 1 1 35%;
+    min-width: 320px;
+}
+
+/* 响应式：窄屏时切换为垂直布局 */
+@media (max-width: 768px) {
+    .rceadv-left-col,
+    .rceadv-right-col {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* 修复左右布局下卡片截断和底部不可见问题 */
+html {
+    height: auto;
+    min-height: 100%;
+}
+
+body {
+    height: auto;
+    min-height: 100vh;
+}
+
+.rceadv-left-col .tech-card,
+.rceadv-right-col .tech-card {
+    flex: none;
+}
+
+/* ==========================================
+   任务引导列表
+   ========================================== */
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    color: #856404;
+}
+
+.task-list li {
+    padding: 5px 0;
+    border-bottom: 1px dashed rgba(133, 100, 4, 0.25);
+    line-height: 1.5;
+}
+
+.task-list li:nth-child(2),
+.task-list li:nth-child(3) {
+    border-bottom: none;
+}
+
+.task-list li:last-child {
+    border-bottom: none;
+}
+
+.task-list li strong {
+    color: #856404;
+}
+
+/* ==========================================
+   输入区域
+   ========================================== */
+
+.submit-section {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.submit-section input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.submit-section input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+/* ==========================================
+   终端风格输出区域
+   ========================================== */
+
+.terminal-output {
+    background: #1a1a2e;
+    color: #00ff88;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Courier New', Consolas, 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 400px;
+    overflow-y: auto;
+    min-height: 80px;
+    border: 1px solid #2d2d44;
+    margin-top: 15px;
+}
+
+.terminal-output:empty::before {
+    content: '等待执行...';
+    color: #555;
+    font-style: italic;
+}
+
+.terminal-output .cmd-entry {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2d2d44;
+}
+
+.terminal-output .cmd-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.terminal-output .cmd-header {
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.terminal-output .cmd-output {
+    color: #00ff88;
+}
+
+.terminal-output .cmd-error {
+    color: #ff4c4c;
+    background: rgba(255, 76, 76, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* ==========================================
+   成就验证区域
+   ========================================== */
+
+.achievement-verify-item {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.achievement-verify-item:last-child {
+    margin-bottom: 0;
+}
+
+.verify-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.verify-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #343a40;
+}
+
+.verify-status {
+    font-size: 18px;
+}
+
+.verify-desc {
+    font-size: 13px;
+    color: #495057;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.verify-desc code {
+    background: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 12px;
+    color: #c7254e;
+}
+
+.verify-hint {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.verify-hint small {
+    color: #856404;
+    line-height: 1.6;
+}
+
+.verify-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.verify-field {
+    flex: 1;
+    min-width: 120px;
+}
+
+.verify-field label {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.verify-field input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.verify-field input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+.verify-actions {
+    margin-top: 5px;
+}
+
+.verify-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.verify-result {
+    margin-top: 8px;
+    font-size: 13px;
+    min-height: 0;
+}
+
+.verify-result.success {
+    color: #155724;
+    background: #d4edda;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+.verify-result.error {
+    color: #721c24;
+    background: #f8d7da;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .verify-input-row {
+        flex-direction: column;
+    }
+
+    .verify-field {
+        min-width: 100%;
+    }
+
+    .verify-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .terminal-output {
+        font-size: 12px;
+        padding: 15px;
+    }
+}

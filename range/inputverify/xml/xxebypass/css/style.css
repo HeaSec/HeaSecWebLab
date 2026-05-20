@@ -1,0 +1,584 @@
+/**
+ * HeaSec天积安全团队 - XXE基础靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-10
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   文件上传区域 - 拖拽上传
+   ========================================== */
+
+.upload-section {
+    margin-top: 20px;
+}
+
+.dropzone {
+    position: relative;
+    border: 2px dashed #b8c4ce;
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.dropzone:hover {
+    border-color: #6c9bcf;
+    background: #f0f6ff;
+}
+
+.dropzone.drag-over {
+    border-color: #007bff;
+    background: #e7f1ff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+    transform: scale(1.01);
+}
+
+.dropzone.has-file {
+    border-color: #28a745;
+    border-style: solid;
+    background: #f0fff4;
+    padding: 16px 20px;
+}
+
+.dropzone input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.dropzone-content {
+    pointer-events: none;
+}
+
+.dropzone-icon {
+    font-size: 48px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.dropzone:hover .dropzone-icon,
+.dropzone.drag-over .dropzone-icon {
+    color: #007bff;
+}
+
+.dropzone-text {
+    font-size: 15px;
+    color: #475569;
+    margin: 0 0 6px;
+}
+
+.dropzone-link {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.dropzone-hint {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.dropzone-file-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
+    pointer-events: none;
+}
+
+.dropzone-file-info i {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.dropzone-file-info span {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    word-break: break-all;
+    flex: 1;
+    text-align: left;
+}
+
+.clear-file-btn {
+    pointer-events: auto !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.clear-file-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.upload-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================
+   导入结果区域
+   ========================================== */
+
+#resultArea {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.result-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.result-section h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.product-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.product-result-table th,
+.product-result-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.product-result-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    width: 100px;
+}
+
+.product-result-table td {
+    background: white;
+    color: #333;
+    word-break: break-all;
+}
+
+.error-details {
+    margin-top: 10px;
+    background: #fff5f5;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #721c24;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ==========================================
+   已导入数据表�?
+   ========================================== */
+
+.data-table-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+.data-table-section h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+}
+
+.data-table td {
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    color: #333;
+}
+
+.data-table tbody tr:hover {
+    background: #f0f8ff;
+}
+
+.data-empty {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px 20px;
+    font-size: 14px;
+}
+
+.data-empty i {
+    display: block;
+    font-size: 36px;
+    margin-bottom: 10px;
+    opacity: 0.4;
+}
+
+/* ==========================================
+   表单样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ==========================================
+   按钮样式
+   ========================================== */
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-info:hover {
+    background: linear-gradient(135deg, #117a8b 0%, #0c5460 100%);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   卡片标题区域
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+/* ==========================================
+   验证结果区域
+   ========================================== */
+
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   响应式调�?
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .dropzone {
+        padding: 30px 20px;
+    }
+
+    .dropzone-icon {
+        font-size: 40px;
+    }
+
+    .dropzone-text {
+        font-size: 14px;
+    }
+
+    .upload-actions {
+        flex-direction: column;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .product-result-table th,
+    .product-result-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}

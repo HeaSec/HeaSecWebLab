@@ -1,0 +1,185 @@
+{
+    "description": "HTTP请求头解析模板",
+    "version": "1.0.0",
+    "team": "HeaSec天积安全团队",
+    "templates": {
+        "Accept-Charset": {
+            "description": "告知服务器客户端可以接受的字符编码。\n常用值：\n- UTF-8：Unicode编码\n- ISO-8859-1：拉丁字母编码\n- GBK：汉字内码扩展规范",
+            "common_values": {
+                "UTF-8": {
+                    "current_value": "UTF-8",
+                    "analysis": "本次请求头表示客户端仅接受UTF-8编码的响应内容。"
+                },
+                "ISO-8859-1,UTF-8;q=0.9": {
+                    "current_value": "ISO-8859-1,UTF-8;q=0.9",
+                    "analysis": "本次请求头表示客户端优先接受ISO-8859-1编码，其次接受UTF-8编码。"
+                },
+                "GBK,GB2312;q=0.7,*;q=0.1": {
+                    "current_value": "GBK,GB2312;q=0.7,*;q=0.1",
+                    "analysis": "本次请求头表示客户端优先接受GBK编码，其次是GB2312编码，最后是任意编码。"
+                }
+            }
+        },
+        "Accept-Language": {
+            "description": "告知服务器用户使用的语言，服务器可根据该信息返回相应的语言版本内容。\n常用值：\n- zh-CN：中文（简体）\n- zh-TW：中文（繁体）\n- en-US：英文（美国）\n- ja：日文",
+            "common_values": {
+                "zh-CN,zh;q=0.9,en;q=0.8": {
+                    "current_value": "zh-CN,zh;q=0.9,en;q=0.8",
+                    "analysis": "本次请求头表示用户使用的主要语言是中文（简体），中文（繁体）次之，英文再次之。"
+                },
+                "en-US,en;q=0.9": {
+                    "current_value": "en-US,en;q=0.9",
+                    "analysis": "本次请求头表示用户使用的主要语言是英文（美国），英文次之。"
+                },
+                "ja,zh-CN;q=0.8,en;q=0.6": {
+                    "current_value": "ja,zh-CN;q=0.8,en;q=0.6",
+                    "analysis": "本次请求头表示用户使用的主要语言是日文，其次是中文（简体），最后是英文。"
+                }
+            }
+        },
+        "Cache-Control": {
+            "description": "指定请求和响应的缓存机制。\n\n<div class=\"section-title\">常用缓存指令：</div>\n<ul>\n    <li><strong>no-cache</strong>：不使用缓存</li>\n    <li><strong>no-store</strong>：不存储缓存</li>\n    <li><strong>max-age=秒</strong>：缓存最大有效时间</li>\n</ul>",
+            "common_values": {
+                "no-cache": {
+                    "current_value": "no-cache",
+                    "analysis": "本次请求头表示客户端要求服务器不使用缓存，应返回最新的内容。"
+                },
+                "no-store": {
+                    "current_value": "no-store",
+                    "analysis": "本次请求头表示客户端要求服务器不存储缓存内容，适用于敏感数据。"
+                },
+                "max-age=3600": {
+                    "current_value": "max-age=3600",
+                    "analysis": "本次请求头表示客户端允许缓存内容最多缓存3600秒。"
+                }
+            }
+        },
+        "Connection": {
+            "description": "告知服务器客户端是否支持持久连接。",
+            "common_values": {
+                "keep-alive": {
+                    "current_value": "keep-alive",
+                    "analysis": "本次请求头表示客户端支持持久连接，服务器可以在一个连接上发送多个请求。"
+                },
+                "close": {
+                    "current_value": "close",
+                    "analysis": "本次请求头表示客户端不支持持久连接，每个请求都需要建立新的连接。"
+                }
+            }
+        },
+        "Cookie": {
+            "description": "告知服务器客户端之前发送过的cookie信息，服务器可根据该信息进行会话跟踪。",
+            "common_values": {
+                "PHPSESSID=abc123def456": {
+                    "current_value": "PHPSESSID=abc123def456",
+                    "analysis": "本次请求头表示客户端之前收到过服务器发送的PHPSESSID Cookie，值为abc123def456，服务器可根据该值进行会话跟踪。"
+                },
+                "username=claudetest; token=xyz789": {
+                    "current_value": "username=claudetest; token=xyz789",
+                    "analysis": "本次请求头表示客户端之前收到过服务器发送的username和token两个Cookie，值分别为claudetest和xyz789，服务器可根据这些值进行用户身份验证。"
+                }
+            }
+        },
+        "Content-Length": {
+            "description": "指示请求体的字节长度。",
+            "common_values": {
+                "42": {
+                    "current_value": "42",
+                    "analysis": "本次请求头表示请求体的字节长度为42个字节。"
+                },
+                "128": {
+                    "current_value": "128",
+                    "analysis": "本次请求头表示请求体的字节长度为128个字节。"
+                }
+            }
+        },
+        "Content-Type": {
+            "description": "告知服务器请求体的媒体类型。\n常用值：\n- application/x-www-form-urlencoded：表单数据\n- multipart/form-data：文件上传\n- application/json：JSON数据\n- text/plain：纯文本",
+            "common_values": {
+                "application/x-www-form-urlencoded": {
+                    "current_value": "application/x-www-form-urlencoded",
+                    "analysis": "本次请求头表示请求体中的数据是URL编码的表单数据，适用于POST方法提交的表单数据。"
+                },
+                "multipart/form-data; boundary=---------------------------123456789012345678901234567890": {
+                    "current_value": "multipart/form-data; boundary=---------------------------123456789012345678901234567890",
+                    "analysis": "本次请求头表示请求体中的数据是多部分表单数据，每个部分之间用boundary分隔，适用于上传文件等场景。"
+                },
+                "application/json": {
+                    "current_value": "application/json",
+                    "analysis": "本次请求头表示请求体中的数据是JSON格式，常用于API调用。"
+                }
+            }
+        },
+        "Host": {
+            "description": "告知服务器请求的目标主机名和端口号。",
+            "common_values": {
+                "www.example.com": {
+                    "current_value": "www.example.com",
+                    "analysis": "本次请求头表示请求的目标主机是www.example.com。"
+                },
+                "api.example.com:8080": {
+                    "current_value": "api.example.com:8080",
+                    "analysis": "本次请求头表示请求的目标主机是api.example.com，端口号为8080。"
+                },
+                "localhost:80": {
+                    "current_value": "localhost:80",
+                    "analysis": "本次请求头表示请求的目标主机是localhost，端口号为80。"
+                }
+            }
+        },
+        "Date": {
+            "description": "请求发送的日期和时间。",
+            "common_values": {
+                "Mon, 23 Oct 2023 08:12:31 GMT": {
+                    "current_value": "Mon, 23 Oct 2023 08:12:31 GMT",
+                    "analysis": "本次请求头表示请求发送的日期和时间为2023年10月23日星期一，08:12:31 GMT。"
+                }
+            }
+        },
+        "Referer": {
+            "description": "告知服务器请求来源页面的URL，通俗的理解，就是用户是从哪个页面点击链接来到当前页面的。",
+            "common_values": {
+                "https://www.example.com/login": {
+                    "current_value": "https://www.example.com/login",
+                    "analysis": "本次请求头表示用户是从https://www.example.com/login页面点击链接来到当前页面的。"
+                }
+            },
+            "special_case": {
+                "empty": {
+                    "current_value": "无",
+                    "analysis": "本次请求未包含Referer字段，表示用户可能是直接在浏览器地址栏输入URL访问当前页面，或者从隐私模式/安全页面跳转而来。"
+                }
+            }
+        },
+        "User-Agent": {
+            "description": "告知服务器客户端使用的浏览器和操作系统信息。",
+            "common_values": {
+                "chrome_windows": {
+                    "pattern": "Chrome.*Windows.*",
+                    "analysis": "本次请求头表示客户端使用的是Windows操作系统，浏览器为Chrome。"
+                },
+                "firefox_mac": {
+                    "pattern": "Firefox.*Mac.*",
+                    "analysis": "本次请求头表示客户端使用的是Mac操作系统，浏览器为Firefox。"
+                },
+                "safari_ios": {
+                    "pattern": "Safari.*iPhone.*",
+                    "analysis": "本次请求头表示客户端使用的是iOS设备，浏览器为Safari。"
+                }
+            }
+        },
+        "X-Forwarded-For": {
+            "description": "告知服务器客户端的真实IP地址（经过代理时）。",
+            "common_values": {
+                "192.168.1.100": {
+                    "current_value": "192.168.1.100",
+                    "analysis": "本次请求头表示客户端的真实IP地址为192.168.1.100（经过代理时）。"
+                },
+                "192.168.1.100, 10.0.0.1": {
+                    "current_value": "192.168.1.100, 10.0.0.1",
+                    "analysis": "本次请求头表示客户端的真实IP地址为192.168.1.100，经过代理服务器10.0.0.1转发。"
+                }
+            }
+        }
+    }
+}

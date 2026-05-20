@@ -1,0 +1,379 @@
+/**
+ * HeaSec天积安全团队 - URL任意跳转靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-03
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   退出按钮样式（标题右侧深色按钮）
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.tech-btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: #5a6268;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex: none;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.tech-btn-logout:hover {
+    background: #4a5055;
+}
+
+/* ==========================================
+   卡片宽度比例（7:3）
+   ========================================== */
+
+.range-container .tech-card-main {
+    flex: 7;
+    min-width: 0;
+}
+
+.range-container .tech-card:not(.tech-card-main) {
+    flex: 3;
+    min-width: 0;
+    max-width: 400px;
+}
+
+@media (max-width: 768px) {
+    .range-container .tech-card-main,
+    .range-container .tech-card:not(.tech-card-main) {
+        flex: none;
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* ==========================================
+   用户信息独立区域样式
+   ========================================== */
+
+.user-info-section {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.06), rgba(0, 123, 255, 0.02));
+    border: 1px solid rgba(0, 123, 255, 0.12);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+}
+
+.user-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.user-info-item .fa-user {
+    color: #007BFF;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.user-info-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.user-info-value {
+    color: #333;
+    font-weight: 600;
+}
+
+/* ==========================================
+   成就卡片绕过类型记录样式
+   ========================================== */
+
+/* 绕过类型名称badge */
+.record-name-badge {
+    display: inline-block;
+    background: rgba(0, 123, 255, 0.12);
+    color: #007BFF;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+/* 绕过类型描述文字 */
+.record-desc {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   请求记录表格样式
+   ========================================== */
+
+.table-responsive {
+    overflow-x: auto;
+    margin: 0;
+}
+
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.request-table thead th {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05));
+    color: #0056b3;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(0, 123, 255, 0.2);
+    white-space: nowrap;
+}
+
+.request-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    vertical-align: middle;
+}
+
+.request-table tbody tr:hover {
+    background: rgba(0, 123, 255, 0.03);
+}
+
+/* 成功记录行 */
+.row-success {
+    background: rgba(40, 167, 69, 0.06);
+}
+
+.row-success:hover {
+    background: rgba(40, 167, 69, 0.1) !important;
+}
+
+.row-success td {
+    color: #333;
+}
+
+/* 未通过记录行 */
+.row-muted {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.row-muted td {
+    color: #888;
+}
+
+/* Badge样式 */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-success {
+    background: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+}
+
+.badge-secondary {
+    background: rgba(108, 117, 125, 0.15);
+    color: #6c757d;
+}
+
+.badge-bypass {
+    background: rgba(0, 123, 255, 0.12);
+    color: #007BFF;
+    font-weight: 600;
+}
+
+.bypass-desc {
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+}
+
+/* ==========================================
+   统计信息栏
+   ========================================== */
+
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(0, 123, 255, 0.02));
+    border-radius: 10px;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: #007BFF;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* ==========================================
+   模态框按钮样式优化
+   ========================================== */
+
+.heasec-modal .modal-footer .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.heasec-modal .modal-footer .btn:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.heasec-modal .modal-footer .btn-secondary,
+.heasec-modal .modal-footer .btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-secondary:hover,
+.heasec-modal .modal-footer .btn-cancel:hover {
+    background: #5a6268;
+}
+
+.heasec-modal .modal-footer .btn-primary,
+.heasec-modal .modal-footer .btn-confirm {
+    background: #007bff;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-primary:hover,
+.heasec-modal .modal-footer .btn-confirm:hover {
+    background: #0056b3;
+}
+
+.heasec-modal .modal-footer .btn-danger,
+.heasec-modal .modal-footer .btn-reset {
+    background: #dc3545;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-danger:hover,
+.heasec-modal .modal-footer .btn-reset:hover {
+    background: #c82333;
+}
+
+.heasec-modal .modal-footer .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.heasec-modal .modal-footer {
+    gap: 10px;
+}
+
+.heasec-modal .modal-footer .btn:not(:last-child) {
+    margin-right: 10px;
+}
+
+/* ==========================================
+   分页导航样式
+   ========================================== */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+    border-color: #007BFF;
+    color: #007BFF;
+    background: rgba(0, 123, 255, 0.04);
+}
+
+.page-btn.active {
+    background: #007BFF;
+    border-color: #007BFF;
+    color: #fff;
+    font-weight: 600;
+}
+
+.page-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.page-info {
+    margin-left: 12px;
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+}

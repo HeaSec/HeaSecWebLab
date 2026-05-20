@@ -1,0 +1,176 @@
+/**
+ * HeaSec天积安全团队 - JavaScript 绕过靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-24
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: JavaScript 绕过靶场特定样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 表单卡片垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 表单卡片样式 */
+.tech-card {
+    min-width: 480px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片内容区域 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* 表单组间距 */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* 输入框样式 */
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* 表单标签样式 */
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* 表单操作按钮 */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* 绿色成功按钮样式 */
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color) 0%, #1e7e34 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* 按钮显示动画 */
+.form-actions .tech-btn-success {
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 提示框样式调整 */
+.alert > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+
+.alert .alert-hint {
+    align-self: flex-start;
+    width: 100%;
+    margin-top: 0;
+}
+
+.alert p.alert-hint {
+    margin-left: 0;
+    text-indent: 0;
+    flex-basis: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .form-actions {
+        gap: 10px;
+    }
+}

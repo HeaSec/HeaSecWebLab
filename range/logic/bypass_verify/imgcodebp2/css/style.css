@@ -1,0 +1,109 @@
+/**
+ * HeaSec天积安全团队 - 图片验证码绕过2靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-01-20
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   验证码表单样式
+   ========================================== */
+
+/* 验证码区域 - 水平布局 */
+/* 验证码区域 - 水平布局 */
+.heasec-captcha-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* 输入框占据剩余空间 */
+.heasec-captcha-input-wrapper {
+    flex: 1;
+}
+
+/* 图片容器 - 垂直居中 */
+.heasec-captcha-image-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* 验证码图片样式 */
+.heasec-captcha-image {
+    width: 120px;
+    height: 48px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f5f5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 悬停效果 */
+.heasec-captcha-image:hover {
+    border-color: #007bff;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+/* 验证结果提示区域 */
+#heasec-verifyResult {
+    margin-top: 15px;
+    display: none;
+}
+
+/* 成功提示 */
+.heasec-verify-success {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+    border-left: 4px solid #28a745;
+    padding: 12px 15px;
+    border-radius: 6px;
+    color: #155724;
+    font-size: 14px;
+}
+
+/* 失败提示 */
+.heasec-verify-error {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
+    border-left: 4px solid #dc3545;
+    padding: 12px 15px;
+    border-radius: 6px;
+    color: #721c24;
+    font-size: 14px;
+}
+
+/* 绕过提示高亮 */
+.heasec-bypass-highlight {
+    font-weight: 600;
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* ==========================================
+   响应式设计
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* 验证码区域改为垂直布局 */
+    .heasec-captcha-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .heasec-captcha-image-wrapper {
+        align-items: flex-start;
+    }
+
+    .heasec-captcha-image {
+        width: 120px;
+        height: 40px;
+    }
+}

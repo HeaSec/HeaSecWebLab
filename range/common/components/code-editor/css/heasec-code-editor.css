@@ -1,0 +1,883 @@
+/**
+ * HeaSec天积安全团队 - 在线代码编辑器公共组件样式
+ * Code Editor Common Component Styles
+ * 版本: v1.2.6
+ * 创建日期: 2025-11-30
+ * 更新日期: 2025-12-03
+ * 团队: 天积安全 (HeavenlySecret)
+ * 优化：隐藏行号滚动条但保持滚动功能，调整行号样式为白色背景灰色文字
+ */
+
+/* ==================== 主容器 ==================== */
+.heasec-code-editor {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 123, 255, 0.1);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    max-width: none;
+    width: 100%;
+}
+
+.heasec-code-editor:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 123, 255, 0.15);
+}
+
+/* ==================== 头部样式 ==================== */
+.heasec-code-editor-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heasec-code-editor-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heasec-code-editor-header h3 i {
+    opacity: 0.9;
+}
+
+/* ==================== 标签页样式 ==================== */
+/* 语言标签已移除 - 支持HTML/CSS/JavaScript混合语法高亮 */
+.heasec-code-editor-tabs {
+    display: none;
+}
+
+/* ==================== 主内容区域 ==================== */
+.heasec-code-editor-main {
+    display: flex;
+    background: white;
+    position: relative;
+    min-height: 300px;
+    height: auto;
+}
+
+.heasec-code-editor-pane {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 编辑器面板 - 占60%宽度 */
+.heasec-editor-pane {
+    flex: 6;
+    border-right: 1px solid #dee2e6;
+}
+
+/* 预览面板 - 占40%宽度 */
+.heasec-preview-pane {
+    flex: 4;
+}
+
+/* ==================== 编辑器区域 ==================== */
+.heasec-code-editor-container {
+    display: flex;
+    height: 400px;
+    min-height: 200px;
+    max-height: 800px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 14px;
+    line-height: 21px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+/* 代码编辑区域 */
+.heasec-code-editor-wrapper {
+    flex: 1;
+    position: relative;
+    height: 400px;
+    min-height: 200px;
+    max-height: 800px;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+/* ==================== 行号样式 - 优化版本：隐藏滚动条但保持功能，白色背景灰色文字 ==================== */
+.heasec-line-numbers {
+    width: 45px !important;  /* 减少宽度，更紧凑的设计 */
+    background-color: #f8f9fa !important;  /* 白色背景 */
+    color: #6c757d !important;             /* 灰色文字 */
+    border-right: 1px solid #dee2e6 !important;  /* 浅色分隔线 */
+    padding: 10px 6px !important;  /* 调整padding以适应较小宽度 */
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+    font-size: 14px !important;
+    line-height: 21px !important;
+    text-align: right !important;
+    user-select: none !important;
+    overflow-y: auto !important;  /* 保持垂直滚动 */
+    overflow-x: hidden !important; /* 隐藏水平滚动 */
+    position: relative !important;
+    z-index: 3 !important;  /* 确保行号在最上层，不被选中高亮覆盖 */
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    /* 关键修复：确保与编辑器相同的设置，滚动条会自动对齐 */
+    height: auto !important;
+    min-height: 200px !important;
+    max-height: 800px !important;
+    /* 通过负margin补偿滚动条高度差异 */
+    margin-bottom: -17px;
+    padding-bottom: 27px !important; /* 10px + 17px滚动条补偿 */
+    
+    /* 优化：隐藏行号滚动条但保持滚动功能 */
+    scrollbar-width: none !important;  /* Firefox */
+    -ms-overflow-style: none !important;  /* IE/Edge */
+}
+
+/* WebKit浏览器：隐藏滚动条但保持功能 */
+.heasec-line-numbers::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+    display: none !important;
+}
+
+.heasec-line-numbers::-webkit-scrollbar-track {
+    background: transparent !important;
+    display: none !important;
+}
+
+.heasec-line-numbers::-webkit-scrollbar-thumb {
+    background: transparent !important;
+    display: none !important;
+}
+
+.heasec-line-numbers::-webkit-scrollbar-thumb:hover {
+    background: transparent !important;
+    display: none !important;
+}
+
+/* 单个行号样式 */
+.heasec-line-number {
+    height: 21px !important;  /* 与代码行高完全一致 */
+    line-height: 21px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+    display: block !important;
+    color: #6c757d !important;  /* 灰色文字，与父元素保持一致 */
+    font-family: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.heasec-code-textarea {
+    width: 100%;
+    height: 400px;
+    min-height: 200px;
+    max-height: 800px;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 10px 10px 10px 60px;  /* 调整左侧padding以适应较小的行号宽度 */
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 14px;
+    line-height: 21px;
+    background: transparent;
+    color: transparent;
+    caret-color: #007bff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;  /* 在行号下方，在高亮层上方 */
+    white-space: pre;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.heasec-code-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    min-height: 200px;
+    max-height: 800px;
+    padding: 10px 10px 10px 60px;  /* 调整左侧padding以适应较小的行号宽度 */
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0;
+    pointer-events: none;
+    z-index: 1;
+    white-space: pre;
+    overflow-x: auto;
+    overflow-y: auto;
+    background: transparent;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.heasec-code-highlight code {
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* 自动高度编辑器样式 */
+.heasec-code-editor[data-auto-height="true"] .heasec-code-textarea {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.heasec-code-editor[data-auto-height="true"] .heasec-code-highlight {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+/* 固定高度编辑器样式 */
+.heasec-code-editor[data-auto-height="false"] .heasec-code-textarea {
+    height: 400px !important;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.heasec-code-editor[data-auto-height="false"] .heasec-code-highlight {
+    height: 400px !important;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* ==================== 修复水平滚动条遮盖代码问题 ==================== */
+/* 方案：保持原有补偿机制，只在无垂直滚动条时应用修复 */
+
+/* 使用JavaScript动态添加的类进行精确修复 */
+.heasec-code-editor.no-vertical-scroll .heasec-code-textarea,
+.heasec-code-editor.no-vertical-scroll .heasec-code-highlight {
+    padding-bottom: 10px !important;
+}
+
+.heasec-code-editor.no-vertical-scroll .heasec-line-numbers {
+    padding-bottom: 10px !important;
+    margin-bottom: 0 !important;
+}
+
+/* 保持有垂直滚动条时的原有对齐机制 */
+.heasec-code-editor:not(.no-vertical-scroll) .heasec-line-numbers {
+    /* 保持原有的补偿机制，确保行号和代码完全对齐 */
+    margin-bottom: -17px;
+    padding-bottom: 27px !important;
+}
+
+/* 优化滚动条样式，减少遮盖 */
+.heasec-code-textarea::-webkit-scrollbar,
+.heasec-code-highlight::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.heasec-code-textarea::-webkit-scrollbar-track,
+.heasec-code-highlight::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.heasec-code-textarea::-webkit-scrollbar-thumb,
+.heasec-code-highlight::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 6px;
+    border: 2px solid #f1f1f1;
+}
+
+.heasec-code-textarea::-webkit-scrollbar-thumb:hover,
+.heasec-code-highlight::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 代码编辑器容器优化 */
+.heasec-code-editor-wrapper {
+    /* 使用CSS containment来优化性能 */
+    contain: layout style;
+    position: relative;
+}
+
+/* ==================== 代码高亮样式 ==================== */
+/* HTML 标签 */
+.heasec-code-highlight .tag {
+    color: #d73a49;
+}
+
+.heasec-code-highlight .attr-name {
+    color: #6f42c1;
+}
+
+.heasec-code-highlight .attr-value {
+    color: #032f62;
+}
+
+/* CSS 选择器和属性 */
+.heasec-code-highlight .selector {
+    color: #d73a49;
+}
+
+.heasec-code-highlight .property {
+    color: #6f42c1;
+}
+
+.heasec-code-highlight .value {
+    color: #032f62;
+}
+
+/* JavaScript 关键字、字符串、注释 */
+.heasec-code-highlight .keyword {
+    color: #d73a49;
+    font-weight: bold;
+}
+
+.heasec-code-highlight .string {
+    color: #032f62;
+}
+
+.heasec-code-highlight .comment {
+    color: #6a737d;
+    font-style: italic;
+}
+
+.heasec-code-highlight .function {
+    color: #6f42c1;
+}
+
+.heasec-code-highlight .number {
+    color: #005cc5;
+}
+
+/* 操作符 */
+.heasec-code-highlight .operator {
+    color: #d73a49;
+    font-weight: bold;
+}
+
+/* 代码行交替背景 */
+.heasec-code-highlight .line:nth-child(odd) {
+    background: rgba(248, 249, 250, 0.5);
+}
+
+.heasec-code-highlight .line:nth-child(even) {
+    background: transparent;
+}
+
+/* ==================== 分割线 ==================== */
+.heasec-code-editor-divider {
+    width: 1px;
+    background: #dee2e6;
+    cursor: col-resize;
+    transition: background 0.3s ease;
+}
+
+.heasec-code-editor-divider:hover {
+    background: #007bff;
+}
+
+/* ==================== 编辑器头部 ==================== */
+.heasec-editor-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.heasec-editor-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 编辑器头部按钮容器 */
+.heasec-editor-header-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.heasec-editor-actions {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.heasec-editor-actions:hover {
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+}
+
+/* ==================== 预览区域 ==================== */
+.heasec-preview-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.heasec-preview-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.heasec-preview-refresh {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.heasec-preview-refresh:hover {
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+}
+
+.heasec-preview-content {
+    flex: 1;
+    position: relative;
+    background: white;
+    overflow: hidden;
+    min-height: 300px;
+    height: 400px;
+}
+
+.heasec-preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ==================== 操作按钮 ==================== */
+.heasec-code-editor-actions {
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    padding: 15px 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.heasec-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.heasec-btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.heasec-btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.heasec-btn-secondary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5a6268, #495057);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+.heasec-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* 按钮加载状态 */
+.heasec-btn.loading {
+    color: transparent !important;
+}
+
+.heasec-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: heasec-spin 1s linear infinite;
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes heasec-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes heasec-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 768px) {
+    .heasec-code-editor-main {
+        flex-direction: column;
+        min-height: 400px;
+    }
+    
+    .heasec-editor-pane {
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .heasec-code-editor-divider {
+        display: none;
+    }
+    
+    .heasec-code-editor-tabs {
+        padding: 0 15px;
+    }
+    
+    .heasec-tab-button {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+    
+    .heasec-code-editor-actions {
+        padding: 12px 15px;
+    }
+    
+    .heasec-btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 0;
+    }
+    
+    .heasec-preview-content {
+        height: 300px;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heasec-code-editor-header {
+        padding: 12px 15px;
+    }
+    
+    .heasec-code-editor-header h3 {
+        font-size: 16px;
+    }
+    
+    .heasec-code-editor-main {
+        min-height: 350px;
+    }
+    
+    .heasec-code-editor-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .heasec-tab-button {
+        padding: 8px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .heasec-code-textarea,
+    .heasec-code-highlight {
+        font-size: 12px;
+        padding: 8px;
+        min-height: 180px;
+    }
+    
+    .heasec-code-editor-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .heasec-btn {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+    
+    .heasec-preview-content {
+        height: 250px;
+        min-height: 200px;
+    }
+}
+
+/* ==================== 主题变体 ==================== */
+.heasec-code-editor[data-theme="dark"] {
+    background: #2c3e50;
+    border-color: #34495e;
+    color: #ecf0f1;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-code-editor-header {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-code-editor-tabs {
+    background: #34495e;
+    border-bottom-color: #2c3e50;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-tab-button {
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-tab-button:hover {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-tab-button.active {
+    color: #3498db;
+    background: #2c3e50;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-code-textarea {
+    color: #ecf0f1;
+    caret-color: #3498db;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-code-highlight {
+    color: #ecf0f1;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-editor-header {
+    background: #34495e;
+    border-bottom-color: #2c3e50;
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-editor-header {
+    background: #34495e;
+    border-bottom-color: #2c3e50;
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-preview-header {
+    background: #34495e;
+    border-bottom-color: #2c3e50;
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-editor-actions {
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-editor-actions:hover {
+    color: #3498db;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-preview-refresh {
+    color: #b0b0b0;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-preview-refresh:hover {
+    color: #3498db;
+}
+
+.heasec-code-editor[data-theme="dark"] .heasec-code-editor-actions {
+    background: #34495e;
+    border-top-color: #2c3e50;
+}
+
+/* ==================== 无障碍支持 ==================== */
+.heasec-btn:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.heasec-tab-button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
+
+.heasec-code-textarea:focus {
+    outline: none;
+}
+
+.heasec-preview-refresh:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* ==================== 打印样式 ==================== */
+@media print {
+    .heasec-code-editor {
+        box-shadow: none;
+        border: 1px solid #000;
+        break-inside: avoid;
+    }
+
+    .heasec-code-editor-actions,
+    .heasec-preview-refresh {
+        display: none;
+    }
+
+    .heasec-code-editor-divider {
+        background: #000;
+    }
+}
+
+/* ==================== 放大/扩展样式 ==================== */
+/* 扩展状态：编辑器在容器内扩展，代码和预览垂直排列 */
+.heasec-code-editor.expanded {
+    /* 保持容器宽度不变 */
+    width: 100%;
+    /* 编辑器主内容区域垂直布局 */
+    flex-direction: column;
+}
+
+.heasec-code-editor.expanded .heasec-code-editor-main {
+    flex-direction: column;
+}
+
+.heasec-code-editor.expanded .heasec-editor-pane,
+.heasec-code-editor.expanded .heasec-preview-pane {
+    flex: none;
+    width: 100% !important;
+    min-height: 400px;
+    max-height: none;
+}
+
+.heasec-code-editor.expanded .heasec-editor-pane {
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.heasec-code-editor.expanded .heasec-code-editor-divider {
+    display: none;
+}
+
+.heasec-code-editor.expanded .heasec-code-editor-container,
+.heasec-code-editor.expanded .heasec-code-editor-wrapper,
+.heasec-code-editor.expanded .heasec-code-textarea,
+.heasec-code-editor.expanded .heasec-code-highlight {
+    height: 400px !important;
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.heasec-code-editor.expanded .heasec-line-numbers {
+    height: 400px !important;
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.heasec-code-editor.expanded .heasec-preview-content {
+    /* 移除固定高度，让JavaScript动态设置的高度生效 */
+    /* height由_adjustHeight函数动态设置 */
+}
+
+/* 放大按钮激活状态 */
+.heasec-code-editor.expanded .fa-search-plus:before {
+    content: "\f066"; /* fa-search-minus icon */
+}
+
+.heasec-code-editor.expanded .heasec-editor-actions[title="放大/缩小"]:hover i {
+    transform: scale(1.1);
+}
+
+/* ==================== 懒加载占位符样式 ==================== */
+.heasec-code-editor-placeholder {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 123, 255, 0.1);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    margin-bottom: 25px;
+    max-width: none;
+    width: 100%;
+    min-height: 200px;
+}
+
+.heasec-code-editor-placeholder .heasec-code-editor-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heasec-code-editor-placeholder .heasec-code-editor-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heasec-code-editor-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #6c757d;
+    font-size: 16px;
+    min-height: 200px;
+}
+
+.heasec-code-editor-loading i {
+    font-size: 32px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.heasec-code-editor-loading span {
+    color: #495057;
+}

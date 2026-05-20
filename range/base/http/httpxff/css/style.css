@@ -1,0 +1,271 @@
+/**
+ * HeaSec天积安全团队 - HTTP 代理IP请求头靶场样式
+ * 版本: v1.0.0 (优化版)
+ * 创建日期: 2025-11-07
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 此文件已整合到heasec_range.css中，仅保留站点特定样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* httpff站点使用水平布局，在heasec_range.css中已支持 */
+
+/* ==========================================
+   模态框按钮样式优化 - 与前台保持一致
+   ========================================== */
+
+/* 覆盖公共模态框的按钮样式，与网站前台保持一致 */
+.heasec-modal .modal-footer .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    min-width: 100px;
+    justify-content: center;
+}
+
+/* 移除公共模态框中的hover效果（transform和box-shadow），保持简洁 */
+.heasec-modal .modal-footer .btn:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* 次要按钮样式 - 取消按钮 */
+.heasec-modal .modal-footer .btn-secondary,
+.heasec-modal .modal-footer .btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-secondary:hover,
+.heasec-modal .modal-footer .btn-cancel:hover {
+    background: #5a6268;
+}
+
+/* 主要按钮样式 - 确认按钮 */
+.heasec-modal .modal-footer .btn-primary,
+.heasec-modal .modal-footer .btn-confirm {
+    background: #007bff;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-primary:hover,
+.heasec-modal .modal-footer .btn-confirm:hover {
+    background: #0056b3;
+}
+
+/* 危险按钮样式 - 重置按钮 */
+.heasec-modal .modal-footer .btn-danger,
+.heasec-modal .modal-footer .btn-reset {
+    background: #dc3545;
+    color: white;
+}
+
+.heasec-modal .modal-footer .btn-danger:hover,
+.heasec-modal .modal-footer .btn-reset:hover {
+    background: #c82333;
+}
+
+/* 禁用状态 */
+.heasec-modal .modal-footer .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 模态框按钮组间距优化 */
+.heasec-modal .modal-footer {
+    gap: 10px;
+}
+
+.heasec-modal .modal-footer .btn:not(:last-child) {
+    margin-right: 10px;
+}
+
+/* ==========================================
+   成就展示和数据记录样式（站点特有）
+   ========================================== */
+
+/* 成就展示区域 */
+.achievement-display {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.achievement-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+.achievement-stars {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.achievement-count {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* 数据记录展示 */
+.records-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.record-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    border-left: 3px solid #007BFF;
+}
+
+.record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.record-name {
+    font-weight: 600;
+    color: #007BFF;
+}
+
+.record-count {
+    font-size: 12px;
+    background: #007BFF;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.record-time {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* ==========================================
+   祝贺消息样式（站点特有）
+   ========================================== */
+
+.congratulations-message {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+    border-radius: 15px;
+    border: 2px solid #28a745;
+    margin: 20px 0;
+}
+
+.congratulations-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.congratulations-text {
+    font-size: 18px;
+    color: #155724;
+    margin-bottom: 20px;
+}
+
+.congratulations-emoji {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* ==========================================
+   粒子效果样式（站点特有）
+   ========================================== */
+
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.particle {
+    position: absolute;
+    font-size: 20px;
+    animation: particle-float 3s ease-in-out;
+    opacity: 0;
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ==========================================
+   禁用动画的类（站点特有功能）
+   ========================================== */
+
+.no-animation {
+    animation: none !important;
+}
+
+/* ==========================================
+   响应式调整（站点特定）
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* 小屏幕下成就展示样式调整 */
+    .achievement-display {
+        padding: 20px 0;
+    }
+    
+    .achievement-stars {
+        gap: 15px;
+    }
+    
+    .congratulations-message {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* 更小屏幕下样式调整 */
+    .achievement-display {
+        padding: 15px 0;
+    }
+    
+    .achievement-title {
+        font-size: 20px;
+    }
+    
+    .congratulations-title {
+        font-size: 24px;
+    }
+    
+    .congratulations-emoji {
+        font-size: 36px;
+    }
+}

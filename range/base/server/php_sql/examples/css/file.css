@@ -1,0 +1,171 @@
+/**
+ * HeaSec天积安全团队 - PHP文件处理示例样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-30
+ * 说明: 文件管理页面的样式表
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"], input[type="file"], textarea {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+    font-family: monospace;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background: #5568d3;
+}
+
+.btn-delete {
+    background: #f44336;
+}
+
+.btn-delete:hover {
+    background: #d32f2f;
+}
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.message.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
+}
+
+.message.error {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+/* 表格响应式容器 */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th, td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+th {
+    background: #f5f5f5;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 操作列特别处理 */
+td:last-child, th:last-child {
+    white-space: nowrap;
+    min-width: 150px;
+}
+
+a {
+    color: #667eea;
+    text-decoration: none;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+/* 响应式：超窄屏幕下调整字体和间距 */
+@media screen and (max-width: 480px) {
+    th, td {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+    a {
+        font-size: 12px;
+        padding: 4px 8px;
+        margin-right: 4px;
+    }
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.file-content {
+    background: #f5f5f5;
+    padding: 15px;
+    margin-top: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}

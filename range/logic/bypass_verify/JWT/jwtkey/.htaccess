@@ -1,0 +1,12 @@
+# HeaSec JWT密钥注入靶场 - Apache配置
+# 解决Authorization头不被传递的问题
+
+# 开启rewrite引擎
+RewriteEngine On
+
+# 将Authorization头传递给PHP
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+# 备用方案：使用SetEnvIf
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1

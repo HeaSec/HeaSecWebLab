@@ -1,0 +1,137 @@
+<?php
+/**
+ * HeaSec天积安全团队 - 反序列化实战靶场 - 第二关
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-15
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+// 设置响应头
+header('X-HeavenlySecret: HeaSec DeserAdv Range v1.0.0');
+header('Content-Type: text/html; charset=utf-8');
+
+// 设置页面变量
+$pageTitle = '反序列化实战 - 第二关';
+$rangeName = '反序列化实战';
+$showVersion = false;
+$showResetButton = true;
+$version = 'v1.0.0';
+
+// 设置公共组件的基础路径
+$commonBasePath = '../../../common/';
+
+// 当前关卡配置
+$currentLevel = 2;
+$nextPage = 'level3.php';
+$nextBtnText = '下一关';
+
+// 引入公共头部
+require_once $commonBasePath . 'includes/header.php';
+
+// 引入星星系统组件（恭喜弹窗）
+require_once $commonBasePath . 'components/star-system/includes/HeaSec_StarSystem.php';
+echo HeaSec_StarSystem::renderAssets($commonBasePath, ['congrats' => true]);
+
+// 引入公共函数
+require_once 'includes/functions.php';
+
+// 确保当前关卡的secret文件存在
+$secretPath = getSecretFilePath($currentLevel);
+generateSecretFile($secretPath);
+?>
+
+<!-- 引入统一样式文件 -->
+<link rel="stylesheet" href="<?php echo $commonBasePath; ?>css/heasec_range.css">
+<!-- 引入站点特定样式文件 -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- 靶场主要内容 -->
+<div class="tech-container">
+    <!-- 数据处理卡片 -->
+    <div class="tech-card">
+        <div class="tech-card-header">
+            <h3>
+                <i class="fa fa-puzzle-piece"></i>
+                <span>天积插件管理系统 - 插件配置</span>
+            </h3>
+        </div>
+        <div class="tech-card-body">
+            <!-- 安全防护提示 -->
+            <div class="alert-info">
+                <i class="fa fa-shield"></i>
+                <span>当前系统的插件配置导入接口支持通过序列化数据加载插件配置，反序列化时会自动触发插件的初始化流程。系统包含多个相互关联的功能模块（插件管理器、日志记录器、缓存清理器、文件读取器），它们通过魔术方法形成调用链</span>
+            </div>
+
+            <!-- 任务提示 -->
+            <div class="alert-warning">
+                <div>
+                    <strong>任务目标：</strong>
+                    <small>构造序列化字符串获取通关密码。提示：仔细分析各个类之间的调用关系，特别是 __destruct 和 __toString 等魔术方法的触发条件。你需要像搭积木一样把多个类的实例串联起来，形成一个完整的利用链。注意不同访问修饰符（public/protected/private）的属性在序列化字符串中的格式差异</small>
+                </div>
+            </div>
+
+            <!-- 序列化数据输入区域 -->
+            <div class="submit-section">
+                <textarea id="serializedData" placeholder="请阅读关键类定义，输入序列化字符串，提交后系统会自动进行反序列化操作"></textarea>
+                <div class="submit-actions">
+                    <button type="button" id="submitBtn" class="tech-btn tech-btn-primary">
+                        <i class="fa fa-paper-plane"></i> 提交
+                    </button>
+                    <button type="button" id="sourceCodeBtn" class="tech-btn tech-btn-info">
+                        <i class="fa fa-code"></i> 查看源代码
+                    </button>
+                </div>
+            </div>
+
+            <!-- 源码展示区域（默认隐藏，内容由JS动态渲染） -->
+            <div id="sourceArea" class="source-display" style="display: none;"></div>
+
+            <!-- 反序列化结果区域 -->
+            <div id="resultArea" style="display: none;"></div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- 通关验证卡片 -->
+    <div class="tech-card">
+        <div class="tech-card-header">
+            <h3>
+                <i class="fa fa-trophy"></i>
+                <span>通关验证</span>
+            </h3>
+        </div>
+        <div class="tech-card-body">
+            <form id="verifyForm" class="tech-form">
+                <div class="form-group">
+                    <label for="passcode" class="form-label">
+                        <i class="fa fa-key"></i> 通关密码
+                    </label>
+                    <input type="text" id="passcode" name="passcode" class="tech-input" placeholder="请输入通关密码" autocomplete="off">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="tech-btn tech-btn-primary">
+                        <i class="fa fa-check"></i> 提交
+                    </button>
+                    <a href="<?php echo htmlspecialchars($nextPage); ?>" id="nextLevelBtn" class="tech-btn tech-btn-success" style="display: none;">
+                        <i class="fa fa-arrow-right"></i> <?php echo htmlspecialchars($nextBtnText); ?>
+                    </a>
+                </div>
+                <div id="verifyResultArea" class="detection-result" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入交互脚本 -->
+<script src="js/deseradv.js?v=<?php echo $version; ?>"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initDeserAdv(<?php echo $currentLevel; ?>, '<?php echo $commonBasePath; ?>');
+    });
+</script>
+
+<?php
+// 引入公共底部
+require_once $commonBasePath . 'includes/footer.php';
+?>

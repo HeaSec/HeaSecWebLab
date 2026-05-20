@@ -1,0 +1,431 @@
+/**
+ * HeaSec天积安全团队 - 回显型命令注入靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-22
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-info i {
+    color: #17a2b8;
+    font-size: 16px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   输入区域
+   ========================================== */
+
+.input-section {
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.input-group .tech-input {
+    flex: 1;
+    height: 48px;
+    font-size: 16px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group .tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.submit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================
+   命令输出区域（终端风格）
+   ========================================== */
+
+.output-area {
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.output-area h4 {
+    color: #495057;
+    margin-bottom: 12px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.output-area h4 i {
+    color: #6c757d;
+}
+
+.terminal-output {
+    background: #1a1a2e;
+    color: #00ff88;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Courier New', Consolas, 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 400px;
+    overflow-y: auto;
+    min-height: 80px;
+    border: 1px solid #2d2d44;
+}
+
+.terminal-output:empty::before {
+    content: '等待执行...';
+    color: #555;
+    font-style: italic;
+}
+
+.terminal-output .cmd-prompt {
+    color: #ff6b6b;
+}
+
+/* ==========================================
+   通关状态区域
+   ========================================== */
+
+.level-status-area {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+.status-card {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.status-card .status-icon {
+    font-size: 36px;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.status-card .status-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #155724;
+    margin-bottom: 8px;
+}
+
+.status-card .status-desc {
+    font-size: 14px;
+    color: #1e7e34;
+    margin-bottom: 15px;
+}
+
+/* ==========================================
+   表单和按钮样式
+   ========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    display: block;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.tech-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tech-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tech-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.tech-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+}
+
+.tech-btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-info:hover {
+    background: linear-gradient(135deg, #117a8b 0%, #0c5460 100%);
+}
+
+.tech-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.tech-btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+}
+
+.tech-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   卡片标题区域
+   ========================================== */
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-card-header h3 {
+    margin: 0;
+}
+
+.detection-result {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   响应式调整
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .submit-actions,
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group .tech-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .terminal-output {
+        font-size: 12px;
+        padding: 15px;
+    }
+}

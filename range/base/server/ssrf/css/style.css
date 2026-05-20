@@ -1,0 +1,488 @@
+/**
+ * HeaSec天积安全团队 - SSRF漏洞靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-06
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 750px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   URL输入区域
+   ========================================== */
+
+.url-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.url-input-group .tech-input {
+    flex: 1;
+    font-size: 14px;
+    padding: 12px 16px;
+}
+
+.url-input-group .tech-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   结果展示区域
+   ========================================== */
+
+.result-area {
+    margin-top: 20px;
+    min-height: 60px;
+}
+
+.result-placeholder {
+    text-align: center;
+    padding: 30px 20px;
+    color: #6c757d;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.result-placeholder i {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+    color: #adb5bd;
+}
+
+.result-content {
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    padding: 16px;
+    animation: fadeIn 0.3s ease;
+}
+
+.result-content .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.result-content .result-type {
+    font-weight: 600;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.result-type.type-image {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.result-type.type-text {
+    background: #d4edda;
+    color: #155724;
+}
+
+.result-type.type-file {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.result-type.type-dict {
+    background: #e2d5f1;
+    color: #5b21b6;
+}
+
+.result-type.type-gopher {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.result-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #495057;
+}
+
+.result-body pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* 图片预览 */
+.result-image-preview {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.result-image-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+/* AI识别失败卡片 */
+.recognition-failure {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+}
+
+.recognition-failure .failure-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #856404;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.recognition-failure .failure-header i {
+    font-size: 18px;
+}
+
+.recognition-failure .failure-message {
+    color: #856404;
+    font-size: 13px;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.raw-response-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #495057;
+    font-size: 13px;
+    padding: 6px 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.raw-response-toggle:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+.raw-response-toggle i {
+    font-size: 11px;
+    transition: transform 0.2s;
+}
+
+.raw-response-body {
+    margin-top: 8px;
+}
+
+.raw-response-body pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 14px 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+/* 十六进制视图切换 */
+.view-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.view-toggle-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+    border: 1px solid #dee2e6;
+    background: #fff;
+    color: #6c757d;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.view-toggle-btn.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* 加载动画 */
+.loading-spinner {
+    text-align: center;
+    padding: 30px;
+}
+
+.loading-spinner .fa-spinner {
+    font-size: 28px;
+    color: #007bff;
+    animation: spin 1s linear infinite;
+}
+
+.loading-spinner p {
+    margin-top: 10px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* ==========================================
+   请求历史
+   ========================================== */
+
+.history-section {
+    margin-top: 20px;
+    border-top: 1px solid #e9ecef;
+    padding-top: 16px;
+}
+
+.history-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 13px;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.history-toggle:hover {
+    color: #495057;
+}
+
+.history-toggle i.toggle-icon {
+    transition: transform 0.2s;
+}
+
+.history-toggle.expanded i.toggle-icon {
+    transform: rotate(90deg);
+}
+
+.history-list {
+    display: none;
+    margin-top: 10px;
+}
+
+.history-list.show {
+    display: block;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    animation: fadeIn 0.3s ease;
+}
+
+.history-item .history-index {
+    color: #adb5bd;
+    font-weight: 600;
+    min-width: 20px;
+}
+
+.history-item .history-url {
+    flex: 1;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.history-item .history-type {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.history-item .history-time {
+    color: #adb5bd;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   端口扫描页面
+   ========================================== */
+
+.port-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+}
+
+.port-table th {
+    background: #f8f9fa;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.port-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.port-table tr:hover {
+    background: #f8f9fa;
+}
+
+.port-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.port-status.open {
+    background: #d4edda;
+    color: #155724;
+}
+
+.port-status.closed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.no-ports {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.no-ports i {
+    font-size: 28px;
+    margin-bottom: 8px;
+    display: block;
+    color: #adb5bd;
+}
+
+/* ==========================================
+   动画
+   ========================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   响应式
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .url-input-group {
+        flex-direction: column;
+    }
+
+    .url-input-group .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .history-item {
+        flex-wrap: wrap;
+    }
+
+    .port-table {
+        font-size: 12px;
+    }
+
+    .port-table th,
+    .port-table td {
+        padding: 8px 6px;
+    }
+}

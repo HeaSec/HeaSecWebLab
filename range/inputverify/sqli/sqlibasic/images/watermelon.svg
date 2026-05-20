@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <ellipse cx="100" cy="120" rx="75" ry="60" fill="#38a169"/>
+  <ellipse cx="100" cy="120" rx="75" ry="60" fill="url(#watermelonGrad)"/>
+  <path d="M30 100 Q50 85 70 100 Q90 85 110 100 Q130 85 150 100 Q170 85 180 100" fill="none" stroke="#276749" stroke-width="3"/>
+  <path d="M100 65 Q98 45 105 30" fill="none" stroke="#744210" stroke-width="3" stroke-linecap="round"/>
+  <defs>
+    <radialGradient id="watermelonGrad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#68d391"/>
+      <stop offset="50%" stop-color="#38a169"/>
+      <stop offset="100%" stop-color="#276749"/>
+    </radialGradient>
+  </defs>
+</svg>

@@ -1,0 +1,147 @@
+{
+    "description": "HTTP状态行解析模板",
+    "version": "1.0.0",
+    "team": "HeaSec天积安全团队",
+    "templates": {
+        "http_versions": {
+            "HTTP/1.0": {
+                "current_value": "HTTP/1.0",
+                "analysis": "本次响应中使用的HTTP版本为HTTP/1.0，该版本的主要特点是每次请求都需要建立新的TCP连接，请求完成后连接即关闭。\n优点：实现简单，兼容性好。\n缺点：每次建立连接都有开销，性能较差。"
+            },
+            "HTTP/1.1": {
+                "current_value": "HTTP/1.1",
+                "analysis": "本次响应中使用的HTTP版本为HTTP/1.1，该版本的主要特点是支持持久连接（keep-alive），可以在一个TCP连接上发送多个请求和响应，减少了连接建立和关闭的开销。\n优点：性能更好，支持管道化，缓存机制更完善。\n缺点：协议相对复杂，存在队头阻塞问题。"
+            },
+            "HTTP/2": {
+                "current_value": "HTTP/2",
+                "analysis": "本次响应中使用的HTTP版本为HTTP/2，该版本的主要特点是基于二进制协议，支持多路复用（multiple requests over a single connection），可以同时发送多个请求和响应，提高了传输效率。\n优点：性能大幅提升，支持服务器推送，头部压缩。\n缺点：实现复杂，需要TLS支持。"
+            }
+        },
+        "status_codes": {
+            "200": {
+                "current_value": "200",
+                "category": "2xx（成功状态码）",
+                "analysis": "本次响应中使用的状态码为200，表示请求已成功处理，服务器已成功接收、理解并接受了客户端的请求。\n说明：这是最常见的成功状态码，表示请求正常完成。"
+            },
+            "201": {
+                "current_value": "201",
+                "category": "2xx（成功状态码）",
+                "analysis": "本次响应中使用的状态码为201，表示请求成功并且服务器创建了新的资源。\n说明：常用于POST请求创建新资源成功后的响应。"
+            },
+            "204": {
+                "current_value": "204",
+                "category": "2xx（成功状态码）",
+                "analysis": "本次响应中使用的状态码为204，表示请求成功处理，但没有返回任何内容。\n说明：常用于DELETE请求成功删除资源后的响应。"
+            },
+            "301": {
+                "current_value": "301",
+                "category": "3xx（重定向状态码）",
+                "analysis": "本次响应中使用的状态码为301，表示请求的资源已经永久移动到新的URL。\n说明：搜索引擎会更新索引，浏览器会缓存重定向信息。"
+            },
+            "302": {
+                "current_value": "302",
+                "category": "3xx（重定向状态码）",
+                "analysis": "本次响应中使用的状态码为302，表示请求的资源临时移动到新的URL。\n说明：搜索引擎不会更新索引，浏览器不会缓存重定向信息。"
+            },
+            "304": {
+                "current_value": "304",
+                "category": "3xx（重定向状态码）",
+                "analysis": "本次响应中使用的状态码为304，表示资源未修改，可以使用缓存的版本。\n说明：用于条件GET请求，节省带宽。"
+            },
+            "400": {
+                "current_value": "400",
+                "category": "4xx（客户端错误状态码）",
+                "analysis": "本次响应中使用的状态码为400，表示客户端请求有语法错误，服务器无法理解。\n说明：可能是请求格式错误、参数缺失或格式不正确。"
+            },
+            "401": {
+                "current_value": "401",
+                "category": "4xx（客户端错误状态码）",
+                "analysis": "本次响应中使用的状态码为401，表示请求未经授权，需要身份验证。\n说明：客户端需要提供有效的身份凭据才能访问资源。"
+            },
+            "403": {
+                "current_value": "403",
+                "category": "4xx（客户端错误状态码）",
+                "analysis": "本次响应中使用的状态码为403，表示服务器拒绝提供服务。\n说明：即使身份验证通过，客户端也没有权限访问请求的资源。"
+            },
+            "404": {
+                "current_value": "404",
+                "category": "4xx（客户端错误状态码）",
+                "analysis": "本次响应中使用的状态码为404，表示客户端请求的资源不存在，服务器无法找到请求的资源。\n说明：可能是URL错误、资源已删除或路径不正确。"
+            },
+            "405": {
+                "current_value": "405",
+                "category": "4xx（客户端错误状态码）",
+                "analysis": "本次响应中使用的状态码为405，表示请求方法不被允许。\n说明：客户端使用的HTTP方法对目标资源不可用。"
+            },
+            "500": {
+                "current_value": "500",
+                "category": "5xx（服务器错误状态码）",
+                "analysis": "本次响应中使用的状态码为500，表示服务器内部错误，服务器在处理请求时发生了意外情况，无法完成请求。\n说明：通常是服务器程序错误、配置错误或资源不可用。"
+            },
+            "502": {
+                "current_value": "502",
+                "category": "5xx（服务器错误状态码）",
+                "analysis": "本次响应中使用的状态码为502，表示网关或代理服务器错误。\n说明：作为网关或代理的服务器从上游服务器收到了无效响应。"
+            },
+            "503": {
+                "current_value": "503",
+                "category": "5xx（服务器错误状态码）",
+                "analysis": "本次响应中使用的状态码为503，表示服务不可用。\n说明：服务器暂时过载或正在进行维护，无法处理请求。"
+            }
+        },
+        "status_phrases": {
+            "OK": {
+                "current_value": "OK",
+                "analysis": "本次响应中使用的状态描述为OK，表示请求已成功处理，是状态码200的默认描述。\n说明：最常见的成功状态描述。"
+            },
+            "Created": {
+                "current_value": "Created",
+                "analysis": "本次响应中使用的状态描述为Created，表示资源已成功创建，是状态码201的默认描述。\n说明：用于资源创建成功的场景。"
+            },
+            "No Content": {
+                "current_value": "No Content",
+                "analysis": "本次响应中使用的状态描述为No Content，表示成功处理但无返回内容，是状态码204的默认描述。\n说明：常用于DELETE操作。"
+            },
+            "Moved Permanently": {
+                "current_value": "Moved Permanently",
+                "analysis": "本次响应中使用的状态描述为Moved Permanently，表示资源已永久移动，是状态码301的默认描述。\n说明：永久重定向的标准描述。"
+            },
+            "Found": {
+                "current_value": "Found",
+                "analysis": "本次响应中使用的状态描述为Found，表示资源临时移动，是状态码302的默认描述。\n说明：临时重定向的标准描述。"
+            },
+            "Not Modified": {
+                "current_value": "Not Modified",
+                "analysis": "本次响应中使用的状态描述为Not Modified，表示资源未修改，是状态码304的默认描述。\n说明：缓存验证成功的标准描述。"
+            },
+            "Bad Request": {
+                "current_value": "Bad Request",
+                "analysis": "本次响应中使用的状态描述为Bad Request，表示请求有误，是状态码400的默认描述。\n说明：客户端请求错误的标准描述。"
+            },
+            "Unauthorized": {
+                "current_value": "Unauthorized",
+                "analysis": "本次响应中使用的状态描述为Unauthorized，表示未授权访问，是状态码401的默认描述。\n说明：需要身份验证的标准描述。"
+            },
+            "Forbidden": {
+                "current_value": "Forbidden",
+                "analysis": "本次响应中使用的状态描述为Forbidden，表示禁止访问，是状态码403的默认描述。\n说明：权限不足的标准描述。"
+            },
+            "Not Found": {
+                "current_value": "Not Found",
+                "analysis": "本次响应中使用的状态描述为Not Found，表示资源不存在，是状态码404的默认描述。\n说明：资源未找到的标准描述。"
+            },
+            "Internal Server Error": {
+                "current_value": "Internal Server Error",
+                "analysis": "本次响应中使用的状态描述为Internal Server Error，表示服务器内部错误，是状态码500的默认描述。\n说明：服务器错误的标准描述。"
+            },
+            "Bad Gateway": {
+                "current_value": "Bad Gateway",
+                "analysis": "本次响应中使用的状态描述为Bad Gateway，表示网关错误，是状态码502的默认描述。\n说明：网关服务器的标准错误描述。"
+            },
+            "Service Unavailable": {
+                "current_value": "Service Unavailable",
+                "analysis": "本次响应中使用的状态描述为Service Unavailable，表示服务不可用，是状态码503的默认描述。\n说明：服务过载或维护的标准描述。"
+            }
+        }
+    }
+}

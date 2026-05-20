@@ -1,0 +1,942 @@
+/**
+ * HeaSec天积安全团队 - 靶场统一组件库
+ * Unified CSS Components for Ranges
+ * 版本: v2.0.0
+ * 创建日期: 2025-11-18
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 整合所有站点的公共组件，支持垂直和水平两种布局模式
+ */
+
+/* ==========================================
+   CSS变量定义
+   ========================================== */
+:root {
+  /* 主色调 */
+  --heasec-primary-color: #007BFF;
+  --heasec-primary-dark: #0056b3;
+  --heasec-primary-light: #E3F2FD;
+
+  /* 状态颜色 */
+  --heasec-success-color: #28a745;
+  --heasec-success-light: rgba(40, 167, 69, 0.1);
+  --heasec-warning-color: #ffc107;
+  --heasec-warning-light: rgba(255, 193, 7, 0.1);
+  --heasec-error-color: #dc3545;
+  --heasec-error-light: rgba(220, 53, 69, 0.1);
+  --heasec-info-color: #17a2b4;
+  --heasec-info-light: rgba(23, 162, 184, 0.1);
+
+  /* 布局变量 */
+  --heasec-container-gap: 25px;
+  --heasec-card-radius: 15px;
+  --heasec-card-padding: 25px;
+  --heasec-form-gap: 20px;
+  --heasec-btn-padding: 12px 24px;
+
+  /* 阴影 */
+  --heasec-shadow-light: 0 8px 32px rgba(0, 123, 255, 0.1);
+  --heasec-shadow-medium: 0 4px 15px rgba(0, 123, 255, 0.3);
+  --heasec-shadow-heavy: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* ==========================================
+   容器布局系统
+   ========================================== */
+
+/* 垂直布局 - 用于单列内容 */
+.tech-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--heasec-container-gap);
+}
+
+/* 水平布局 - 用于多列并排 */
+.range-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: var(--heasec-container-gap);
+  align-items: stretch;
+}
+
+/* 大屏幕下设置最小宽度，确保卡片能够达到理想宽度 */
+@media (min-width: 1400px) {
+  .range-container {
+    min-width: 900px;
+  }
+}
+
+/* 响应式自动切换 */
+@media (max-width: 768px) {
+  .range-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ==========================================
+   科技感卡片组件
+   ========================================== */
+
+.tech-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.9) 100%);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+  border-radius: var(--heasec-card-radius);
+  box-shadow:
+    var(--heasec-shadow-light),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  flex: 1 1 400px;
+  min-width: 320px;
+}
+
+.tech-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 123, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* 卡片头部 */
+.tech-card-header {
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 86, 179, 0.05) 100%);
+  padding: 20px 25px 15px;
+  border-bottom: 1px solid rgba(0, 123, 255, 0.15);
+  position: relative;
+}
+
+.tech-card-header h3 {
+  color: var(--heasec-primary-color);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 0 1px 2px rgba(0, 123, 255, 0.1);
+}
+
+.tech-card-header h3 i {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* 卡片内容区域 */
+.tech-card-body {
+  padding: var(--heasec-card-padding);
+}
+
+/* ==========================================
+   提示框组件
+   ========================================== */
+
+.alert {
+  padding: 18px 20px;
+  border-radius: 10px;
+  border-left: 4px solid;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.alert:hover {
+  transform: translateX(2px);
+}
+
+.alert-info {
+  background: linear-gradient(135deg, rgba(23, 162, 184, 0.18) 0%, rgba(23, 162, 184, 0.08) 100%);
+  border-left-color: #17a2b8;
+  color: #117a8b;
+}
+
+.alert-info i {
+  color: #17a2b8;
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, var(--heasec-success-light) 0%, rgba(40, 167, 69, 0.05) 100%);
+  border-left-color: var(--heasec-success-color);
+  color: #155724;
+}
+
+.alert-success i {
+  color: var(--heasec-success-color);
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, var(--heasec-warning-light) 0%, rgba(255, 193, 7, 0.05) 100%);
+  border-left-color: var(--heasec-warning-color);
+  color: #856404;
+}
+
+.alert-warning i {
+  color: var(--heasec-warning-color);
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-error {
+  background: linear-gradient(135deg, var(--heasec-error-light) 0%, rgba(220, 53, 69, 0.05) 100%);
+  border-left-color: var(--heasec-error-color);
+  color: #721c24;
+}
+
+.alert-error i {
+  color: var(--heasec-error-color);
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert strong {
+  font-weight: 600;
+  flex: 1;
+}
+
+.alert-hint {
+  margin: 8px 0 0 32px;
+  opacity: 0.85;
+  font-size: 14px;
+  font-style: italic;
+  display: block;
+  width: 100%;
+}
+
+/* ==========================================
+   信息面板组件
+   ========================================== */
+
+.tech-info-panel {
+  background: linear-gradient(135deg, rgba(240, 248, 255, 0.8) 0%, rgba(230, 244, 255, 0.6) 100%);
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.tech-info-panel h4 {
+  color: var(--heasec-primary-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(3px);
+}
+
+.info-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 14px;
+}
+
+.info-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.info-value code {
+  background: rgba(0, 123, 255, 0.1);
+  color: var(--heasec-primary-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+/* ==========================================
+   徽章组件
+   ========================================== */
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-success {
+  background: linear-gradient(135deg, var(--heasec-success-color) 0%, #20c997 100%);
+  color: white;
+}
+
+.badge-warning {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.7) 0%, rgba(253, 126, 20, 0.7) 100%);
+  color: #495057;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* ==========================================
+   表单组件
+   ========================================== */
+
+.tech-form {
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: var(--heasec-form-gap);
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.form-label i {
+  color: var(--heasec-primary-color);
+  font-size: 14px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tech-input {
+  display: block;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 45px 12px 15px;
+  border: 2px solid rgba(0, 123, 255, 0.2);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.tech-input:focus {
+  border-color: var(--heasec-primary-color);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.tech-input::placeholder {
+  color: #6c757d;
+  opacity: 0.7;
+}
+
+.input-length {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--heasec-primary-color);
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.form-help {
+  display: block;
+  margin-top: 8px;
+  color: #6c757d;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ==========================================
+   按钮组件
+   ========================================== */
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tech-btn {
+  padding: var(--heasec-btn-padding);
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.tech-btn:hover::before {
+  left: 100%;
+}
+
+.tech-btn-primary {
+  background: linear-gradient(135deg, var(--heasec-primary-color) 0%, var(--heasec-primary-dark) 100%);
+  color: white;
+  box-shadow: var(--heasec-shadow-medium);
+}
+
+.tech-btn-primary:hover {
+  background: linear-gradient(135deg, var(--heasec-primary-dark) 0%, #004085 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--heasec-shadow-heavy);
+}
+
+.tech-btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.tech-btn-secondary:hover {
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+.tech-btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.tech-btn-success:hover {
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
+}
+
+.tech-btn-info {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+}
+
+.tech-btn-info:hover {
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+  transform: translateY(-2px);
+}
+
+.tech-btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+}
+
+.tech-btn-danger:hover {
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   操作提示组件
+   ========================================== */
+
+.tech-tips {
+  background: linear-gradient(135deg, var(--heasec-info-light) 0%, rgba(23, 162, 184, 0.05) 100%);
+  border: 1px solid rgba(23, 162, 184, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.tech-tips h4 {
+  color: var(--heasec-info-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tech-tips ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #495057;
+}
+
+.tech-tips li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.tech-tips li:last-child {
+  margin-bottom: 0;
+}
+
+.tech-tips code {
+  background: var(--heasec-info-light);
+  color: var(--heasec-info-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+/* ==========================================
+   检测结果区域
+   ========================================== */
+
+.detection-result {
+  margin-bottom: 25px;
+}
+
+.detection-result:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   标题样式
+   ========================================== */
+
+/* 信息面板中的标题样式 */
+.tech-card-body>h4:first-child {
+  color: var(--heasec-primary-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================
+   响应式设计
+   ========================================== */
+
+
+@media (max-width: 992px) {
+
+  .tech-container,
+  .range-container {
+    gap: 20px;
+  }
+
+  .tech-card-header h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .tech-container,
+  .range-container {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .tech-card-header {
+    padding: 15px 20px 12px;
+  }
+
+  .tech-card-header h3 {
+    font-size: 18px;
+  }
+
+  .tech-card-body {
+    padding: 20px;
+  }
+
+  .alert {
+    padding: 15px 18px;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .alert i {
+    font-size: 24px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .tech-info-panel {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .tech-container,
+  .range-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .tech-btn span:last-child {
+    display: none;
+    /* 小屏幕时只显示图标 */
+  }
+}
+
+@media (max-width: 480px) {
+
+  .tech-container,
+  .range-container {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .tech-info-panel h4 {
+    font-size: 15px;
+  }
+
+  .info-item {
+    padding: 8px 12px;
+  }
+
+  .info-label {
+    font-size: 13px;
+  }
+
+  .tech-input {
+    font-size: 16px;
+    /* 防止iOS放大 */
+  }
+}
+
+/* ==========================================
+   深色模式适配
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+  .tech-card {
+    background: linear-gradient(135deg, rgba(30, 40, 50, 0.95) 0%, rgba(20, 30, 40, 0.9) 100%);
+    border-color: rgba(0, 123, 255, 0.3);
+  }
+
+  .tech-card-header {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.2) 0%, rgba(0, 86, 179, 0.1) 100%);
+  }
+
+  .alert {
+    background: rgba(40, 50, 60, 0.8);
+  }
+
+  .tech-info-panel {
+    background: linear-gradient(135deg, rgba(30, 40, 50, 0.8) 0%, rgba(20, 30, 40, 0.6) 100%);
+  }
+
+  .info-item {
+    background: rgba(40, 50, 60, 0.7);
+  }
+
+  .info-label {
+    color: #e9ecef;
+  }
+
+  .tech-input {
+    background: rgba(40, 50, 60, 0.9);
+    color: #e9ecef;
+    border-color: rgba(0, 123, 255, 0.3);
+  }
+
+  .form-label {
+    color: #e9ecef;
+  }
+}
+
+/* ==========================================
+   滚动条样式
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 123, 255, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 123, 255, 0.7);
+}
+
+/* ==========================================
+   入场动画
+   ========================================== */
+
+.tech-container,
+.range-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   星星系统样式（公共组件扩展）
+   ========================================== */
+
+/* 为外部标题添加样式 */
+.tech-card-body>h4:first-child {
+  color: var(--heasec-primary-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 星星系统在信息面板中的特殊样式 */
+.tech-info-panel .heasec-star-system {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  padding: 10px 15px;
+  transition: all 0.2s ease;
+  max-width: 100%;
+  overflow: hidden;
+  animation: none;
+}
+
+/* 清除星星系统默认样式 */
+.tech-info-panel .heasec-star-system,
+.tech-info-panel .heasec-star-system * {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.tech-info-panel .heasec-star-system:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* 星星悬停交互效果 */
+.tech-info-panel .heasec-star-system .heasec-star.heasec-star-unlocking {
+  animation: none;
+}
+
+.tech-info-panel .heasec-star-system .heasec-star.heasec-star-gold:hover {
+  transform: translateY(-4px) rotate(5deg);
+}
+
+.tech-info-panel .heasec-star-system .heasec-star.heasec-star-gray:hover {
+  transform: translateY(-2px);
+}
+
+/* 星星粒子效果 */
+.tech-info-panel .heasec-star.heasec-star-gold:hover .star-particle {
+  background: radial-gradient(circle, #FFD700 0%, transparent 70%) !important;
+  box-shadow: 0 0 8px #FFD700, 0 0 12px #FFA500 !important;
+  animation: heasec-particleFloat 3s ease-in-out infinite !important;
+}
+
+/* 确保粒子在悬停时可见 */
+.tech-info-panel .heasec-star.heasec-star-gold:hover .star-particles {
+  animation: heasec-particleBurst 2s ease-out 0s infinite !important;
+}
+
+/* 粒子动画关键帧 */
+@keyframes heasec-particleFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heasec-particleBurst {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 检测结果区域 */
+.detection-result {
+  margin-bottom: 25px;
+}
+
+.detection-result:last-child {
+  margin-bottom: 0;
+}
+
+.detection-result h4 {
+  color: var(--heasec-primary-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================
+   密码验证卡片特定样式
+   ========================================== */
+
+/* 标题样式 - Accept-Language 标题特殊样式 */
+.tech-card-body>h4:first-child {
+  color: var(--heasec-primary-color) !important;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 信息面板动画控制 */
+.tech-info-panel.no-animation {
+  animation: none !important;
+}
+
+/* Alert布局优化 - 确保提示文字从新行开始 */
+.alert>div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.alert .alert-hint {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding-left: 0;
+  text-indent: 0;
+}
+
+.alert .alert-hint small {
+  display: block;
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* ==========================================
+   兼容性类名映射（向后兼容）
+   ========================================== */
+
+/* 为现有站点的特殊容器类名提供兼容 */
+.tech-container .tech-card {
+  flex: none;
+  /* 重置flex属性 */
+}
+
+.range-container .tech-card {
+  flex: 1 1 400px;
+  /* 保持水平布局时的等宽，设置合理的基础宽度 */
+}
+
+@media (max-width: 768px) {
+
+  .range-container .tech-card,
+  .tech-container .tech-card {
+    flex: none;
+    width: 100%;
+  }
+}

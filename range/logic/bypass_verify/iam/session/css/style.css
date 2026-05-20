@@ -1,0 +1,297 @@
+/**
+ * HeaSec天积安全团队 - 会话安全靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-01
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   页面布局
+   ========================================== */
+
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.tech-card {
+    min-width: 480px;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logout-btn {
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-logout-btn:hover {
+    background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+    color: white;
+}
+
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 14px;
+}
+
+.alert-warning i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.alert-warning strong {
+    margin-right: 8px;
+}
+
+.alert-hint small {
+    font-size: 13px;
+}
+
+/* ==========================================
+   成功提示样式
+   ========================================== */
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    color: #155724;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success i {
+    color: #28a745;
+}
+
+/* ==========================================
+   退出提示样式
+   ========================================== */
+
+.alert-logout {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    color: #0c5460;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-logout i {
+    color: #17a2b8;
+}
+
+/* ==========================================
+   错误提示样式
+   ========================================== */
+
+.alert-error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    color: #721c24;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-error i {
+    color: #dc3545;
+}
+
+/* ==========================================
+   用户信息样式
+   ========================================== */
+
+.user-info {
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.8) 0%, rgba(230, 244, 255, 0.6) 100%);
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+    display: grid;
+    gap: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.info-label {
+    font-weight: 500;
+    color: #495057;
+    font-size: 14px;
+}
+
+.info-label i {
+    margin-right: 6px;
+    width: 16px;
+    text-align: center;
+    color: var(--heasec-primary-color);
+}
+
+.info-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ==========================================
+   通关密码显示样式
+   ========================================== */
+
+.passcode-display {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.passcode-display i {
+    color: #28a745;
+}
+
+.passcode-display .passcode-label {
+    color: #155724;
+    font-size: 14px;
+}
+
+.passcode-display .passcode-value {
+    color: #155724;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    letter-spacing: 1px;
+    user-select: all;
+}
+
+/* ==========================================
+   测试账号提示
+   ========================================== */
+
+.test-account-hint {
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.test-account-hint i {
+    margin-right: 4px;
+}
+
+/* ==========================================
+   通关验证结果样式
+   ========================================== */
+
+.detection-result {
+    margin-top: 15px;
+}
+
+/* ==========================================
+   响应式适配
+   ========================================== */
+
+@media (max-width: 768px) {
+    .tech-card {
+        min-width: auto;
+        max-width: 100%;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 20px 10px;
+    }
+
+    .tech-card-body {
+        padding: 20px 15px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-label {
+        min-width: auto;
+        margin-bottom: 4px;
+    }
+
+    .passcode-display {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .passcode-display .passcode-value {
+        font-size: 15px;
+    }
+}

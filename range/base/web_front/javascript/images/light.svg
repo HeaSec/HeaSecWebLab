@@ -1,0 +1,29 @@
+<!-- 亮起的电灯 - light_on.svg -->
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 光晕效果 -->
+  <circle cx="100" cy="100" r="80" fill="#fffacd" opacity="0.3"/>
+  <circle cx="100" cy="100" r="60" fill="#fffacd" opacity="0.4"/>
+  
+  <!-- 灯泡主体 -->
+  <ellipse cx="100" cy="100" rx="45" ry="55" fill="#ffffcc" stroke="#333" stroke-width="2"/>
+  
+  <!-- 灯泡底座 -->
+  <rect x="75" y="145" width="50" height="20" fill="#888" stroke="#333" stroke-width="2"/>
+  <rect x="80" y="165" width="40" height="8" fill="#666" stroke="#333" stroke-width="1"/>
+  <rect x="80" y="173" width="40" height="8" fill="#666" stroke="#333" stroke-width="1"/>
+  
+  <!-- 灯丝 -->
+  <path d="M 85 100 Q 100 85, 115 100 T 85 100" fill="none" stroke="#ff6600" stroke-width="2" opacity="0.8"/>
+  <path d="M 85 110 Q 100 95, 115 110 T 85 110" fill="none" stroke="#ff6600" stroke-width="2" opacity="0.8"/>
+  
+  <!-- 光线 -->
+  <g stroke="#ffcc00" stroke-width="3" stroke-linecap="round" opacity="0.7">
+    <line x1="100" y1="30" x2="100" y2="10"/>
+    <line x1="150" y1="50" x2="165" y2="35"/>
+    <line x1="170" y1="100" x2="190" y2="100"/>
+    <line x1="150" y1="150" x2="165" y2="165"/>
+    <line x1="50" y1="150" x2="35" y2="165"/>
+    <line x1="30" y1="100" x2="10" y2="100"/>
+    <line x1="50" y1="50" x2="35" y2="35"/>
+  </g>
+</svg>

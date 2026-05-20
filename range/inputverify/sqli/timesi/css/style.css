@@ -1,0 +1,227 @@
+/**
+ * HeaSec天积安全团队 - 时间盲注靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-20
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 左右布局 */
+.timesi-left-col {
+    flex: 1 1 65%;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timesi-right-col {
+    flex: 1 1 35%;
+    min-width: 320px;
+}
+
+/* 响应式：窄屏时切换为垂直布局 */
+@media (max-width: 768px) {
+    .timesi-left-col,
+    .timesi-right-col {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* 服务列表表格 */
+.service-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.service-list-table thead {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+}
+
+.service-list-table th {
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #1565c0;
+    border-bottom: 2px solid #90caf9;
+    font-size: 12px;
+}
+
+.service-list-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+}
+
+.service-list-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* 查询输入区域 */
+.submit-section {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.submit-section input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: monospace;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.submit-section input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+/* 结果展示区域 */
+.doc-content-wrapper {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    min-height: 60px;
+    max-height: 400px;
+    overflow-y: auto;
+    word-break: break-all;
+    font-size: 13px;
+}
+
+.doc-content-wrapper .alert {
+    margin: 0;
+    padding: 10px;
+}
+
+/* 查询历史区域 */
+.query-history {
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.query-history-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    cursor: pointer;
+    font-size: 13px;
+    color: #495057;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.query-history-header:hover {
+    background: #e9ecef;
+}
+
+.query-history-header .history-arrow {
+    margin-left: auto;
+    transition: transform 0.2s;
+}
+
+.query-history-header.expanded .history-arrow {
+    transform: rotate(180deg);
+}
+
+.query-history-body {
+    padding: 10px 15px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-empty {
+    text-align: center;
+    color: #adb5bd;
+    font-size: 12px;
+    margin: 0;
+    padding: 10px;
+}
+
+.history-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f3f5;
+    font-size: 12px;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item .history-time {
+    color: #adb5bd;
+    white-space: nowrap;
+    min-width: 70px;
+}
+
+.history-item .history-id {
+    color: #495057;
+    font-family: monospace;
+    word-break: break-all;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.history-item .history-status {
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.history-item .history-status.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.history-item .history-status.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.history-item .history-status.blocked {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* 过滤说明提示 */
+.alert-secondary {
+    color: #383d41;
+    background-color: #e2e3e5;
+    border-color: #d6d8db;
+}
+
+/* 修复左右布局下卡片截断和底部不可见问题
+ * 根因：公共样式设置了 html,body { height: 100% } 导致滚动异常
+ * 同时 .range-container .tech-card { flex: 1 1 400px } 需要重置
+ */
+html {
+    height: auto;
+    min-height: 100%;
+}
+
+body {
+    height: auto;
+    min-height: 100vh;
+}
+
+.timesi-left-col .tech-card,
+.timesi-right-col .tech-card {
+    flex: none;
+}

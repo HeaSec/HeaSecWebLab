@@ -1,0 +1,2197 @@
+/**
+ * HeaSec天积安全团队 - 反序列化基础靶场样式文件
+ * 版本: v1.0.0
+ * 创建日期: 2026-04-11
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==================== 可折叠区域样式 ==================== */
+.collapsible-section {
+    margin-bottom: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 11px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(102, 126, 234, 0.08);
+    transform: translateY(0);
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.collapsible-section.expanded {
+    border-color: #667eea;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+}
+
+.collapsible-section.expanded:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(102, 126, 234, 0.25);
+}
+
+.collapsible-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: all 0.3s ease;
+    min-height: 60px;
+    border-radius: 11px;
+    margin-bottom: 0;
+    border: none;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.collapsible-section.expanded .collapsible-header {
+    box-shadow: none;
+    transform: translateY(-2px);
+    border-radius: 11px 11px 0px 0px !important;
+}
+
+.collapsible-section.expanded:hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: translateY(-2px);
+}
+
+.collapsible-section:not(.expanded):hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: none !important;
+}
+
+.toggle-text {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.toggle-text .fa {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 80px;
+    min-height: 44px;
+}
+
+.collapsible-section:not(.expanded) .toggle-btn::after {
+    content: "展开";
+}
+
+.collapsible-section.expanded .toggle-btn::after {
+    content: "收起";
+}
+
+.collapsible-content {
+    background: #ffffff;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    border: none;
+    border-radius: 0 0 11px 11px;
+    margin-top: 0;
+}
+
+.collapsible-section:not(.expanded) .collapsible-content {
+    background: transparent;
+}
+
+.collapsible-section.expanded .collapsible-content {
+    max-height: 10000px;
+    padding: 20px;
+}
+
+/* ==================== 章节标题样式 ==================== */
+.chapter-title {
+    color: #2d3748;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-title .fa {
+    color: #667eea;
+}
+
+.chapter-description {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* ==================== 代码展示区域样式 ==================== */
+.code-display-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+}
+
+.code-display-section h4 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.code-display-section h4 .fa {
+    color: #667eea;
+}
+
+.static-code-block {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 20px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+    tab-size: 4;
+}
+
+pre.static-code-block code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    border-radius: 0;
+}
+
+.static-code-block .keyword { color: #569cd6; }
+.static-code-block .string { color: #ce9178; }
+.static-code-block .comment { color: #6a9955; }
+.static-code-block .number { color: #b5cea8; }
+.static-code-block .attr-name { color: #9cdcfe; }
+.static-code-block .attr-value { color: #ce9178; }
+.static-code-block .tag { color: #569cd6; }
+.static-code-block .type { color: #4ec9b0; }
+.static-code-block .func { color: #dcdcaa; }
+.static-code-block .variable { color: #9cdcfe; }
+
+/* ==================== 序列化格式高亮颜色 ==================== */
+.ser-identifier { color: #3498db; font-weight: 600; }
+.ser-key { color: #2980b9; }
+.ser-value { color: #27ae60; }
+.ser-number { color: #e67e22; }
+.ser-separator { color: #95a5a6; }
+.ser-class { color: #9b59b6; font-weight: 600; }
+.ser-null { color: #e74c3c; }
+
+/* ==================== 组成部分说明样式 ==================== */
+.composition-explanation {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.composition-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.composition-explanation h5 .fa {
+    color: #667eea;
+}
+
+.composition-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.composition-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.composition-explanation code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* ==================== 表格样式 ==================== */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    min-width: 500px;
+}
+
+.info-table th,
+.info-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.info-table th {
+    background: #667eea;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.info-table tr:last-child td {
+    border-bottom: none;
+}
+
+.info-table tr:hover td {
+    background: #f7fafc;
+}
+
+.info-table code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #667eea;
+}
+
+/* ==================== 交互区域样式 ==================== */
+.interactive-area {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #e9ecef;
+}
+
+.interactive-area h4 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.interactive-area h4 .fa {
+    color: #667eea;
+}
+
+/* 双列布局 */
+.dual-column-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.dual-column-layout .column {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 250px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.dual-column-layout .column h5 {
+    color: #2d3748;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #667eea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 三列布局 */
+.triple-column-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.triple-column-layout .column {
+    flex: 1 1 calc(33.333% - 10px);
+    min-width: 200px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.triple-column-layout .column h5 {
+    color: #2d3748;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #667eea;
+}
+
+/* ==================== 表单元素样式 ==================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #2d3748;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-group .hint {
+    color: #718096;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* 输出框样式 */
+.output-box {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 15px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 80px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.output-box.success {
+    border-left: 4px solid #48bb78;
+}
+
+.output-box.error {
+    border-left: 4px solid #f56565;
+    color: #fc8181;
+}
+
+/* ==================== 按钮样式 ==================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: #edf2f7;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: white;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3);
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* ==================== 安全提示样式 ==================== */
+.security-warning {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border-left: 4px solid #f56565;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin: 15px 0;
+}
+
+.security-warning h5 {
+    color: #c53030;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.security-warning p {
+    color: #742a2a;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.security-warning ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: #742a2a;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ==================== 学习提示样式 ==================== */
+.learning-tip {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.learning-tip .fa {
+    color: #d97706;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* ==================== 示例解析样式 ==================== */
+.example-explanation {
+    background: #f0f9ff;
+    border-left: 4px solid #4299e1;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.example-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.example-explanation h5 .fa {
+    color: #4299e1;
+}
+
+.example-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.example-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+/* ==================== 流程图样式 ==================== */
+.flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 20px;
+    margin: 20px 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.flow-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.flow-box {
+    background: #fff;
+    border: 2px solid #cbd5e0;
+    border-radius: 10px;
+    padding: 14px 22px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2d3748;
+    min-width: 140px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.flow-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flow-box.blue { border-color: #3498db; color: #2980b9; }
+.flow-box.green { border-color: #27ae60; color: #27ae60; }
+.flow-box.purple { border-color: #9b59b6; color: #9b59b6; }
+.flow-box.orange { border-color: #e67e22; color: #e67e22; }
+.flow-box.red { border-color: #e74c3c; color: #e74c3c; }
+
+.flow-arrow {
+    font-size: 24px;
+    color: #95a5a6;
+    padding: 6px 0;
+}
+
+.flow-arrow-down {
+    text-align: center;
+    font-size: 24px;
+    color: #95a5a6;
+    padding: 4px 0;
+}
+
+.flow-label {
+    font-size: 12px;
+    color: #718096;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+/* ==================== POP链样式 ==================== */
+.pop-chain-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.pop-step {
+    display: flex;
+    align-items: stretch;
+    gap: 15px;
+    opacity: 0.4;
+    transition: all 0.5s ease;
+}
+
+.pop-step.active {
+    opacity: 1;
+}
+
+.pop-step.completed {
+    opacity: 0.6;
+}
+
+.pop-step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.pop-step-number.entry { background: #3498db; }
+.pop-step-number.middle { background: #e67e22; }
+.pop-step-number.danger { background: #e74c3c; }
+
+.pop-step-content {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+}
+
+.pop-step-content.entry-step { border-left: 4px solid #3498db; }
+.pop-step-content.middle-step { border-left: 4px solid #e67e22; }
+.pop-step-content.danger-step { border-left: 4px solid #e74c3c; }
+
+.pop-step-class {
+    font-weight: 600;
+    font-size: 15px;
+    color: #2d3748;
+    margin-bottom: 4px;
+}
+
+.pop-step-method {
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    color: #667eea;
+    margin-bottom: 6px;
+}
+
+.pop-step-detail {
+    font-size: 13px;
+    color: #718096;
+    line-height: 1.5;
+}
+
+.pop-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: #95a5a6;
+    padding: 4px 0 4px 36px;
+}
+
+/* ==================== 漏洞利用三要素卡片 ==================== */
+.three-factors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.factor-card {
+    flex: 1 1 calc(33.333% - 10px);
+    min-width: 220px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.factor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.factor-card .fa {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.factor-card.sink .fa { color: #3498db; }
+.factor-card.chain .fa { color: #e67e22; }
+.factor-card.danger .fa { color: #e74c3c; }
+
+.factor-card h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.factor-card p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ==================== POP链练习类卡片 ==================== */
+.class-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 12px 0;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #667eea;
+}
+
+.class-card.class-entry { border-left-color: #3498db; }
+.class-card.class-middle { border-left-color: #e67e22; }
+.class-card.class-danger { border-left-color: #e74c3c; }
+
+.class-card h5 {
+    font-family: 'Consolas', monospace;
+    color: #2d3748;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.class-card h5 .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+.badge-entry { background: #ebf5fb; color: #2980b9; }
+.badge-middle { background: #fef5e7; color: #e67e22; }
+.badge-danger { background: #fdedec; color: #e74c3c; }
+
+.class-card pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    overflow-x: auto;
+    margin: 0;
+}
+
+/* ==================== 掌握按钮区域样式 ==================== */
+.mastery-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.mastery-section:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.mastery-button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heasec-mastery-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+    justify-content: center;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-mastery-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.heasec-mastery-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.heasec-mastery-btn:hover::before {
+    left: 100%;
+}
+
+.heasec-mastery-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.mastery-description {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==================== 提示消息样式 ==================== */
+.heasec-alert {
+    border-radius: 8px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none;
+    animation: slideInRight 0.3s ease;
+    z-index: 10000;
+}
+
+.heasec-alert.alert-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.heasec-alert.alert-danger {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+}
+
+.heasec-alert .fa {
+    margin-right: 10px;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ==================== 类比卡片样式 ==================== */
+.analogy-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.analogy-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.analogy-card .analogy-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.analogy-card h5 {
+    color: #2d3748;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.analogy-card p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ==================== 序列化高亮展示区 ==================== */
+.serialized-display {
+    background: #1e1e1e;
+    border-radius: 6px;
+    padding: 15px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    word-break: break-all;
+    margin: 10px 0;
+}
+
+/* ==================== 格式解读面板 ==================== */
+.format-interpretation {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 15px 0;
+    border: 1px solid #e2e8f0;
+}
+
+/* 面板头部：标题 + 视图切换 */
+.fmt-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.fmt-panel-header h5 {
+    color: #2d3748;
+    font-size: 14px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fmt-panel-header h5 i {
+    color: #667eea;
+}
+
+/* 视图切换按钮组 */
+.fmt-view-switcher {
+    display: flex;
+    background: #e2e8f0;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.fmt-view-btn {
+    padding: 4px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fmt-view-btn:hover {
+    color: #334155;
+}
+
+.fmt-view-btn.active {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-weight: 600;
+}
+
+/* 面板内容区 */
+.fmt-panel-body {
+    /* 内容容器 */
+}
+
+/* 默认提示文字 */
+.fmt-panel-body > p {
+    color: #94a3b8;
+    font-size: 13px;
+    margin: 0;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* ==================== 树形视图样式 ==================== */
+.fmt-tree-view {
+    /* 根容器 */
+}
+
+/* ---- 通用节点卡片 ---- */
+.fmt-node {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.fmt-node:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* 对象节点：紫色左边框 */
+.fmt-node-object {
+    border-left: 3px solid #9b59b6;
+}
+
+/* 数组节点：蓝色左边框 */
+.fmt-node-array {
+    border-left: 3px solid #3498db;
+}
+
+/* ---- 节点头部 ---- */
+.fmt-node-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.fmt-node-header:hover {
+    background: #f8fafc;
+}
+
+/* 折叠/展开图标 */
+.fmt-node-toggle {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.fmt-node.collapsed .fmt-node-toggle {
+    transform: rotate(-90deg);
+}
+
+/* 节点类型图标 */
+.fmt-node-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+    font-size: 11px;
+}
+
+.fmt-node-object .fmt-node-icon {
+    background: rgba(155,89,182,0.1);
+    color: #9b59b6;
+}
+
+.fmt-node-array .fmt-node-icon {
+    background: rgba(52,152,219,0.1);
+    color: #3498db;
+}
+
+/* 类型标签文本 */
+.fmt-node-label {
+    font-weight: 600;
+    color: #334155;
+}
+
+/* 类名显示（仅对象） */
+.fmt-node-class {
+    color: #9b59b6;
+    font-weight: 600;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    background: rgba(155,89,182,0.08);
+    padding: 1px 8px;
+    border-radius: 3px;
+}
+
+/* 元信息（属性数/元素数） */
+.fmt-node-meta {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* ---- 原始代码展示区 ---- */
+.fmt-node-raw {
+    background: #f1f5f9;
+    border-top: 1px solid #f1f5f9;
+    padding: 6px 14px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-items: center;
+    line-height: 1.8;
+}
+
+/* ---- 子节点区域（缩进） ---- */
+.fmt-node-children {
+    padding: 4px 0 4px 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* 折叠状态：隐藏子节点和footer */
+.fmt-node.collapsed .fmt-node-children,
+.fmt-node.collapsed .fmt-node-footer {
+    display: none;
+}
+
+/* ---- 结束标记区 ---- */
+.fmt-node-footer {
+    padding: 4px 14px;
+    background: #fafafa;
+    border-top: 1px solid #f1f5f9;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: #95a5a6;
+}
+
+/* ---- 键值对节点 ---- */
+.fmt-node-kvp {
+    background: white;
+    border: 1px solid #e8ecf1;
+    border-left: 3px solid #94a3b8;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+}
+
+/* ---- 序号标签 ---- */
+.fmt-kvp-idx {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+
+/* 数组：蓝色序号 */
+.fmt-kvp-index-array {
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+/* 对象：紫色序号 */
+.fmt-kvp-index-object {
+    color: #ffffff;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+/* 默认：灰色序号 */
+.fmt-kvp-index-default {
+    color: #ffffff;
+    background: linear-gradient(135deg, #64748b, #475569);
+}
+
+/* ---- 序号右侧的分组内容区 ---- */
+.fmt-kvp-grouped-body {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 内联布局body（value为容器时） */
+.fmt-kvp-inline-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+/* ---- 键值对内的分组区域 ---- */
+.fmt-kvp-section {
+    margin-bottom: 6px;
+}
+
+.fmt-kvp-section:last-child {
+    margin-bottom: 0;
+}
+
+/* 分组标签（"键 (字符串)" / "值 (整数)"） */
+.fmt-kvp-section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+
+/* 分组内容区 */
+.fmt-kvp-section-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-items: center;
+    line-height: 2;
+    padding-left: 2px;
+}
+
+/* Key 区域：左边框蓝色 */
+.fmt-kvp-section-key .fmt-kvp-section-label {
+    color: #3b82f6;
+}
+
+.fmt-kvp-section-key {
+    border-left: none;
+}
+
+/* Value 区域：左边框绿色 */
+.fmt-kvp-section-value .fmt-kvp-section-label {
+    color: #10b981;
+}
+
+/* Value 内联容器（当value是对象/数组时） */
+.fmt-kvp-section-value-inline {
+    margin-top: 0;
+}
+
+/* 内联模式的key区域 */
+.fmt-kvp-section-key-inline {
+    min-width: 0;
+}
+
+/* 兼容旧的内联模式（容器类型value时使用） */
+.fmt-node-kvp[style*="flex"] .fmt-kvp-section {
+    display: inline;
+}
+
+/* 键值对内的内嵌容器节点 */
+.fmt-node-kvp .fmt-node {
+    margin-bottom: 0;
+    margin-top: 4px;
+    flex: 1 1 100%;
+}
+
+/* ---- 单个 segment 色块 ---- */
+.fmt-seg {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.fmt-seg:hover {
+    background: rgba(102,126,234,0.12);
+    transform: scale(1.05);
+}
+
+/* segment 颜色类：高对比度配色 */
+.fmt-seg.ser-identifier { color: #1a73e8; background: rgba(26,115,232,0.08); }
+.fmt-seg.ser-number { color: #d97706; background: rgba(217,119,6,0.08); }
+.fmt-seg.ser-value { color: #059669; background: rgba(5,150,105,0.08); }
+.fmt-seg.ser-separator { color: #64748b; background: rgba(100,116,139,0.05); font-weight: 400; }
+.fmt-seg.ser-class { color: #7c3aed; background: rgba(124,58,237,0.10); }
+.fmt-seg.ser-null { color: #dc2626; background: rgba(220,38,38,0.08); }
+
+/* 原始代码区中的segment稍微轻一点 */
+.fmt-node-raw .fmt-seg {
+    padding: 1px 5px;
+    font-weight: 500;
+}
+
+/* ---- 线性视图模式 ---- */
+.fmt-linear-view .fmt-group {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+}
+
+.fmt-linear-view .fmt-group-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fmt-linear-view .fmt-group-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 2;
+}
+
+/* 线性视图中的segment色块（高对比度，与树形视图一致） */
+.fmt-linear-view .fmt-seg-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Consolas', 'Monaco', monospace;
+    white-space: nowrap;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.fmt-linear-view .fmt-seg-inline:hover {
+    background: rgba(102,126,234,0.12);
+    transform: scale(1.05);
+}
+
+/* 线性视图中的颜色类（与树形视图一致的高对比度） */
+.fmt-linear-view .fmt-seg-inline.ser-identifier { color: #1a73e8; background: rgba(26,115,232,0.10); }
+.fmt-linear-view .fmt-seg-inline.ser-number { color: #d97706; background: rgba(217,119,6,0.10); }
+.fmt-linear-view .fmt-seg-inline.ser-value { color: #059669; background: rgba(5,150,105,0.10); }
+.fmt-linear-view .fmt-seg-inline.ser-separator { color: #475569; background: rgba(71,85,105,0.08); font-weight: 500; }
+.fmt-linear-view .fmt-seg-inline.ser-class { color: #7c3aed; background: rgba(124,58,237,0.12); }
+.fmt-linear-view .fmt-seg-inline.ser-null { color: #dc2626; background: rgba(220,38,38,0.10); }
+
+.fmt-linear-view .fmt-seg-inline .seg-desc {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* ---- 动画 ---- */
+@keyframes fmtFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fmt-tree-view,
+.fmt-linear-view {
+    animation: fmtFadeIn 0.3s ease;
+}
+
+/* ==================== 快速示例按钮组 ==================== */
+.quick-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.quick-example-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #4a5568;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-example-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* ==================== 键值对动态表单 ==================== */
+.key-value-pair {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.key-value-pair input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Consolas', monospace;
+}
+
+.key-value-pair .remove-pair-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.key-value-pair .remove-pair-btn:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* ==================== 攻击目标卡片 ==================== */
+.attack-target-card {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border: 2px solid #fc8181;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 15px 0;
+}
+
+.attack-target-card h5 {
+    color: #c53030;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.attack-target-card code {
+    background: rgba(229, 62, 62, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    color: #c53030;
+}
+
+/* ==================== 漏洞实战演示区样式 ==================== */
+.vuln-demo-section {
+    background: linear-gradient(135deg, #f0f5ff 0%, #faf5ff 100%);
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 25px;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+}
+
+.vuln-demo-section > h4 {
+    color: #4338ca;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #818cf8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vuln-demo-section > h4 .fa {
+    color: #6366f1;
+}
+
+/* Part 1: 漏洞代码回顾 */
+.vuln-code-review {
+    background: #fff;
+    border-radius: 8px;
+    border-left: 4px solid #f97316;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.vuln-code-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+    display: block;
+}
+
+.vuln-code-review h5 {
+    color: #c2410c;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vuln-code-review h5 .fa { color: #f97316; }
+
+.vuln-code-review pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.vuln-danger-mark {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* Part 2: Payload 展示 */
+.vuln-payload-display {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e7ff;
+    border-left: 4px solid #6366f1;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.vuln-payload-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+    display: block;
+}
+
+.vuln-payload-display h5 {
+    color: #4338ca;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vuln-payload-display h5 .fa { color: #6366f1; }
+
+.vuln-payload-string {
+    background: #0d1117;
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 2.2;
+    overflow-x: auto;
+    word-break: break-all;
+}
+
+.vuln-payload-seg {
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Payload分段 - 匹配HTML实际类名 seg-* */
+.vuln-payload-seg.seg-type-id { color: #e6edf3; background: rgba(99, 102, 241, 0.2); }
+.vuln-payload-seg.seg-number { color: #e6edf3; background: rgba(245, 158, 11, 0.18); }
+.vuln-payload-seg.seg-string-val { color: #e6edf3; background: rgba(16, 185, 129, 0.16); }
+.vuln-payload-seg.seg-separator { color: #94a3b8; opacity: 0.7; }
+.vuln-payload-seg.seg-brace { color: #94a3b8; }
+
+/* 攻击者控制的恶意值 - 红色高亮（提高优先级覆盖seg-string-val） */
+.vuln-payload-seg.vuln-danger-text {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.18);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(239, 68, 68, 0.45);
+}
+
+/* Payload 图例 */
+.vuln-payload-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+.vuln-payload-legend .legend-item {
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.vuln-payload-desc {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f0f5ff;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #4338ca;
+    line-height: 1.6;
+}
+
+.vuln-payload-desc code {
+    background: #e0e7ff;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: #3730a3;
+}
+
+/* Part 3: 执行追踪步骤流 */
+.vuln-trace-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    position: relative;
+    padding-left: 8px;
+}
+
+.vuln-step {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+/* 步骤间连接线 */
+.vuln-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 52px;
+    bottom: -14px;
+    width: 2px;
+    background: linear-gradient(to bottom, #cbd5e1 0%, #e2e8f0 100%);
+    border-radius: 1px;
+    z-index: 0;
+}
+
+.vuln-step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 15px;
+    color: white;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 12px;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.vuln-step-number.entry { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+.vuln-step-number.middle { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.vuln-step-number.danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+/* 兼容HTML实际使用的类名（带step-前缀） */
+.vuln-step-number.step-entry { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+.vuln-step-number.step-middle { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.vuln-step-number.step-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.vuln-step-content {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #94a3b8;
+    position: relative;
+    z-index: 1;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.vuln-step-content:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transform: translateX(2px);
+}
+
+.vuln-step-content.entry-step { border-left: 4px solid #6366f1; }
+.vuln-step-content.middle-step { border-left: 4px solid #f59e0b; }
+.vuln-step-content.danger-step { border-left: 4px solid #ef4444; }
+
+/* 兼容HTML实际使用的类名 */
+.vuln-step-content.step-entry-step { border-left: 4px solid #6366f1; }
+.vuln-step-content.step-middle-step { border-left: 4px solid #f59e0b; }
+.vuln-step-content.step-danger-step { border-left: 4px solid #ef4444; }
+
+.vuln-step-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.vuln-step-detail {
+    font-size: 12.5px;
+    color: #94a3b8;
+    line-height: 1.85;
+}
+
+.vuln-step-code {
+    background: #1e1e2e;
+    border-radius: 5px;
+    padding: 10px 14px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    margin-top: 8px;
+    overflow-x: auto;
+    color: #9ca3af;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* 高亮样式 - 半透明暗红底+浅红字，融入深色代码块背景 */
+.vuln-step-highlight {
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: #fca5a5;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.vuln-arrow {
+    text-align: center;
+    font-size: 16px;
+    color: #a5b4fc;
+    padding: 0 0 0 38px;
+    margin: -2px 0;
+    letter-spacing: 2px;
+}
+
+/* 步骤内提示信息强化高亮 */
+.vuln-step-content p[style*="color:#f59e0b"],
+.vuln-step-content p[style*="color:#ef4444"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-top: 10px !important;
+    font-size: 13px !important;
+    line-height: 1.6;
+}
+
+.vuln-step-content p[style*="color:#f59e0b"] {
+    background: rgba(245, 158, 11, 0.08);
+    border-left: 3px solid #f59e0b;
+    color: #b45309 !important;
+}
+
+.vuln-step-content p[style*="color:#ef4444"] {
+    background: rgba(239, 68, 68, 0.06);
+    border-left: 3px solid #ef4444;
+    color: #dc2626 !important;
+}
+
+/* Part 4: 总结区 - 覆盖HTML内联黄色样式为靛蓝系 */
+.vuln-demo-section > .example-explanation {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%) !important;
+    border-left: 4px solid #6366f1 !important;
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 24px;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+.vuln-demo-section > .example-explanation h5 {
+    color: #3730a3 !important;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vuln-demo-section > .example-explanation h5 .fa {
+    color: #6366f1 !important;
+}
+
+.vuln-demo-section > .example-explanation p {
+    color: #334155 !important;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* 数据流路径图容器 */
+.vuln-demo-section > .example-explanation > div[style*="background"] {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid #c7d2fe !important;
+    border-radius: 8px !important;
+    padding: 14px 18px !important;
+    margin: 12px 0 !important;
+}
+
+/* 数据流路径图箭头 */
+.vuln-demo-section > .example-explanation .fa-arrow-right {
+    color: #a5b4fc !important;
+}
+
+/* ==================== 引导式选择区 ==================== */
+.guided-form {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #e2e8f0;
+}
+
+.guided-form-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.guided-form-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.guided-form-item label {
+    display: block;
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.guided-form-item select,
+.guided-form-item input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.guided-form-item select:focus,
+.guided-form-item input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.guided-feedback {
+    font-size: 13px;
+    margin-top: 4px;
+    display: none;
+}
+
+.guided-feedback.correct { color: #27ae60; display: block; }
+.guided-feedback.wrong { color: #e74c3c; display: block; }
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 768px) {
+    .collapsible-section {
+        width: 100%;
+        max-width: none;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        max-width: none;
+    }
+
+    .collapsible-header {
+        padding: 14px 18px;
+        min-height: 50px;
+    }
+
+    .toggle-text {
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .toggle-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+
+    .static-code-block {
+        font-size: 12px;
+        padding: 15px;
+    }
+
+    .dual-column-layout .column,
+    .triple-column-layout .column {
+        flex: 1 1 100%;
+    }
+
+    .three-factors .factor-card {
+        flex: 1 1 100%;
+    }
+
+    .flow-row {
+        flex-direction: column;
+    }
+
+    .mastery-section {
+        padding: 20px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 14px 32px;
+        font-size: 16px;
+        min-width: 180px;
+    }
+
+    .info-table {
+        font-size: 12px;
+    }
+
+    .info-table th,
+    .info-table td {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collapsible-section {
+        width: 100%;
+        max-width: none;
+    }
+
+    .collapsible-header {
+        padding: 12px 16px;
+        min-height: 48px;
+    }
+
+    .toggle-text {
+        font-size: 15px;
+        gap: 8px;
+    }
+
+    .toggle-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        min-width: 60px;
+        min-height: 36px;
+    }
+
+    .mastery-section {
+        padding: 15px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-width: 160px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ==================== 属性可见性样式（protected/private 支持） ==================== */
+
+/* 访问修饰符下拉框 */
+.obj-prop-vis {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.obj-prop-vis option[value="public"] { color: #059669; }
+.obj-prop-vis option[value="protected"] { color: #d97706; }
+.obj-prop-vis option[value="private"] { color: #dc2626; }
+
+/* Null byte 可视化高亮标记 */
+.ser-null-byte {
+    display: inline-block;
+    background: rgba(220, 38, 38, 0.15);
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 3px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: Consolas, 'Courier New', monospace;
+    margin: 0 1px;
+}
+
+/* 含特殊字符（null byte）的值 */
+.ser-value-special {
+    background: rgba(220, 38, 38, 0.06);
+    border-radius: 3px;
+}
+
+/* 属性可见性 Badge */
+.fmt-visibility-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-family: Consolas, 'Courier New', monospace;
+}
+
+.fmt-vis-public {
+    color: #065f46;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.fmt-vis-protected {
+    color: #92400e;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.fmt-vis-private {
+    color: #991b1b;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* 对象属性行布局调整（适配三栏：修饰符 + 名称 + 值） */
+.obj-property-row .obj-prop-vis {
+    flex: 0 0 auto;
+    width: 90px;
+    min-width: 90px;
+}

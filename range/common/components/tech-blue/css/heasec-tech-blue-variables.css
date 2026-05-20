@@ -1,0 +1,176 @@
+/**
+ * HeaSec天积安全团队 - 科技蓝UI组件库变量定义
+ * Tech Blue UI Component Library Variables
+ * 版本: v1.0.0
+ * 创建日期: 2025-11-11
+ * 团队: 天积安全 (HeavenlySecret)
+ * 描述: 基于科技蓝风格的UI组件库变量系统
+ */
+
+/* ==================== CSS变量定义 ==================== */
+:root {
+    /* 继承现有基础变量，扩展科技蓝主题 */
+    
+    /* 科技蓝主色调系统 - 基于#007BFF扩展 */
+    --heasec-tech-primary: #007BFF;
+    --heasec-tech-primary-light: #3399FF;
+    --heasec-tech-primary-dark: #0056B3;
+    --heasec-tech-primary-gradient: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
+    
+    /* 科技蓝辅助色调 */
+    --heasec-tech-secondary: #0066CC;
+    --heasec-tech-accent: #00CCFF;
+    --heasec-tech-cyan: #00FFFF;
+    --heasec-tech-electric: #0099FF;
+    --heasec-tech-neon: #00CCFF;
+    
+    /* 状态色彩 - 科技化处理 */
+    --heasec-tech-success: #28A745;
+    --heasec-tech-success-light: #5CBF2A;
+    --heasec-tech-success-gradient: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+    
+    --heasec-tech-warning: #FFC107;
+    --heasec-tech-warning-light: #FFD54F;
+    --heasec-tech-warning-gradient: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+    
+    --heasec-tech-danger: #DC3545;
+    --heasec-tech-danger-light: #E74C3C;
+    --heasec-tech-danger-gradient: linear-gradient(135deg, #DC3545 0%, #C82333 100%);
+    
+    --heasec-tech-info: #17A2B8;
+    --heasec-tech-info-light: #5DADE2;
+    --heasec-tech-info-gradient: linear-gradient(135deg, #17A2B8 0%, #138496 100%);
+    
+    /* 背景色系 - 科技感 */
+    --heasec-tech-bg-primary: rgba(255, 255, 255, 0.95);
+    --heasec-tech-bg-secondary: rgba(240, 248, 255, 0.9);
+    --heasec-tech-bg-tertiary: rgba(230, 244, 255, 0.85);
+    --heasec-tech-bg-gradient: linear-gradient(135deg, #F0F8FF 0%, #E6F4FF 100%);
+    
+    /* 文字色系 */
+    --heasec-tech-text-primary: #2C3E50;
+    --heasec-tech-text-secondary: #546E7A;
+    --heasec-tech-text-muted: #90A4AE;
+    --heasec-tech-text-inverse: #FFFFFF;
+    
+    /* 边框色系 */
+    --heasec-tech-border: rgba(0, 123, 255, 0.2);
+    --heasec-tech-border-light: rgba(0, 123, 255, 0.1);
+    --heasec-tech-border-dark: rgba(0, 123, 255, 0.3);
+    --heasec-tech-border-focus: rgba(0, 123, 255, 0.5);
+    
+    /* 阴影色系 - 科技感多层阴影 */
+    --heasec-tech-shadow-sm: 0 2px 8px rgba(0, 123, 255, 0.08);
+    --heasec-tech-shadow: 0 4px 20px rgba(0, 123, 255, 0.12);
+    --heasec-tech-shadow-lg: 0 8px 35px rgba(0, 123, 255, 0.15);
+    --heasec-tech-shadow-xl: 0 15px 50px rgba(0, 123, 255, 0.18);
+    --heasec-tech-shadow-neon: 0 0 20px rgba(0, 204, 255, 0.5);
+    
+    /* 圆角系统 */
+    --heasec-tech-radius-sm: 6px;
+    --heasec-tech-radius: 10px;
+    --heasec-tech-radius-lg: 16px;
+    --heasec-tech-radius-xl: 24px;
+    --heasec-tech-radius-full: 50%;
+    
+    /* 过渡动画系统 */
+    --heasec-tech-transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --heasec-tech-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --heasec-tech-transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* 字体系统 */
+    --heasec-tech-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --heasec-tech-font-size-xs: 12px;
+    --heasec-tech-font-size-sm: 14px;
+    --heasec-tech-font-size: 16px;
+    --heasec-tech-font-size-lg: 18px;
+    --heasec-tech-font-size-xl: 20px;
+    --heasec-tech-font-size-2xl: 24px;
+    
+    /* 间距系统 - 基于8px网格 */
+    --heasec-tech-space-1: 4px;
+    --heasec-tech-space-2: 8px;
+    --heasec-tech-space-3: 12px;
+    --heasec-tech-space-4: 16px;
+    --heasec-tech-space-5: 20px;
+    --heasec-tech-space-6: 24px;
+    --heasec-tech-space-8: 32px;
+    --heasec-tech-space-10: 40px;
+    
+    /* 组件尺寸系统 */
+    --heasec-tech-component-height-sm: 32px;
+    --heasec-tech-component-height: 40px;
+    --heasec-tech-component-height-lg: 48px;
+    --heasec-tech-component-height-xl: 56px;
+    
+    /* Z-index层级系统 */
+    --heasec-tech-z-dropdown: 1000;
+    --heasec-tech-z-modal: 1050;
+    --heasec-tech-z-tooltip: 1070;
+    --heasec-tech-z-notification: 1080;
+    
+    /* 动画配置 */
+    --heasec-tech-animation-duration-fast: 0.2s;
+    --heasec-tech-animation-duration: 0.3s;
+    --heasec-tech-animation-duration-slow: 0.5s;
+    --heasec-tech-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* 毛玻璃效果 */
+    --heasec-tech-backdrop-blur: blur(10px);
+    --heasec-tech-backdrop-blur-lg: blur(20px);
+    
+    /* 渐变效果 */
+    --heasec-tech-gradient-primary: linear-gradient(135deg, var(--heasec-tech-primary) 0%, var(--heasec-tech-primary-dark) 100%);
+    --heasec-tech-gradient-secondary: linear-gradient(135deg, var(--heasec-tech-secondary) 0%, var(--heasec-tech-primary-dark) 100%);
+    --heasec-tech-gradient-bg: linear-gradient(135deg, var(--heasec-tech-bg-primary) 0%, var(--heasec-tech-bg-secondary) 100%);
+    
+    /* 悬浮效果配置 */
+    --heasec-tech-hover-transform: translateY(-2px);
+    --heasec-tech-hover-shadow: var(--heasec-tech-shadow-lg);
+    --heasec-tech-active-transform: translateY(0);
+    
+    /* 焦点效果配置 */
+    --heasec-tech-focus-outline: 0 0 0 3px var(--heasec-tech-primary-light);
+    --heasec-tech-focus-shadow: 0 0 0 2px var(--heasec-tech-border-focus);
+}
+
+/* ==================== 动画开关变量 ==================== */
+:root {
+    /* 全局动画开关 - 可通过JavaScript动态控制 */
+    --heasec-tech-animations-enabled: 1;
+    --heasec-tech-hover-animations-enabled: 1;
+    --heasec-tech-page-load-animations-enabled: 1;
+    --heasec-tech-transition-animations-enabled: 1;
+}
+
+/* 动画禁用时的备用样式 */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --heasec-tech-animations-enabled: 0;
+        --heasec-tech-hover-animations-enabled: 0;
+        --heasec-tech-page-load-animations-enabled: 0;
+    }
+}
+
+/* ==================== 响应式变量 ==================== */
+/* 移动端变量调整 */
+@media (max-width: 768px) {
+    :root {
+        --heasec-tech-font-size: 14px;
+        --heasec-tech-font-size-lg: 16px;
+        --heasec-tech-font-size-xl: 18px;
+        --heasec-tech-component-height: 36px;
+        --heasec-tech-component-height-lg: 44px;
+    }
+}
+
+/* 小屏幕变量调整 */
+@media (max-width: 480px) {
+    :root {
+        --heasec-tech-font-size: 13px;
+        --heasec-tech-font-size-lg: 15px;
+        --heasec-tech-font-size-xl: 17px;
+        --heasec-tech-component-height: 32px;
+        --heasec-tech-component-height-lg: 40px;
+    }
+}

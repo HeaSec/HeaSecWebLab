@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFF8DC;stop-opacity:1" />
+            <stop offset="15%" style="stop-color:#FFD700;stop-opacity:1" />
+            <stop offset="35%" style="stop-color:#FFA500;stop-opacity:1" />
+            <stop offset="65%" style="stop-color:#FF8C00;stop-opacity:1" />
+            <stop offset="85%" style="stop-color:#B8860B;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8B4513;stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadowGold">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+            <feOffset dx="4" dy="4" result="offsetblur"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+    </defs>
+    <path d="M 100,5 L 124,54 L 191,54 L 142,91 L 165,155 L 100,119 L 35,155 L 58,91 L 9,54 L 76,54 Z"
+          fill="url(#goldGradient)"
+          stroke="#D4AF37"
+          stroke-width="3"
+          filter="url(#shadowGold)"
+          stroke-linejoin="round"/>
+</svg>

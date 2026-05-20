@@ -1,0 +1,125 @@
+/**
+ * HeaSec天积安全团队 - 靶场简化模态框样式
+ * Simple Modal Styles for Ranges
+ * 版本: v1.0.0
+ * 创建日期: 2025-11-26
+ * 团队: 天积安全 (HeavenlySecret)
+ * 
+ * 此文件包含简化成功模态框的特殊样式，是对 heasec_modal.css 的补充
+ * 采用高特异性选择器确保样式优先级高于基础模态框样式
+ */
+
+/* 简化的模态框样式 - 使用高特异性选择器确保覆盖基础样式 */
+.heasec-modal .modal-container {
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+/* 优化模态框头部样式为蓝色渐变背景 */
+.heasec-modal .modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+
+.heasec-modal .modal-content {
+    padding: 20px 24px;
+    line-height: 1.6;
+}
+
+.heasec-modal .modal-footer {
+    padding: 16px 24px 20px;
+    text-align: right;
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+/* 标题样式 - 白色文字，居中 */
+.heasec-modal .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+/* 关闭按钮样式 - 适配蓝色背景 */
+.heasec-modal .modal-close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.heasec-modal .modal-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.heasec-modal .alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.heasec-modal .btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 110px;
+}
+
+.heasec-modal .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.heasec-modal .btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.heasec-modal .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: 1px solid #bd2130;
+}
+
+.heasec-modal .btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    border: 1px solid #545b62;
+}
+
+.success-icon {
+    animation: checkmark 0.6s ease-in-out;
+}
+
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}

@@ -1,0 +1,1453 @@
+/**
+ * HeaSec天积安全团队 - 手机短信模拟器组件样式
+ * SMS Simulator Component Stylesheet
+ * 版本: v1.0.0
+ * 创建日期: 2026-01-06
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ========================================
+   全局样式
+   ======================================== */
+
+.heasec-sms-manager {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #F0F8FF 0%, #E6F4FF 100%);
+    min-height: 100vh;
+}
+
+.heasec-sms-container {
+    max-width: 900px;
+    margin: 20px auto;
+    min-height: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.12);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    overflow: visible;
+    backdrop-filter: blur(10px);
+}
+
+/* ========================================
+   页面头部
+   ======================================== */
+
+.heasec-sms-header {
+    background: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
+    color: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.heasec-sms-header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heasec-sms-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.heasec-sms-header .header-title i {
+    font-size: 28px;
+}
+
+.heasec-sms-header .header-title h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.version-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.btn-reset-database {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    height: 32px;
+}
+
+.btn-reset-database:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-help {
+    background: rgba(0, 123, 255, 0.2);
+    border: 1px solid rgba(0, 123, 255, 0.4);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+}
+
+.btn-help:hover {
+    background: rgba(0, 123, 255, 0.35);
+    border-color: rgba(0, 123, 255, 0.6);
+    transform: scale(1.05) translateY(-1px);
+}
+
+.btn-reset-database:active {
+    transform: translateY(0);
+}
+
+.btn-reset-database i {
+    font-size: 10px;
+}
+
+.heasec-sms-header .header-title .btn-reset-database i {
+    font-size: 13px;
+}
+
+.default-phone-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.default-phone-badge i {
+    color: #ffd700;
+}
+
+/* ========================================
+   标签页导航
+   ======================================== */
+
+.heasec-sms-tabs {
+    background: rgba(240, 248, 255, 0.9);
+    border-bottom: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.heasec-sms-tabs .tabs-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0;
+}
+
+.heasec-sms-tabs .tab-item {
+    flex: 1;
+    text-align: center;
+}
+
+.heasec-sms-tabs .tab-link {
+    display: block;
+    padding: 16px 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.heasec-sms-tabs .tab-link i {
+    margin-right: 8px;
+}
+
+.heasec-sms-tabs .tab-item.active .tab-link {
+    color: #007BFF;
+    border-bottom-color: #007BFF;
+}
+
+.heasec-sms-tabs .tab-link:hover {
+    color: #007BFF;
+    background: rgba(0, 123, 255, 0.08);
+}
+
+/* ========================================
+   标签页内容
+   ======================================== */
+
+.heasec-sms-content {
+    padding: 20px 30px;
+    position: relative;
+}
+
+.heasec-sms-content .tab-pane {
+    display: none;
+}
+
+.heasec-sms-content .tab-pane.active {
+    display: block;
+}
+
+/* ========================================
+   工具栏
+   ======================================== */
+
+.heasec-sms-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.heasec-sms-toolbar .toolbar-left,
+.heasec-sms-toolbar .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* 按钮样式 */
+.heasec-sms-toolbar .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+}
+
+.heasec-sms-toolbar .btn i {
+    font-size: 14px;
+}
+
+/* 按钮光波效果 */
+.heasec-sms-toolbar .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.heasec-sms-toolbar .btn:hover::before {
+    left: 100%;
+}
+
+.heasec-sms-toolbar .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.heasec-sms-toolbar .btn:disabled::before {
+    display: none;
+}
+
+.heasec-sms-toolbar .btn-primary {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.heasec-sms-toolbar .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.heasec-sms-toolbar .btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.heasec-sms-toolbar .btn-success:hover:not(:disabled) {
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.heasec-sms-toolbar .btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.heasec-sms-toolbar .btn-secondary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+.heasec-sms-toolbar .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.heasec-sms-toolbar .btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+/* 手机号选择器 */
+.heasec-sms-toolbar .phone-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heasec-sms-toolbar .phone-selector label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.heasec-sms-toolbar .phone-selector label i {
+    margin-right: 4px;
+    color: #007BFF;
+}
+
+/* 可搜索选择器 */
+.searchable-select {
+    position: relative;
+    width: 160px;
+}
+
+.searchable-select .search-input {
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.searchable-select .search-input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    background: #fff;
+}
+
+.searchable-select .select-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.searchable-select .select-toggle:hover {
+    color: #007BFF;
+}
+
+.searchable-select .select-toggle.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.searchable-select .select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.searchable-select .dropdown-list {
+    padding: 4px 0;
+}
+
+.searchable-select .dropdown-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.searchable-select .dropdown-item:hover,
+.searchable-select .dropdown-item.focused {
+    background: rgba(0, 123, 255, 0.08);
+}
+
+.searchable-select .dropdown-item.selected {
+    background: rgba(0, 123, 255, 0.15);
+    color: #007BFF;
+    font-weight: 500;
+}
+
+.searchable-select .dropdown-item .phone-number {
+    font-size: 14px;
+    color: #333;
+}
+
+.searchable-select .dropdown-item .phone-badge {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: #007BFF;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.searchable-select .dropdown-item.no-results {
+    padding: 12px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    cursor: default;
+}
+
+.searchable-select .dropdown-item.no-results:hover {
+    background: none;
+}
+
+/* 统计信息 */
+.heasec-sms-toolbar .sms-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.heasec-sms-toolbar .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.heasec-sms-toolbar .stat-item i {
+    color: #007BFF;
+}
+
+.heasec-sms-toolbar .stat-item strong {
+    color: #333;
+    font-size: 16px;
+}
+
+/* ========================================
+   表格样式（手机号管理）
+   ======================================== */
+
+.heasec-sms-table-container {
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.12);
+}
+
+.heasec-sms-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.heasec-sms-table thead {
+    background: rgba(240, 248, 255, 0.9);
+}
+
+.heasec-sms-table th {
+    padding: 6px 10px;
+    text-align: left;
+    font-weight: 600;
+    color: #007BFF;
+    border-bottom: 2px solid rgba(0, 123, 255, 0.2);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.heasec-sms-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+    font-size: 12px;
+    color: #666;
+}
+
+.heasec-sms-table tbody tr:hover {
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.heasec-sms-table tbody tr.loading-row td {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+.heasec-sms-table .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.heasec-sms-table .badge-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.heasec-sms-table .badge-warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.heasec-sms-table .badge-info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.heasec-sms-table .badge-default {
+    background: #007BFF;
+    color: #fff;
+}
+
+/* 操作按钮 */
+.heasec-sms-table .action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.heasec-sms-table .btn-xs {
+    padding: 3px 8px;
+    font-size: 11px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.heasec-sms-table .btn-xs.btn-primary {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: #fff;
+}
+
+.heasec-sms-table .btn-xs.btn-warning {
+    background: #ffc107;
+    color: #333;
+}
+
+.heasec-sms-table .btn-xs.btn-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.heasec-sms-table .btn-xs.btn-danger {
+    background: #dc3545;
+    color: #fff;
+}
+
+.heasec-sms-table .btn-xs:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   短信列表（Android风格）
+   ======================================== */
+
+.heasec-sms-list-container {
+    min-height: 400px;
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.12);
+}
+
+.heasec-sms-list-container .loading-indicator,
+.heasec-sms-list-container .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    color: #999;
+}
+
+.heasec-sms-list-container .loading-indicator i,
+.heasec-sms-list-container .empty-message i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.heasec-sms-list-container .empty-message p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.sms-list {
+    padding: 10px 0;
+}
+
+/* 单条短信项目 */
+.sms-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sms-item:hover {
+    background: #f8f9fa;
+}
+
+.sms-item.unread {
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.sms-item.unread::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #007BFF;
+}
+
+.sms-item-checkbox {
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+.sms-item-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.sms-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.sms-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 8px;
+}
+
+.sms-item-sender {
+    font-weight: 600;
+    color: #333;
+    font-size: 13px;
+    flex: 1;
+}
+
+.sms-item-time {
+    font-size: 11px;
+    color: #999;
+    white-space: nowrap;
+}
+
+.sms-item-body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sms-bubble {
+    background: #e8f5e9;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 8px;
+    max-width: 70%;
+    font-size: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.sms-bubble::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid #e8f5e9;
+}
+
+.sms-item.unread .sms-bubble {
+    background: #c8e6c9;
+    font-weight: 500;
+}
+
+.sms-item.is-read .sms-bubble {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.sms-item.is-read .sms-bubble::before {
+    border-right-color: #f5f5f5;
+}
+
+/* 短信状态标识 */
+.sms-status-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.sms-status-badge.status-unread {
+    background: #ff6b6b;
+    color: #fff;
+}
+
+.sms-status-badge.status-read {
+    background: #c5c5c5;
+    color: #666;
+}
+
+/* 复制验证码按钮 */
+.sms-copy-code-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    flex-shrink: 0;
+    white-space: nowrap;
+    height: fit-content;
+    align-self: center;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.sms-copy-code-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.sms-copy-code-btn:active {
+    transform: translateY(0);
+}
+
+.sms-copy-code-btn.copied {
+    background: #28a745;
+}
+
+.sms-copy-code-btn i {
+    font-size: 10px;
+}
+
+/* ========================================
+   模态框样式（Tech Blue风格）
+   ======================================== */
+
+.heasec-sms-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    animation: heasecModalFadeIn 0.3s ease;
+}
+
+@keyframes heasecModalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.heasec-sms-modal .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    animation: heasecModalOverlayFadeIn 0.3s ease;
+}
+
+@keyframes heasecModalOverlayFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
+}
+
+.heasec-sms-modal .modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    max-height: calc(100vh - 80px);
+    margin: 40px auto;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.95) 100%);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(0, 123, 255, 0.2),
+        0 2px 8px rgba(0, 123, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(0, 123, 255, 0.15);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: heasecModalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes heasecModalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.heasec-sms-modal .sms-detail-container {
+    max-width: 600px;
+}
+
+.heasec-sms-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 2px solid rgba(0, 123, 255, 0.1);
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(0, 123, 255, 0.02) 100%);
+    position: relative;
+}
+
+.heasec-sms-modal .modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #007BFF, transparent);
+}
+
+.heasec-sms-modal .modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+}
+
+.heasec-sms-modal .modal-close {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    font-size: 18px;
+    color: #007BFF;
+    cursor: pointer;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heasec-sms-modal .modal-close:hover {
+    background: #007BFF;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.heasec-sms-modal .modal-content {
+    padding: 28px;
+    overflow-y: auto;
+}
+
+.heasec-sms-modal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 28px;
+    border-top: 2px solid rgba(0, 123, 255, 0.1);
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
+}
+
+/* 表单样式（Tech Blue风格） */
+.heasec-sms-modal .form-group {
+    margin-bottom: 24px;
+}
+
+.heasec-sms-modal .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2C3E50;
+    letter-spacing: 0.3px;
+}
+
+.heasec-sms-modal .form-group label i {
+    margin-right: 6px;
+    color: #007BFF;
+    font-size: 13px;
+}
+
+.heasec-sms-modal .form-group .required {
+    color: #dc3545;
+    margin-left: 4px;
+    font-weight: 700;
+}
+
+.heasec-sms-modal .form-control {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    border: 2px solid rgba(0, 123, 255, 0.15);
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.9) 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 123, 255, 0.05);
+}
+
+.heasec-sms-modal .form-control:hover {
+    border-color: rgba(0, 123, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1), inset 0 2px 4px rgba(0, 123, 255, 0.05);
+}
+
+.heasec-sms-modal .form-control:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow:
+        0 0 0 4px rgba(0, 123, 255, 0.15),
+        0 4px 12px rgba(0, 123, 255, 0.2),
+        inset 0 2px 4px rgba(0, 123, 255, 0.05);
+    background: linear-gradient(135deg, #fff 0%, rgba(240, 248, 255, 0.95) 100%);
+    transform: translateY(-1px);
+}
+
+.heasec-sms-modal textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+.heasec-sms-modal .form-text {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #546E7A;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(0, 123, 255, 0.02) 100%);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid #007BFF;
+}
+
+/* 模态框按钮样式（Tech Blue风格） */
+.heasec-sms-modal .modal-cancel,
+.heasec-sms-modal .modal-confirm {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+    letter-spacing: 0.3px;
+}
+
+/* 按钮光波效果 */
+.heasec-sms-modal .modal-cancel::before,
+.heasec-sms-modal .modal-confirm::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.heasec-sms-modal .modal-cancel:hover::before,
+.heasec-sms-modal .modal-confirm:hover::before {
+    left: 100%;
+}
+
+.heasec-sms-modal .modal-confirm {
+    background: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
+    color: #fff;
+    box-shadow:
+        0 4px 15px rgba(0, 123, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.heasec-sms-modal .modal-confirm:hover {
+    background: linear-gradient(135deg, #0056B3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 20px rgba(0, 123, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.heasec-sms-modal .modal-confirm:active {
+    transform: translateY(0);
+}
+
+.heasec-sms-modal .modal-cancel {
+    background: linear-gradient(135deg, rgba(108, 117, 125, 0.1) 0%, rgba(108, 117, 125, 0.05) 100%);
+    color: #6c757d;
+    border: 2px solid rgba(108, 117, 125, 0.2);
+}
+
+.heasec-sms-modal .modal-cancel:hover {
+    background: linear-gradient(135deg, rgba(108, 117, 125, 0.15) 0%, rgba(108, 117, 125, 0.08) 100%);
+    color: #495057;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.2);
+}
+
+/* 短信详情视图（Tech Blue风格） */
+.sms-detail-view {
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.6) 0%, rgba(230, 244, 255, 0.4) 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 123, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 123, 255, 0.1);
+}
+
+.sms-detail-header {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.95) 100%);
+    padding: 20px 24px;
+    border-bottom: 2px solid rgba(0, 123, 255, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.sms-detail-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #007BFF, transparent);
+}
+
+.sms-detail-header .sender-info,
+.sms-detail-header .time-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #546E7A;
+    font-weight: 500;
+}
+
+.sms-detail-header .sender-info i {
+    color: #007BFF;
+    font-size: 16px;
+}
+
+.sms-detail-header .time-info i {
+    color: #90A4AE;
+    font-size: 14px;
+}
+
+.sms-detail-body {
+    padding: 28px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #f0f8ff 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sms-detail-body .sms-bubble {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #1b5e20;
+    padding: 20px 24px;
+    border-radius: 16px;
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 1.8;
+    box-shadow:
+        0 4px 12px rgba(76, 175, 80, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(76, 175, 80, 0.2);
+    position: relative;
+}
+
+.sms-detail-body .sms-bubble::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 16px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #c8e6c9;
+}
+
+.sms-detail-body .sms-bubble p {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+
+/* ========================================
+   加载指示器
+   ======================================== */
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #999;
+    font-size: 14px;
+}
+
+.loading-indicator i {
+    font-size: 20px;
+    color: #667eea;
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+
+@media (max-width: 768px) {
+    .heasec-sms-container {
+        margin: 10px;
+        border-radius: 6px;
+    }
+
+    .heasec-sms-header {
+        padding: 16px 20px;
+    }
+
+    .heasec-sms-header .header-title h2 {
+        font-size: 20px;
+    }
+
+    .default-phone-badge {
+        display: none;
+    }
+
+    .heasec-sms-content {
+        padding: 16px 20px;
+    }
+
+    .heasec-sms-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .heasec-sms-toolbar .toolbar-left,
+    .heasec-sms-toolbar .toolbar-right {
+        justify-content: center;
+    }
+
+    .heasec-sms-table-container {
+        overflow-x: auto;
+    }
+
+    .heasec-sms-table {
+        min-width: 600px;
+    }
+
+    .heasec-sms-modal .modal-container {
+        width: 95%;
+        margin: 50px auto;
+    }
+
+    .sms-bubble {
+        max-width: 85%;
+    }
+}
+
+/* ========================================
+   日志管理页面样式
+   ======================================== */
+
+/* 搜索组 */
+.heasec-sms-toolbar .search-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.heasec-sms-toolbar .search-input {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    font-size: 14px;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.heasec-sms-toolbar .search-input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    background: #fff;
+}
+
+.heasec-sms-toolbar .search-select {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    font-size: 14px;
+    min-width: 120px;
+    background: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+}
+
+/* 警告按钮 */
+.heasec-sms-toolbar .btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.heasec-sms-toolbar .btn-warning:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e0a800 0%, #dc6502 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* 分页控件 */
+.heasec-sms-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 1px solid #f0f0f0;
+}
+
+.heasec-sms-pagination .pagination-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.heasec-sms-pagination .pagination-info strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.heasec-sms-pagination .pagination-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.heasec-sms-pagination .pagination-btn {
+    padding: 6px 12px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.heasec-sms-pagination .pagination-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+    border-color: #007BFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.heasec-sms-pagination .pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.heasec-sms-pagination .pagination-btn.active {
+    background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    color: white;
+    border-color: #007BFF;
+}
+
+/* 日志表格特殊样式 */
+#logsTable th,
+#logsTable td {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#logsTable th:nth-child(4),
+#logsTable td:nth-child(4) {
+    /* 短信内容列稍微宽一些 */
+    max-width: 200px;
+}
+
+#logsTable tbody tr {
+    cursor: default;
+}
+
+/* 使用说明模态框样式 */
+.help-content {
+    padding: 10px 0;
+}
+
+.help-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.help-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.help-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.help-section h4 i {
+    color: #007BFF;
+    font-size: 18px;
+}
+
+.help-section p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.help-section strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.help-section ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.help-section ul li {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 5px;
+}
+
+.help-section code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #e83e8c;
+}

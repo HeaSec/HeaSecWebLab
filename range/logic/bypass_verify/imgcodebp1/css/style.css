@@ -1,0 +1,312 @@
+/**
+ * HeaSec天积安全团队 - 图片验证码绕过1靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-01-20
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 站点特定样式，参考bvbase靶场样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 页面垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 增加卡片的最小宽度 */
+.tech-card {
+    min-width: 480px;
+    max-width: 650px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片内容区域优化 */
+.tech-card-body {
+    padding: 35px 30px;
+}
+
+/* 提示信息样式 */
+.alert-info {
+    background: linear-gradient(135deg, #e7f3ff 0%, #d1e8ff 100%);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #0056b3;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.alert-info i {
+    font-size: 18px;
+    color: #007bff;
+    margin-top: 2px;
+}
+
+.alert-info span {
+    flex: 1;
+}
+
+/* 密码规则提示样式 */
+.password-rule {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+    border: 1px solid rgba(255, 193, 7, 0.4);
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    color: #856404;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.password-rule i {
+    font-size: 16px;
+    color: #ffc107;
+}
+
+/* 表单分隔线 */
+.form-divider {
+    border: none;
+    border-top: 1px dashed rgba(0, 123, 255, 0.3);
+    margin: 30px 0;
+}
+
+/* 表单组间距调整 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* 输入框高度和宽度调整 */
+.tech-input {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* 只读输入框样式 */
+.tech-input[readonly] {
+    background-color: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* 表单标签样式优化 */
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* 表单操作按钮 */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* 绿色成功按钮样式 */
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color, #28a745) 0%, #1e7e34 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.tech-btn-success::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.tech-btn-success:hover::before {
+    left: 100%;
+}
+
+/* 确保按钮在成功通关后平滑显示 */
+.form-actions .tech-btn-success {
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 验证码区域样式 */
+.captcha-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.captcha-input-wrapper {
+    flex: 1;
+}
+
+.captcha-image-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.captcha-image {
+    width: 120px;
+    height: 48px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.captcha-image:hover {
+    border-color: #007bff;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 表单区域标题 */
+.form-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* 隐藏输入框 */
+.hidden-input {
+    display: none;
+}
+
+/* 加载状态 */
+.tech-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tech-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .captcha-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .captcha-image-wrapper {
+        align-items: flex-start;
+    }
+}
+
+/* 小屏幕优化 - 适配手机屏幕 */
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .form-actions {
+        gap: 10px;
+    }
+
+    .alert-info {
+        font-size: 13px;
+        padding: 12px 15px;
+    }
+}

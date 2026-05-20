@@ -1,0 +1,278 @@
+/**
+ * HeaSec天积安全团队 - PHP数据库处理示例样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-30
+ * 说明: 数据库管理页面的样式表
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+/* ==================== 搜索表单样式 ==================== */
+/* 搜索表单容器：控制整体间距 */
+.search-form {
+    margin-bottom: 15px; /* 与下方内容保持距离 */
+}
+
+/* 搜索组容器：使用Flexbox布局实现横向排列 */
+.search-group {
+    display: flex; /* 启用弹性布局，让子元素横向排列 */
+    gap: 10px; /* 设置子元素之间的间距，避免使用margin */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+/* 搜索输入框 */
+.search-input {
+    flex: 1; /* 自动占据剩余空间，让搜索框可以伸缩 */
+    padding: 10px; /* 内边距，增加输入区域的舒适度 */
+    border: 1px solid #ddd; /* 边框样式 */
+    border-radius: 4px; /* 圆角效果 */
+    font-size: 14px; /* 字体大小 */
+}
+
+/* 搜索按钮 */
+.btn-search {
+    background: #667eea; /* 背景色：紫色主题 */
+    color: white; /* 文字颜色：白色 */
+    padding: 10px 20px; /* 内边距：上下10px，左右20px */
+    border: none; /* 移除默认边框 */
+    border-radius: 4px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型指针 */
+    font-size: 14px; /* 字体大小 */
+    white-space: nowrap; /* 防止按钮文字换行 */
+}
+
+/* 搜索按钮悬停效果 */
+.btn-search:hover {
+    background: #5568d3; /* 悬停时背景色变深 */
+}
+
+/* 清除按钮（链接样式） */
+.btn-clear {
+    background: #9E9E9E; /* 灰色背景 */
+    white-space: nowrap; /* 防止文字换行 */
+    padding: 10px 20px; /* 内边距：与搜索按钮保持一致 */
+    display: inline-block; /* 使链接具有块级特性，padding才能生效 */
+    text-decoration: none; /* 移除下划线 */
+    border-radius: 4px; /* 圆角：与搜索按钮保持一致 */
+    color: white; /* 文字颜色：白色 */
+    font-size: 14px; /* 字体大小：与搜索按钮保持一致 */
+}
+
+/* 清除按钮悬停效果 */
+.btn-clear:hover {
+    background: #757575; /* 悬停时背景色变深 */
+    text-decoration: none; /* 悬停时也移除下划线 */
+}
+
+/* 搜索结果信息提示框 */
+.search-info {
+    margin-bottom: 10px; /* 与下方内容保持距离 */
+    color: #666; /* 文字颜色：灰色 */
+    font-size: 14px; /* 字体大小 */
+    background: #f0f0f0; /* 浅灰色背景 */
+    padding: 8px 12px; /* 内边距 */
+    border-radius: 4px; /* 圆角 */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input, select {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+.btn-update {
+    background: #2196F3;
+}
+
+.btn-update:hover {
+    background: #0b7dda;
+}
+
+.btn-cancel {
+    background: #9E9E9E;
+}
+
+.btn-cancel:hover {
+    background: #757575;
+}
+
+.btn-delete {
+    background: #f44336;
+}
+
+.btn-delete:hover {
+    background: #d32f2f;
+}
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.message.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
+}
+
+.message.error {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+.message.info {
+    background: #e3f2fd;
+    color: #1565c0;
+    border-left: 4px solid #2196F3;
+}
+
+/* 表格响应式容器 */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+th, td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+th {
+    background: #f5f5f5;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 操作列特别处理 */
+td:last-child, th:last-child {
+    white-space: nowrap;
+    min-width: 140px;
+}
+
+a {
+    color: #2196F3;
+    text-decoration: none;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.btn-link {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #2196F3;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+a.btn-link:hover {
+    background: #0b7dda;
+    text-decoration: none;
+}
+
+a.btn-link.btn-cancel {
+    background: #9E9E9E;
+}
+
+a.btn-link.btn-cancel:hover {
+    background: #757575;
+}
+
+/* 响应式：超窄屏幕下调整字体和间距 */
+@media screen and (max-width: 480px) {
+    th, td {
+        padding: 8px 5px;
+        font-size: 12px;
+    }
+    .container {
+        padding: 15px 10px;
+    }
+    .container h2 {
+        font-size: 16px;
+    }
+}
+
+/* 响应式：中窄屏幕下 */
+@media screen and (max-width: 768px) {
+    th, td {
+        padding: 9px 6px;
+        font-size: 13px;
+    }
+    a {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,649 @@
+/**
+ * HeaSec天积安全团队 - 文件目录执行权限绕过靶场样式
+ * 版本: v1.1.0
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 文件上传区域样式 */
+.upload-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+
+.upload-form {
+    margin-bottom: 20px;
+}
+
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: linear-gradient(45deg, #007BFF, #667eea);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 16px;
+}
+
+.file-input-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.file-input {
+    position: absolute;
+    left: -9999px;
+}
+
+.upload-button {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.upload-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+}
+
+.upload-button:disabled {
+    background: linear-gradient(45deg, #6c757d, #adb5bd);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 拖拽上传区域样式 */
+.upload-dropzone {
+    border: 2px dashed var(--heasec-primary-color, #007BFF);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 123, 255, 0.05);
+    position: relative;
+    margin: 15px 0;
+}
+
+.upload-dropzone:hover {
+    border-color: var(--heasec-primary-color, #007BFF);
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: scale(1.01);
+}
+
+.upload-dropzone.drag-over {
+    border-color: var(--heasec-success-color, #28a745);
+    background-color: rgba(40, 167, 69, 0.1);
+    transform: scale(1.02);
+}
+
+.upload-dropzone .drag-hint {
+    color: var(--heasec-success-color, #28a745);
+    font-weight: 500;
+    margin-top: 10px;
+    display: none;
+}
+
+.upload-dropzone.drag-over .drag-hint {
+    display: block;
+}
+
+.upload-dropzone.drag-over p {
+    display: none;
+}
+
+#fileInputDropzone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* 重置按钮样式 */
+.reset-button {
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3);
+}
+
+/* 文件列表表格样式 */
+.files-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.files-table th,
+.files-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.files-table th {
+    background: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+.files-table tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.file-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}
+
+.file-size {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* 消息提示样式 */
+.message {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.message.success {
+    background: linear-gradient(45deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.info {
+    background: linear-gradient(45deg, #d1ecf1, #bee5eb);
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.message.error {
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message.warning {
+    background: linear-gradient(45deg, #fff3cd, #ffeeba);
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* 开发提示样式 */
+.alert-dev-tip {
+    background-color: #f8f9fa;
+    border-left: 4px solid #6c757d;
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #495057;
+}
+
+.alert-dev-tip i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+/* 下一关按钮样式（绿色，与重置按钮风格一致，宽度与卡片对齐） */
+.next-level-button {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 15px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.next-level-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+/* 加载动画 */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 文件列表为空时的提示 */
+.no-files-hint {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 验证结果区域 */
+.detection-result {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.detection-result.success {
+    background: linear-gradient(45deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.detection-result.error {
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* 警告提示样式 */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-warning {
+    background: linear-gradient(45deg, #fff3cd, #ffeeba);
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-warning i {
+    margin-right: 10px;
+}
+
+/* 重命名按钮样式 */
+.rename-btn {
+    background: linear-gradient(45deg, #17a2b8, #20c997);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.rename-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.rename-btn:disabled {
+    background: linear-gradient(45deg, #6c757d, #adb5bd);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 文件名单元格 */
+.file-name-cell {
+    max-width: 300px;
+    word-break: break-all;
+}
+
+/* 重命名模态框样式 */
+.rename-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.rename-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rename-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.rename-modal-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.rename-modal-header h4 i {
+    color: #17a2b8;
+    margin-right: 8px;
+}
+
+.rename-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.rename-modal-close:hover {
+    color: #dc3545;
+}
+
+.rename-modal-body {
+    padding: 20px;
+}
+
+.rename-form-group {
+    margin-bottom: 15px;
+}
+
+.rename-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.rename-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.rename-input:focus {
+    outline: none;
+    border-color: #17a2b8;
+    box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.2);
+}
+
+.rename-input[readonly] {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.rename-hint {
+    display: block;
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.rename-hint i {
+    margin-right: 4px;
+}
+
+.rename-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.rename-cancel-btn {
+    background: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.rename-cancel-btn:hover {
+    background: #5a6268;
+}
+
+.rename-confirm-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.rename-confirm-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.rename-confirm-btn:disabled {
+    background: linear-gradient(45deg, #6c757d, #adb5bd);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 已选择的文件列表样式 */
+.selected-file-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.selected-file-list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.selected-file-list li:last-child {
+    border-bottom: none;
+}
+
+.selected-file-list li:hover {
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.selected-file-list .file-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.selected-file-list .file-name-display {
+    font-weight: 500;
+    color: #333;
+    margin-left: 8px;
+    word-break: break-all;
+}
+
+.selected-file-list .file-size {
+    color: #6c757d;
+    font-size: 12px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.selected-file-list .file-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.selected-file-list .rename-inline-btn {
+    background: linear-gradient(45deg, #17a2b8, #20c997);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.selected-file-list .rename-inline-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.selected-file-list .remove-file-btn {
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.selected-file-list .remove-file-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* 重命名输入框样式（内联） */
+.selected-file-list .rename-input-inline {
+    flex: 1;
+    min-width: 150px;
+    padding: 6px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.selected-file-list .rename-input-inline:focus {
+    outline: none;
+    border-color: #17a2b8;
+    box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.2);
+}
+
+.selected-file-list .confirm-rename-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.selected-file-list .confirm-rename-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.selected-file-list .cancel-rename-btn {
+    background: #6c757d;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.selected-file-list .cancel-rename-btn:hover {
+    background: #5a6268;
+}
+
+#selectedFileContainer h5 {
+    margin-bottom: 10px;
+    color: #007BFF;
+}

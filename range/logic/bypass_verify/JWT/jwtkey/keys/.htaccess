@@ -1,0 +1,3 @@
+# HeaSec - 禁止直接访问密钥文件
+Order deny,allow
+Deny from all

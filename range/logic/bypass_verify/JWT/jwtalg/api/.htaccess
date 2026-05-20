@@ -1,0 +1,9 @@
+# HeaSec天积安全团队 - JWT靶场API目录配置
+# 确保Authorization头正确传递到PHP
+
+# 启用重写引擎
+RewriteEngine On
+
+# 将Authorization头传递给CGI进程
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]

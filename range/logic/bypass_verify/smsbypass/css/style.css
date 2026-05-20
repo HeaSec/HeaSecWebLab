@@ -1,0 +1,221 @@
+/**
+ * HeaSec天积安全团队 - 短信验证码绕过靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-01-21
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ==========================================
+   短信验证码表单样式
+   ========================================== */
+
+/* 验证码区域 - 水平布局 */
+.heasec-sms-code-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-start;
+    /* Ensure items align to start */
+}
+
+/* 输入框占据剩余空间 */
+.heasec-sms-code-input-wrapper {
+    /* width: 320px; Removed fixed width on wrapper */
+    flex: none;
+    display: flex;
+    /* Make input fill height/width logic easier if needed */
+}
+
+/* 确保输入框有合适的固定宽度 */
+.heasec-sms-code-input-wrapper .tech-input {
+    width: 240px;
+    /* Sufficient for 6 digits */
+}
+
+/* 发送验证码按钮容器 */
+.heasec-sms-code-btn-wrapper {
+    flex-shrink: 0;
+}
+
+/* 发送验证码按钮样式 */
+/* 发送验证码按钮样式 - 蓝色 */
+#sendCodeBtn {
+    background: linear-gradient(135deg, var(--heasec-primary-color) 0%, var(--heasec-primary-dark) 100%);
+    color: white;
+    box-shadow: var(--heasec-shadow-medium);
+    border: none;
+}
+
+#sendCodeBtn:hover {
+    background: linear-gradient(135deg, var(--heasec-primary-dark) 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--heasec-shadow-heavy);
+}
+
+/* 按钮禁用状态 */
+#sendCodeBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    box-shadow: none;
+    transform: none;
+}
+
+/* 登录按钮样式 - 绿色 */
+#loginBtn {
+    background: linear-gradient(135deg, var(--heasec-success-color) 0%, #218838 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    border: none;
+    /* width: 100%; Removed to keep original position/size */
+}
+
+#loginBtn:hover {
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* ==========================================
+   提示信息样式
+   ========================================== */
+
+/* 消息容器 */
+#messageContainer {
+    margin-top: 15px;
+}
+
+#messageContainer:empty {
+    display: none;
+}
+
+/* 成功提示 - 绿色 */
+.heasec-verify-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+    color: #10b981;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 错误提示 - 红色 */
+.heasec-verify-error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-left: 4px solid #ef4444;
+    color: #ef4444;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 警告提示 - 橙色 */
+.heasec-verify-warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-left: 4px solid #f59e0b;
+    color: #f59e0b;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 信息提示 - 蓝色 */
+.heasec-verify-info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-left: 4px solid #3b82f6;
+    color: #3b82f6;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 提示信息中的代码高亮 */
+.alert code {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+}
+
+/* ==========================================
+   消息动画
+   ========================================== */
+
+.heasec-verify-success,
+.heasec-verify-error,
+.heasec-verify-warning,
+.heasec-verify-info {
+    animation: fadeInSlide 0.3s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 消息淡出效果 */
+.heasec-message-fadeout {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+/* ==========================================
+   响应式设计
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* 验证码区域改为垂直布局 */
+    .heasec-sms-code-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .heasec-sms-code-btn-wrapper {
+        width: 100%;
+    }
+
+    .heasec-sms-code-btn-wrapper .tech-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .heasec-verify-success,
+    .heasec-verify-error,
+    .heasec-verify-warning,
+    .heasec-verify-info {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+}

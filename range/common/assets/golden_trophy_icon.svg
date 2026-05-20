@@ -1,0 +1,120 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定义渐变和滤镜 -->
+  <defs>
+    <!-- 金色主渐变 -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF6E5;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- 高光渐变 -->
+    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#FFF6E5;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0.2" />
+    </linearGradient>
+
+    <!-- 阴影滤镜 -->
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4" result="offsetblur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.3"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 内部阴影 -->
+    <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset in="blur" dx="1" dy="1"/>
+      <feComposite operator="out" in2="SourceAlpha"/>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 0.5 0"/>
+      <feBlend mode="normal" in2="SourceGraphic"/>
+    </filter>
+
+    <!-- 发光效果 -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 奖杯主体 -->
+  <g filter="url(#dropShadow)">
+    <!-- 奖杯杯身 -->
+    <path d="M100 40
+             C 80 40, 65 50, 65 65
+             C 65 80, 75 90, 85 95
+             L 85 110
+             L 115 110
+             L 115 95
+             C 125 90, 135 80, 135 65
+             C 135 50, 120 40, 100 40 Z"
+          fill="url(#goldGradient)"
+          stroke="#B8860B"
+          stroke-width="1.5"
+          filter="url(#innerShadow)"/>
+
+    <!-- 奖杯把手 - 左 -->
+    <path d="M 65 55
+             C 50 55, 45 60, 45 70
+             C 45 80, 55 85, 65 80
+             L 65 65 Z"
+          fill="url(#goldGradient)"
+          stroke="#B8860B"
+          stroke-width="1"/>
+
+    <!-- 奖杯把手 - 右 -->
+    <path d="M 135 55
+             C 150 55, 155 60, 155 70
+             C 155 80, 145 85, 135 80
+             L 135 65 Z"
+          fill="url(#goldGradient)"
+          stroke="#B8860B"
+          stroke-width="1"/>
+
+    <!-- 奖杯底座 -->
+    <rect x="90" y="110" width="20" height="15"
+          fill="url(#goldGradient)"
+          stroke="#B8860B"
+          stroke-width="1"/>
+
+    <!-- 奖杯基座 -->
+    <ellipse cx="100" cy="130" rx="35" ry="8"
+             fill="url(#goldGradient)"
+             stroke="#B8860B"
+             stroke-width="1.5"/>
+
+    <!-- 高光效果 - 杯身 -->
+    <ellipse cx="92" cy="65" rx="8" ry="15"
+             fill="url(#highlightGradient)"
+             opacity="0.7"
+             transform="rotate(-15 92 65)"/>
+
+    <!-- 高光效果 - 把手左侧 -->
+    <ellipse cx="58" cy="68" rx="3" ry="6"
+             fill="url(#highlightGradient)"
+             opacity="0.6"/>
+
+    <!-- 高光效果 - 把手右侧 -->
+    <ellipse cx="142" cy="68" rx="3" ry="6"
+             fill="url(#highlightGradient)"
+             opacity="0.6"/>
+
+    <!-- 星星装饰 -->
+    <g transform="translate(100, 75)" filter="url(#glow)">
+      <path d="M 0,-8 L 2,-2 L 8,-1 L 3,3 L 4,9 L 0,5 L -4,9 L -3,3 L -8,-1 L -2,-2 Z"
+            fill="#FFF6E5"
+            stroke="#FFD700"
+            stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

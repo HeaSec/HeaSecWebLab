@@ -1,0 +1,235 @@
+/**
+ * HeaSec天积安全团队 - 三方支付漏洞靶场 - 天积宝支付页面样式
+ * 版本: v1.0.0
+ * 创建日期: 2026-03-20
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pay-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px;
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.pay-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 15px 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pay-logo {
+    grid-row: 1 / 3;
+    font-size: 38px;
+    display: flex;
+    align-items: center;
+}
+
+.pay-brand {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    text-align: left;
+    align-self: flex-end;
+}
+
+.pay-slogan {
+    font-size: 12px;
+    opacity: 0.8;
+    text-align: left;
+    align-self: flex-start;
+}
+
+.pay-body {
+    padding: 20px 20px;
+    overflow-y: auto;
+}
+
+/* 促销横幅（第三关特有） */
+.promo-banner {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 订单信息区域 */
+.order-info {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.order-info-title {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-info-title i {
+    color: #667eea;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.order-row:last-child {
+    border-bottom: none;
+}
+
+.order-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.order-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.order-amount {
+    font-size: 24px;
+    color: #e74c3c;
+}
+
+/* 优惠行（第三关特有） */
+.discount-row {
+    color: #28a745;
+}
+
+.discount-row .order-value {
+    color: #28a745;
+}
+
+/* 支付表单 */
+.pay-form .form-group {
+    margin-bottom: 15px;
+}
+
+.pay-form .form-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.pay-form .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.pay-form .form-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* 支付按钮 */
+.pay-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.pay-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 消息提示 */
+.error-msg {
+    background: #fee;
+    color: #c00;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+.success-msg {
+    background: #efe;
+    color: #060;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.success-msg i {
+    font-size: 40px;
+    color: #28a745;
+    margin-bottom: 8px;
+}
+
+.countdown {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* 余额提示 */
+.balance-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}

@@ -1,0 +1,452 @@
+/**
+ * HeaSec天积安全团队 - 华丽星星成就系统公共组件
+ * Luxury Star Achievement System - Common Component
+ * 版本: v2.0.0
+ * 创建日期: 2025-11-08
+ * 迁移日期: 2025-11-08
+ * 团队: 天积安全 (HeavenlySecret)
+ *
+ * 从/test/star/迁移到/range/common/components/star-system/
+ * 专为靶场项目设计的公共星星系统组件
+ */
+
+/* CSS变量定义 - 华丽金属风格 */
+:root {
+    /* 基础尺寸变量 */
+    --heasec-star-size: 48px;
+    --heasec-star-gap: 12px;
+    --heasec-star-container-padding: 15px;
+
+    /* 高级动画变量 */
+    --heasec-star-transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --heasec-star-hover-duration: 0.4s;
+    --heasec-star-pulse-duration: 3s;
+    --heasec-star-glow-intensity: 0.8;
+
+    /* 金属质感颜色变量 */
+    --heasec-gold-primary: #FFD700;
+    --heasec-gold-secondary: #FFA500;
+    --heasec-gold-accent: #B8860B;
+    --heasec-gold-shadow: #8B4513;
+    --heasec-gray-primary: #9E9E9E;
+    --heasec-gray-secondary: #757575;
+    --heasec-gray-accent: #424242;
+    --heasec-gray-shadow: #212121;
+
+    /* 华丽效果变量 */
+    --heasec-shadow-intensity: 0.7;
+    --heasec-glow-radius: 15px;
+    --heasec-reflection-intensity: 0.9;
+    --heasec-metallic-shine: 0.8;
+}
+
+/* 星星系统主容器 - 公共组件版 */
+.heasec-star-system {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--heasec-star-gap);
+    padding: var(--heasec-star-container-padding);
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(0, 0, 0, 0.1) 100%);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+/* 华丽背景装饰 */
+.heasec-star-system::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+    border-radius: 20px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 基础星星样式 - 公共组件版 */
+.heasec-star {
+    width: var(--heasec-star-size);
+    height: var(--heasec-star-size);
+    position: relative;
+    cursor: pointer;
+    transition: var(--heasec-star-transition);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    z-index: 10;
+}
+
+.star-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: var(--heasec-star-transition);
+    border-radius: 10px;
+    overflow: visible;
+}
+
+.star-svg {
+    width: 100%;
+    height: 100%;
+    filter:
+        drop-shadow(0 8px 16px rgba(0, 0, 0, var(--heasec-shadow-intensity))) drop-shadow(0 0 var(--heasec-glow-radius) rgba(255, 215, 0, var(--heasec-glow-intensity)));
+    transition: all var(--heasec-star-hover-duration) ease;
+    transform: translateZ(0);
+}
+
+/* 金色星星状态 - 公共组件版（静态） */
+.heasec-star.heasec-star-gold .star-svg {
+    filter:
+        drop-shadow(0 16px 32px rgba(255, 165, 0, 0.9)) drop-shadow(0 0 20px rgba(255, 215, 0, 1)) saturate(1.6) contrast(1.3) brightness(1.2);
+    /* 移除动画，保持静态 */
+}
+
+/* 灰色星星状态 - 公共组件版 */
+.heasec-star.heasec-star-gray .star-svg {
+    filter:
+        drop-shadow(0 6px 12px rgba(0, 0, 0, var(--heasec-shadow-intensity))) saturate(0.3) contrast(0.8) brightness(0.7);
+    transform: scale(0.9) translateZ(-10px);
+    opacity: 0.8;
+}
+
+/* 悬停效果 - 金色星星 */
+.heasec-star.heasec-star-gold:hover {
+    transform: translateY(-8px) scale(1.15);
+    z-index: 20;
+}
+
+.heasec-star.heasec-star-gold:hover .star-svg {
+    filter:
+        drop-shadow(0 20px 40px rgba(255, 165, 0, 1)) drop-shadow(0 0 35px rgba(255, 215, 0, 1)) saturate(1.8) contrast(1.4) brightness(1.3);
+    /* 移除悬停动画，保持静态 */
+}
+
+/* 悬停效果 - 灰色星星 */
+.heasec-star.heasec-star-gray:hover {
+    transform: translateY(-4px) scale(1.05) rotate(-2deg);
+    opacity: 0.9;
+}
+
+.heasec-star.heasec-star-gray:hover .star-svg {
+    filter:
+        drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)) saturate(0.5) contrast(0.9) brightness(0.8);
+}
+
+/* 点击效果 */
+.heasec-star:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.heasec-star:active .star-svg {
+    filter:
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) saturate(1.8) contrast(1.4) brightness(1.3);
+}
+
+/* 华丽动画效果 */
+@keyframes heasec-goldStarPulse {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter:
+            drop-shadow(0 12px 24px rgba(255, 165, 0, var(--heasec-shadow-intensity))) drop-shadow(0 0 var(--heasec-glow-radius) rgba(255, 215, 0, var(--heasec-glow-intensity))) saturate(1.4) contrast(1.2) brightness(1.1);
+    }
+
+    50% {
+        transform: scale(1.05) rotate(2deg);
+        filter:
+            drop-shadow(0 16px 32px rgba(255, 165, 0, 0.9)) drop-shadow(0 0 20px rgba(255, 215, 0, 1)) saturate(1.6) contrast(1.3) brightness(1.2);
+    }
+}
+
+@keyframes heasec-goldStarGlow {
+
+    0%,
+    100% {
+        filter:
+            drop-shadow(0 16px 32px rgba(255, 165, 0, 0.9)) drop-shadow(0 0 25px rgba(255, 215, 0, 1)) saturate(1.6) contrast(1.3) brightness(1.2);
+    }
+
+    50% {
+        filter:
+            drop-shadow(0 20px 40px rgba(255, 165, 0, 1)) drop-shadow(0 0 35px rgba(255, 215, 0, 1)) saturate(1.8) contrast(1.4) brightness(1.3);
+    }
+}
+
+/* 粒子效果容器 */
+.star-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
+}
+
+/* 科技粒子效果 */
+.heasec-star.heasec-star-gold:hover .star-particles {
+    animation: heasec-particleBurst 2s ease-out infinite;
+}
+
+@keyframes heasec-particleBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+/* 粒子样式 */
+.star-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #FFD700 0%, transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 6px #FFD700;
+    opacity: 0;
+}
+
+.heasec-star.heasec-star-gold:hover .star-particle {
+    animation: heasec-particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes heasec-particleFloat {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(var(--tx1), var(--ty1)) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx2), var(--ty2)) scale(0.3);
+    }
+}
+
+/* 为每个粒子设置不同的运动轨迹 */
+.star-particle:nth-child(1) {
+    --tx1: -20px;
+    --ty1: -20px;
+    --tx2: -40px;
+    --ty2: -60px;
+    animation-delay: 0s;
+}
+
+.star-particle:nth-child(2) {
+    --tx1: 20px;
+    --ty1: -20px;
+    --tx2: 40px;
+    --ty2: -60px;
+    animation-delay: 0.2s;
+}
+
+.star-particle:nth-child(3) {
+    --tx1: 30px;
+    --ty1: 10px;
+    --tx2: 60px;
+    --ty2: 30px;
+    animation-delay: 0.4s;
+}
+
+.star-particle:nth-child(4) {
+    --tx1: -30px;
+    --ty1: 10px;
+    --tx2: -60px;
+    --ty2: 30px;
+    animation-delay: 0.6s;
+}
+
+.star-particle:nth-child(5) {
+    --tx1: 0px;
+    --ty1: 25px;
+    --tx2: 0px;
+    --ty2: 70px;
+    animation-delay: 0.8s;
+}
+
+.star-particle:nth-child(6) {
+    --tx1: -15px;
+    --ty1: -15px;
+    --tx2: -35px;
+    --ty2: -35px;
+    animation-delay: 1s;
+}
+
+/* 星星解锁动画 */
+.heasec-star.heasec-star-unlocking {
+    animation: heasec-starUnlock 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes heasec-starUnlock {
+    0% {
+        transform: scale(0.8) rotate(0deg);
+        filter: grayscale(100%) saturate(0) brightness(0.5);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        filter: grayscale(50%) saturate(0.5) brightness(0.8);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+        filter: grayscale(0%) saturate(1.4) brightness(1.1);
+    }
+}
+
+/* 紧凑型预设 */
+.heasec-star-system.heasec-star-compact {
+    --heasec-star-size: 60px;
+    --heasec-star-gap: 15px;
+    --heasec-star-container-padding: 20px;
+}
+
+.heasec-star-system.heasec-star-full {
+    --heasec-star-size: 100px;
+    --heasec-star-gap: 25px;
+    --heasec-star-container-padding: 35px;
+}
+
+.heasec-star-system.heasec-star-mini {
+    --heasec-star-size: 40px;
+    --heasec-star-gap: 10px;
+    --heasec-star-container-padding: 15px;
+}
+
+/* 响应式设计 - 公共组件版 */
+@media (max-width: 1200px) {
+    :root {
+        --heasec-star-size: 70px;
+        --heasec-star-gap: 18px;
+        --heasec-star-container-padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --heasec-star-size: 60px;
+        --heasec-star-gap: 15px;
+        --heasec-star-container-padding: 20px;
+    }
+
+    .heasec-star-system {
+        flex-wrap: wrap;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --heasec-star-size: 50px;
+        --heasec-star-gap: 12px;
+        --heasec-star-container-padding: 15px;
+    }
+}
+
+/* 性能优化 */
+.heasec-star {
+    will-change: transform, filter;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.star-inner {
+    will-change: transform, filter;
+    backface-visibility: hidden;
+}
+
+.star-svg {
+    will-change: filter, transform;
+    backface-visibility: hidden;
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    :root {
+        --heasec-star-glow-intensity: 1.0;
+        --heasec-shadow-intensity: 0.9;
+    }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+
+    .heasec-star,
+    .star-inner,
+    .star-svg {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .heasec-star:hover {
+        transform: none !important;
+    }
+}
+
+/* 与现有UI组件的集成样式 */
+.heasec-star-system.heasec-ui-integrated {
+    background: var(--heasec-ui-bg-secondary);
+    border: 1px solid var(--heasec-ui-border);
+    box-shadow: var(--heasec-ui-shadow);
+}
+
+/* 暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+    .heasec-star-system {
+        background: linear-gradient(135deg,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(255, 255, 255, 0.02) 50%,
+                rgba(0, 0, 0, 0.3) 100%);
+    }
+}
+
+/* 彩色主题变体 */
+.heasec-star-theme-blue {
+    --heasec-gold-primary: #4DABF7;
+    --heasec-gold-secondary: #339AF0;
+    --heasec-gold-accent: #1864AB;
+    --heasec-gold-shadow: #1C7ED6;
+}
+
+.heasec-star-theme-green {
+    --heasec-gold-primary: #51CF66;
+    --heasec-gold-secondary: #40C057;
+    --heasec-gold-accent: #2B8A3E;
+    --heasec-gold-shadow: #37B24D;
+}
+
+.heasec-star-theme-purple {
+    --heasec-gold-primary: #CC5DE8;
+    --heasec-gold-secondary: #AE3EC9;
+    --heasec-gold-accent: #9C36B5;
+    --heasec-gold-shadow: #862E9C;
+}

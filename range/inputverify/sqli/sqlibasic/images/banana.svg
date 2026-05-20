@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <ellipse cx="100" cy="115" rx="55" ry="70" fill="#ecc94b"/>
+  <ellipse cx="100" cy="115" rx="55" ry="70" fill="url(#bananaGrad)"/>
+  <path d="M60 60 Q50 40 70 35" fill="none" stroke="#744210" stroke-width="3" stroke-linecap="round"/>
+  <path d="M140 60 Q150 40 130 35" fill="none" stroke="#744210" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="80" cy="90" rx="8" ry="4" fill="rgba(0,0,0,0.08)"/>
+  <ellipse cx="85" cy="110" rx="6" ry="3" fill="rgba(0,0,0,0.06)"/>
+  <defs>
+    <radialGradient id="bananaGrad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#fefcbf"/>
+      <stop offset="40%" stop-color="#ecc94b"/>
+      <stop offset="100%" stop-color="#d69e2e"/>
+    </radialGradient>
+  </defs>
+</svg>

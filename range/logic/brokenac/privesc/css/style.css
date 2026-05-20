@@ -1,0 +1,474 @@
+/**
+ * HeaSec天积安全团队 - 越权访问综合实战靶场样式
+ * 版本: v1.0.0
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+.heasec-privesc-layout {
+    align-items: flex-start;
+}
+
+.heasec-privesc-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    min-height: min-content;
+    padding-bottom: 20px;
+    /* 给底部阴影留出空间 */
+}
+
+.heasec-privesc-side {
+    flex: 0 0 500px;
+    max-width: 500px;
+    width: 500px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+}
+
+.heasec-panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+/* 防止登录卡片由于外层弹性盒子布局被截断 */
+.heasec-privesc-main .tech-card {
+    flex-shrink: 0;
+    flex-basis: auto;
+    min-height: min-content;
+    margin-bottom: 20px;
+    /* 预留底部阴影空间 */
+}
+
+/* 限制未登录时登录面板的宽度，防止过度拉伸影响美观 */
+#guestPanel {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.heasec-privesc-banner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.heasec-privesc-banner h4 {
+    margin: 0 0 8px;
+    color: var(--heasec-primary-color);
+}
+
+.heasec-privesc-banner p {
+    margin: 0;
+    color: #495057;
+}
+
+.heasec-privesc-admin-seed {
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.heasec-privesc-admin-seed span {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.heasec-privesc-admin-seed strong,
+.heasec-privesc-admin-seed code {
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+}
+
+.heasec-form-switch {
+    margin: 14px 0 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.heasec-user-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.heasec-user-summary-label {
+    display: block;
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.heasec-data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.heasec-data-grid>div,
+.heasec-address-box p {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.heasec-data-grid span,
+.heasec-address-box span,
+.heasec-avatar-filename {
+    color: #6c757d;
+}
+
+.heasec-data-grid strong,
+.heasec-address-box strong {
+    display: block;
+    margin-top: 6px;
+    color: #212529;
+    word-break: break-word;
+}
+
+.heasec-select {
+    appearance: none;
+    padding-right: 15px;
+}
+
+.heasec-textarea {
+    min-height: 100px;
+    padding-right: 15px;
+    resize: vertical;
+    font-family: 'Courier New', monospace;
+}
+
+.heasec-avatar-panel {
+    text-align: center;
+}
+
+.heasec-avatar-preview-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(0, 123, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.heasec-avatar-preview-wrap:hover .avatar-edit-overlay {
+    opacity: 1;
+}
+
+.heasec-avatar-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.heasec-avatar-empty {
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.avatar-edit-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.heasec-file-upload-area {
+    position: relative;
+    border: 2px dashed rgba(0, 123, 255, 0.3);
+    border-radius: 8px;
+    padding: 30px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.heasec-file-upload-area:hover,
+.heasec-file-upload-area.dragover {
+    background-color: rgba(0, 123, 255, 0.05);
+    border-color: rgba(0, 123, 255, 0.6);
+}
+
+.heasec-file-input-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.upload-area-content {
+    pointer-events: none;
+}
+
+.upload-area-content i {
+    font-size: 36px;
+    color: rgba(0, 123, 255, 0.5);
+    margin-bottom: 12px;
+}
+
+.upload-text {
+    margin: 0 0 6px 0;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.upload-filename {
+    margin: 0;
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.heasec-user-table {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.heasec-user-row {
+    display: grid;
+    grid-template-columns: 240px 220px 100px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.heasec-user-row:hover {
+    border-color: rgba(0, 123, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
+    background: #fff;
+}
+
+.heasec-user-info-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.heasec-user-avatar-small {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(0, 123, 255, 0.2);
+    background: #f0f7ff;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heasec-user-avatar-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-avatar-placeholder {
+    font-size: 10px;
+    color: #94a3b8;
+    text-align: center;
+    line-height: 1.2;
+    padding: 2px;
+}
+
+.heasec-user-main-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.heasec-user-username {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.heasec-user-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.heasec-user-name-info {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.heasec-user-phone-info {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.heasec-user-role-badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.heasec-user-role-badge.admin {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.heasec-user-role-badge.user {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.heasec-user-status-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.heasec-user-status-label.status-1 {
+    color: #10b981;
+}
+
+.heasec-user-status-label.status-0 {
+    color: #f43f5e;
+}
+
+.heasec-user-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.heasec-user-actions .tech-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.tech-btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+}
+
+.tech-btn-warning:hover {
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    transform: translateY(-2px);
+}
+
+.heasec-page-message {
+    position: sticky;
+    bottom: 20px;
+    z-index: 20;
+}
+
+.heasec-page-message .alert {
+    margin-bottom: 0;
+}
+
+
+
+@media (max-width: 1400px) {
+    .heasec-privesc-side {
+        flex-basis: 420px;
+        width: 420px;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .heasec-privesc-layout {
+        flex-direction: column;
+    }
+
+    .heasec-privesc-side {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        flex-basis: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .heasec-data-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .heasec-user-row {
+        grid-template-columns: 1fr;
+    }
+
+    .heasec-user-actions {
+        justify-content: flex-start;
+    }
+
+    .heasec-user-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

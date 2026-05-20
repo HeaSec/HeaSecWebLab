@@ -1,0 +1,259 @@
+/**
+ * HeaSec天积安全团队 - 文件包含进阶靶场样式
+ * 版本: v1.0.0
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 左右布局 */
+.fiadv-left-col {
+    flex: 1 1 65%;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fiadv-right-col {
+    flex: 1 1 35%;
+    min-width: 320px;
+}
+
+/* 响应式：窄屏时切换为垂直布局 */
+@media (max-width: 768px) {
+    .fiadv-left-col,
+    .fiadv-right-col {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* 导航链接 */
+.doc-nav {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.doc-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #1565c0;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.doc-nav-link:hover {
+    background: linear-gradient(135deg, #bbdefb, #90caf9);
+    transform: translateY(-1px);
+}
+
+.doc-nav-link i {
+    font-size: 12px;
+}
+
+/* 路径输入区域 */
+.submit-section {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.submit-section input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.submit-section input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+/* 内容展示区域 */
+.doc-content-wrapper {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    min-height: 80px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.doc-content-wrapper .content-placeholder {
+    text-align: center;
+    color: #adb5bd;
+    padding: 30px;
+}
+
+.doc-content-wrapper .content-placeholder i {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* 拖拽上传区域 */
+.upload-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.upload-drop-zone {
+    border: 2px dashed #ced4da;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #f8f9fa;
+    color: #6c757d;
+}
+
+.upload-drop-zone:hover {
+    border-color: #1976d2;
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.upload-drop-zone.dragover {
+    border-color: #1976d2;
+    background: #bbdefb;
+    color: #1565c0;
+    transform: scale(1.01);
+}
+
+.upload-drop-zone i {
+    font-size: 32px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.upload-drop-zone p {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.upload-drop-zone small {
+    font-size: 12px;
+    color: #adb5bd;
+}
+
+.upload-drop-zone.dragover small,
+.upload-drop-zone:hover small {
+    color: #90caf9;
+}
+
+.upload-click-trigger {
+    color: #1976d2;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.upload-result {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.upload-result.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.upload-result.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.upload-result .file-path {
+    display: block;
+    margin-top: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.upload-result .include-link {
+    display: inline-block;
+    margin-top: 6px;
+    color: #1976d2;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* 文件路径提示 */
+.uploaded-files-list .file-item .file-path-hint {
+    color: #6c757d;
+    font-size: 11px;
+    font-family: monospace;
+}
+
+/* 已上传文件列表 */
+.uploaded-files-list {
+    margin-top: 15px;
+}
+
+.uploaded-files-list h4 {
+    font-size: 13px;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.uploaded-files-list .file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.uploaded-files-list .file-item .file-name {
+    color: #495057;
+    font-family: monospace;
+}
+
+/* 修复左右布局下卡片截断和底部不可见问题
+ *
+ * 根因：公共样式 heasec_range_common.css 设置了 html,body { height: 100%; display: flex; flex-direction: column; }
+ * 导致 html 和 body 被固定为视口高度，内容溢出时 html.scrollHeight == html.clientHeight，不产生滚动条
+ *
+ * 同时 .range-container .tech-card { flex: 1 1 400px } 是为卡片直接作为 range-container 子元素设计的水平布局，
+ * 在本靶场中卡片嵌套在列容器内（纵向布局），需要重置 flex 属性防止高度异常
+ */
+
+/* 1. 覆盖公共样式的高度限制，使页面内容超出视口时可以正常滚动 */
+html {
+    height: auto;
+    min-height: 100%;
+}
+
+body {
+    height: auto;
+    min-height: 100vh;
+}
+
+/* 2. 重置嵌套在列容器内的卡片 flex 属性 */
+.fiadv-left-col .tech-card,
+.fiadv-right-col .tech-card {
+    flex: none;
+}

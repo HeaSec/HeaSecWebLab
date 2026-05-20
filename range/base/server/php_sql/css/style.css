@@ -1,0 +1,1172 @@
+/**
+ * HeaSec天积安全团队 - 服务端脚本基础靶场样式文件
+ * 版本: v1.0.4
+ * 创建日期: 2025-12-30
+ * 说明: 复用javascript靶场样式 + 添加PHP预览区域特定样式
+ */
+
+/* ==================== 容器宽度覆盖 ==================== */
+/* 覆盖公共样式中的容器宽度，确保能够容纳1080px的section3-6 */
+.heasec-container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ==================== 可折叠区域样式（复用javascript样式） ==================== */
+.collapsible-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* 更柔和的阴影 */
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* 默认状态：呼吸感窄宽度 */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    /* 确保在窄屏下也能撑满容器 */
+}
+
+/* 当任意区域展开时，所有区域（包括收起的）都变宽以保持对齐 */
+body.has-expanded-section .collapsible-section {
+    max-width: 100%;
+}
+
+.collapsible-section.expanded {
+    border-color: #667eea;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+    width: auto;
+    min-width: 500px;
+    max-width: 100%;
+}
+
+/* ID selector overrides removed to allow generic .collapsible-section width logic to apply */
+
+.collapsible-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: all 0.3s ease;
+    min-height: 60px;
+    border-radius: 11px;
+    margin-bottom: 0;
+    border: none;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 展开状态下移除header的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-header {
+    box-shadow: none;
+    transform: translateY(-2px);
+    border-radius: 11px 11px 0px 0px !important;
+}
+
+/* 整个可折叠区域的悬停效果 - 只对展开状态生效 */
+.collapsible-section.expanded:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(102, 126, 234, 0.25);
+}
+
+/* 展开状态下的header悬停效果 */
+.collapsible-section.expanded:hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: translateY(-2px);
+}
+
+/* 收起状态下的header悬停效果 */
+.collapsible-section:not(.expanded):hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: none !important;
+}
+
+.collapsible-section:hover .collapsible-content {
+    background: #ffffff;
+}
+
+.toggle-text {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.toggle-text .fa {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 80px;
+    min-height: 44px;
+}
+
+/* 展开状态文字 */
+.collapsible-section:not(.expanded) .toggle-btn::after {
+    content: "展开";
+}
+
+/* 收起状态文字 */
+.collapsible-section.expanded .toggle-btn::after {
+    content: "收起";
+}
+
+.collapsible-content {
+    background: #ffffff;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 0 0 11px 11px;
+    margin-top: 0;
+    box-shadow: none;
+}
+
+/* 收起状态下完全隐藏content的样式 */
+.collapsible-section:not(.expanded) .collapsible-content {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* 展开状态下移除content的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-content {
+    box-shadow: none;
+    max-height: 8000px;
+    padding: 20px;
+}
+
+/* ==================== PHP语法展示区域样式 ==================== */
+.php-syntax-display {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.php-syntax-display h4,
+.sql-syntax-display h4 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    font-size: 16px;
+}
+
+/* Prism.js 代码块样式调整 */
+pre[class*="language-"] {
+    background: #1e1e1e;
+    border-radius: 6px;
+    margin: 0;
+    font-size: 14px;
+    white-space: pre;
+}
+
+code[class*="language-"] {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.5;
+    white-space: pre;
+}
+
+/* 章节标题样式 */
+.chapter-title {
+    color: #2d3748;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-title .fa {
+    color: #667eea;
+}
+
+.chapter-description {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* 语法说明样式 */
+.syntax-explanation {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.syntax-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.syntax-explanation h5 .fa {
+    color: #667eea;
+}
+
+.syntax-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.syntax-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.syntax-explanation code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* ==================== 代码预览容器样式（新增） ==================== */
+.code-preview-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    min-height: 600px;
+}
+
+/* 代码展示区域 (65%) */
+.code-display {
+    flex: 0 0 65%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* 预览效果区域 (35%) */
+.preview-display {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* 代码/预览头部 */
+.code-display-header,
+.preview-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-display-header span,
+.preview-header span {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* 预览头部按钮组样式 */
+.preview-header>div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.code-display-header button,
+.preview-header button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.code-display-header button:hover,
+.preview-header button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 代码内容区域 */
+.code-content {
+    flex: 1;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 代码内容区域内的 pre 标签 */
+.code-content pre {
+    margin: 0 !important;
+    padding: 15px;
+    box-sizing: border-box;
+    flex: 1;
+    overflow-x: auto;
+    min-height: 0;
+}
+
+/* 覆盖Prism行号插件的margin设置 */
+.code-content pre[class*="language-"] {
+    margin: 0 !important;
+}
+
+/* iframe预览 */
+.preview-display iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+}
+
+/* ==================== 放大模式样式 ==================== */
+/* 默认状态：确保容器是水平布局（row） */
+.code-preview-container:not(:has(.code-display.fullscreen)) {
+    flex-direction: row;
+}
+
+/* 放大时容器改为垂直布局 */
+.code-preview-container:has(.code-display.fullscreen) {
+    flex-direction: column;
+}
+
+/* 代码区域放大：占满容器宽度 */
+.code-display.fullscreen {
+    flex: 0 0 100%;
+    width: 100%;
+}
+
+/* 预览区域在放大时自动排列到下方，保持适当高度 */
+.code-preview-container:has(.code-display.fullscreen) .preview-display {
+    flex: 0 0 600px;
+}
+
+/* ==================== 掌握按钮区域样式 ==================== */
+.mastery-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.mastery-section:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.mastery-button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heasec-mastery-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-mastery-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.heasec-mastery-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.heasec-mastery-btn:hover::before {
+    left: 100%;
+}
+
+.heasec-mastery-btn:active {
+    transform: translateY(0);
+}
+
+.heasec-mastery-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.heasec-mastery-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.mastery-description {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==================== 响应式调整 ==================== */
+@media (min-width: 1200px) {
+
+    /* 大屏幕时，section3-6保持固定宽度1080px，居中显示 */
+    #section3.expanded,
+    #section4.expanded,
+    #section5.expanded,
+    #section6.expanded {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .collapsible-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    #section3.expanded,
+    #section4.expanded,
+    #section5.expanded,
+    #section6.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .code-preview-container {
+        flex-direction: column;
+    }
+
+    .code-display,
+    .preview-display {
+        flex: none;
+        width: 100%;
+    }
+
+    .code-display {
+        min-height: 400px;
+    }
+
+    .preview-display {
+        min-height: 300px;
+    }
+
+    .collapsible-header {
+        padding: 14px 18px;
+        min-height: 50px;
+    }
+
+    .toggle-text {
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .toggle-text .fa {
+        font-size: 16px;
+    }
+
+    .toggle-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+
+    pre[class*="language-"] {
+        font-size: 12px;
+        padding: 15px;
+    }
+
+    .mastery-section {
+        padding: 20px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 14px 32px;
+        font-size: 16px;
+        min-width: 180px;
+    }
+}
+
+/* ==========================================================================
+   服务端基本工作原理架构图新增样式
+   ========================================================================== */
+.architecture-container {
+    padding: 10px 0;
+}
+
+.sub-section-title {
+    color: #4A90E2;
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid #4A90E2;
+}
+
+.principle-intro {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a5568;
+    margin-bottom: 25px;
+    background: rgba(102, 126, 234, 0.05);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.principle-intro strong {
+    color: #667eea;
+}
+
+/* 交互示意图 */
+.interaction-diagram {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px dashed rgba(102, 126, 234, 0.4);
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.diagram-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 130px;
+    position: relative;
+    z-index: 2;
+    margin-top: 15px;
+    /* 减小 margin-top 为上方的 layer label 留出空间 */
+    /* 精确对齐横向箭头 */
+}
+
+/* 新增：层级标签显示在图标上方 */
+.node-layer-label {
+    margin-bottom: 8px;
+    color: #ed8936;
+    /* 统一使用突出的标识颜色，或根据具体节点更换 */
+    font-weight: bold;
+    font-size: 13px;
+    background: rgba(237, 137, 54, 0.1);
+    padding: 0 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    /* 固定高度，配合 flex 居中 */
+}
+
+.node-layer-label small {
+    font-size: 12px;
+    /* 恢复 small 标签的合理字号，或按需调整 */
+}
+
+/* 客户端表示层不同颜色 */
+.client-node .node-layer-label {
+    color: #4A90E2;
+    background: rgba(74, 144, 226, 0.1);
+}
+
+/* 数据库数据层不同颜色 */
+.database-node .node-layer-label {
+    color: #9f7aea;
+    background: rgba(159, 122, 234, 0.1);
+}
+
+.node-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+    background: white;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.node-name {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 16px;
+}
+
+.node-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.tech-tag {
+    font-size: 11px;
+    background: rgba(66, 153, 225, 0.15);
+    color: #3182ce;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    white-space: nowrap;
+}
+
+.tech-tag.server {
+    background: rgba(237, 137, 54, 0.15);
+    color: #dd6b20;
+    border-color: rgba(237, 137, 54, 0.3);
+}
+
+.tech-tag.db {
+    background: rgba(159, 122, 234, 0.15);
+    color: #805ad5;
+    border-color: rgba(159, 122, 234, 0.3);
+}
+
+.node-examples {
+    font-size: 11px;
+    color: #a0aec0;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.diagram-flow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.step-number {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #667eea;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
+    z-index: 3;
+}
+
+.step-label-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* 数字圆圈和矩形文字框的间距 */
+    margin-bottom: 5px;
+    /* 将原本属于 label 的底边距移开 */
+}
+
+.step-number.inline-step {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+}
+
+.step-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.step-detail {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    /* 增加与下边缘的间距 */
+}
+
+/* 强制请求步骤高度一致，确保左右箭头高度完美对平 */
+.request-step {
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.response-step .step-label-wrapper {
+    margin-top: 10px;
+    /* 拉开底部箭头与文字的间距 */
+}
+
+.step-arrow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 12px;
+    position: relative;
+}
+
+.arrow-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #4A90E2, #68d391);
+    position: relative;
+}
+
+/* 动态数据流动画 */
+.arrow-line::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.8);
+    animation: flowDataRight 2s infinite linear;
+    opacity: 0.8;
+}
+
+.left-arrow .arrow-line::after {
+    left: auto;
+    right: 0;
+    animation: flowDataLeft 2s infinite linear;
+}
+
+@keyframes flowDataRight {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes flowDataLeft {
+    0% {
+        right: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        right: 100%;
+        opacity: 0;
+    }
+}
+
+.right-arrow .arrow-head {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 10px solid #68d391;
+}
+
+.left-arrow .arrow-line {
+    background: linear-gradient(90deg, #ed8936, #4A90E2);
+}
+
+.left-arrow .arrow-head {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 10px solid #ed8936;
+}
+
+/* 基本概念特征 */
+.principle-features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+    border-left: 4px solid #667eea;
+}
+
+.feature-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.feature-desc {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.feature-desc strong {
+    color: #667eea;
+}
+
+/* 动态数据流对比表格样式 */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.comparison-table th {
+    background: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.comparison-table td {
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.comparison-table tr:hover {
+    background: #ebf4ff;
+}
+
+.comparison-table td.highlight {
+    color: #3182ce;
+    font-weight: 500;
+}
+
+/* 响应式优化 */
+@media (max-width: 900px) {
+    .interaction-diagram {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .diagram-node {
+        margin-top: 0;
+    }
+
+    .request-step {
+        height: auto;
+    }
+
+    .diagram-flow {
+        width: 100%;
+        padding: 0;
+        gap: 40px;
+    }
+
+    .step-arrow {
+        min-height: 30px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .right-arrow .arrow-line,
+    .left-arrow .arrow-line {
+        width: 2px;
+        height: 30px;
+        flex: none;
+    }
+
+    .right-arrow .arrow-line {
+        background: linear-gradient(180deg, #4A90E2, #68d391);
+    }
+
+    .right-arrow .arrow-head {
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        border-top: 10px solid #68d391;
+        border-bottom: none;
+    }
+
+    .left-arrow .arrow-line {
+        background: linear-gradient(180deg, #ed8936, #4A90E2);
+    }
+
+    .left-arrow .arrow-head {
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        border-bottom: 10px solid #ed8936;
+        border-top: none;
+        order: -1;
+    }
+
+    .arrow-line::after {
+        top: 0;
+        left: -3px;
+        animation: flowDataDown 2s infinite linear;
+    }
+
+    .left-arrow .arrow-line::after {
+        left: -3px;
+        right: auto;
+        animation: flowDataUp 2s infinite linear;
+    }
+
+    @keyframes flowDataDown {
+        0% {
+            top: 0;
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        100% {
+            top: 100%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes flowDataUp {
+        0% {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        100% {
+            bottom: 100%;
+            opacity: 0;
+        }
+    }
+
+    .step-number {
+        top: 50%;
+        left: -20px;
+        transform: translateY(-50%);
+    }
+
+    .flow-step {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .step-label {
+        margin-bottom: 0;
+        margin-right: 15px;
+        white-space: normal;
+        text-align: right;
+        flex: 1;
+    }
+}
+
+/* 新增：直观示例样式 */
+.mini-render-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mini-render-table th,
+.mini-render-table td {
+    border: 1px solid #edf2f7;
+    padding: 4px;
+    text-align: center;
+}
+
+.mini-render-table th {
+    background: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+.mini-render-table td {
+    color: #2d3748;
+}
+
+.step-code-snippet {
+    background: #2d3748;
+    color: #a0aec0;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 11px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: left;
+    margin-top: 10px;
+    white-space: nowrap;
+    /* 防止内部单行代码折行 */
+    max-width: 100%;
+    /* 强制最大宽度不超过容器 */
+    box-sizing: border-box;
+    overflow-x: auto;
+    /* 当代码过长时显示横向滚动条 */
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5);
+    border: 1px solid #4a5568;
+    line-height: 1.5;
+}
+
+.step-code-snippet div {
+    margin: 0;
+    padding: 0;
+}
+
+.step-code-snippet b {
+    color: #68d391;
+}

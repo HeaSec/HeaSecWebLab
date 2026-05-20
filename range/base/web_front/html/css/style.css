@@ -1,0 +1,904 @@
+/**
+ * HeaSec天积安全团队 - HTML语言基础靶场样式文件
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-05
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* 可折叠区域样式 - 参考httpxyjx靶场 */
+.collapsible-section {
+    margin-bottom: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 11px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(102, 126, 234, 0.08);
+    transform: translateY(0);
+    min-width: 500px;
+    width: auto;
+}
+
+.collapsible-section.expanded {
+    border-color: #667eea;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+    width: auto;
+    min-width: 500px;
+}
+
+/* HTML文档结构区域展开时的特殊宽度设置 */
+#section2.expanded {
+    min-width: 700px; /* 展开时最小宽度从500px增加到700px */
+    width: auto;
+}
+
+/* 文本标签区域展开时的特殊宽度设置 */
+#section3.expanded {
+    min-width: 700px; /* 展开时最小宽度从500px增加到700px */
+    width: auto;
+}
+
+/* 链接和图片区域展开时的特殊宽度设置 */
+#section4.expanded {
+    min-width: 700px; /* 展开时最小宽度从500px增加到700px */
+    width: auto;
+}
+
+/* 表格标签区域展开时的特殊宽度设置 */
+#section5.expanded {
+    min-width: 700px; /* 展开时最小宽度从500px增加到700px */
+    width: auto;
+}
+
+/* 表单基础区域展开时的特殊宽度设置 */
+#section6.expanded {
+    min-width: 700px; /* 展开时最小宽度从500px增加到700px */
+    width: auto;
+}
+
+.collapsible-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: all 0.3s ease;
+    min-height: 60px;
+    border-radius: 11px;
+    margin-bottom: 0;
+    border: none;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 展开状态下移除header的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-header {
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+/* 整个可折叠区域的悬停效果 - 只对展开状态生效 */
+.collapsible-section.expanded:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(102, 126, 234, 0.25);
+}
+
+/* 展开状态下的header悬停效果 */
+.collapsible-section.expanded:hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: translateY(-2px);
+    /* 移除独立阴影，保持与展开状态一致的重合效果 */
+}
+
+/* 收起状态下的header悬停效果 - 必须放在展开状态之后以确保优先级 */
+.collapsible-section:not(.expanded):hover .collapsible-header {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4090 100%);
+    transform: none !important;
+    /* 收起状态下不上移 */
+}
+
+.collapsible-section:hover .collapsible-content {
+    background: #ffffff;
+    /* 移除独立阴影，保持与展开状态一致的重合效果 */
+}
+
+.toggle-text {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.toggle-text .fa {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 80px;
+    min-height: 44px;
+}
+
+/* 展开状态文字 */
+.collapsible-section:not(.expanded) .toggle-btn::after {
+    content: "展开";
+}
+
+/* 收起状态文字 */
+.collapsible-section.expanded .toggle-btn::after {
+    content: "收起";
+}
+
+.collapsible-content {
+    background: #ffffff;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 0 0 11px 11px;
+    margin-top: 0;
+    box-shadow: none;
+}
+
+/* 收起状态下完全隐藏content的样式，避免影响header圆角 */
+.collapsible-section:not(.expanded) .collapsible-content {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* 展开状态下移除content的独立阴影，使用容器统一阴影 */
+.collapsible-section.expanded .collapsible-content {
+    box-shadow: none;
+    max-height: 5000px;
+    padding: 20px;
+}
+
+/* 展开状态下的header圆角调整 */
+.collapsible-section.expanded .collapsible-header {
+    border-radius: 11px 11px 0px 0px !important;
+}
+
+/* 代码展示区域样式 */
+.code-display-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+}
+
+.code-display-section h4 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    font-size: 16px;
+}
+
+/* 静态代码高亮样式 */
+.static-code-block {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 20px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+    tab-size: 4;
+}
+
+.static-code-block .tag {
+    color: #569cd6;
+}
+
+.static-code-block .attr-name {
+    color: #9cdcfe;
+}
+
+.static-code-block .attr-value {
+    color: #ce9178;
+}
+
+.static-code-block .comment {
+    color: #6a9955;
+}
+
+.static-code-block .content {
+    color: #d4d4d4;
+}
+
+.static-code-block .doctype {
+    color: #569cd6;
+    font-weight: bold;
+}
+
+/* CSS语法高亮样式 */
+.static-code-block .selector {
+    color: #569cd6; /* 蓝色 - 选择器 */
+}
+
+.static-code-block .property {
+    color: #9cdcfe; /* 浅蓝色 - 属性名 */
+}
+
+.static-code-block .value {
+    color: #ce9178; /* 橙色 - 属性值 */
+}
+
+.static-code-block .punctuation {
+    color: #d4d4d4; /* 灰色 - 标点符号 */
+}
+
+.static-code-block .brace {
+    color: #ffd700; /* 金色 - 花括号 */
+}
+
+/* 章节标题样式 */
+.chapter-title {
+    color: #2d3748;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-title .fa {
+    color: #667eea;
+}
+
+.chapter-description {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* 组成部分说明样式 */
+.composition-explanation {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.composition-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.composition-explanation h5 .fa {
+    color: #667eea;
+}
+
+.composition-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.composition-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.composition-explanation code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* 示例解析样式 */
+.example-explanation {
+    background: #f0f9ff;
+    border-left: 4px solid #4299e1;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.example-explanation h5 {
+    color: #2d3748;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.example-explanation h5 .fa {
+    color: #4299e1;
+}
+
+.example-explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.example-explanation li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: #4a5568;
+}
+
+.example-explanation code {
+    background: #bee3f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* 掌握按钮区域样式 */
+.mastery-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.mastery-section:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.mastery-button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heasec-mastery-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-mastery-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.heasec-mastery-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.heasec-mastery-btn:hover::before {
+    left: 100%;
+}
+
+.heasec-mastery-btn:active {
+    transform: translateY(0);
+}
+
+.heasec-mastery-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.heasec-mastery-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.mastery-description {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 自定义提示消息样式 */
+.heasec-alert {
+    border-radius: 8px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none;
+    animation: slideInRight 0.3s ease;
+    z-index: 10000;
+}
+
+.heasec-alert.alert-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.heasec-alert.alert-danger {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+}
+
+.heasec-alert .fa {
+    margin-right: 10px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 大屏幕优化 - 只在展开时生效 */
+@media (min-width: 1200px) {
+    #section2.expanded {
+        min-width: 1080px; /* 1200px以上屏幕展开时最小宽度1080px */
+    }
+
+    #section3.expanded {
+        min-width: 1080px; /* 1200px以上屏幕展开时最小宽度1080px */
+    }
+
+    #section4.expanded {
+        min-width: 1080px; /* 1200px以上屏幕展开时最小宽度1080px */
+    }
+
+    #section5.expanded {
+        min-width: 1080px; /* 1200px以上屏幕展开时最小宽度1080px */
+    }
+
+    #section6.expanded {
+        min-width: 1080px; /* 1200px以上屏幕展开时最小宽度1080px */
+    }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .collapsible-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* 保持现有移动端响应式设计的优先级 - 只针对展开状态 */
+    #section2.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+
+    #section3.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+
+    #section4.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+
+    #section5.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+
+    #section6.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+
+    .collapsible-header {
+        padding: 14px 18px;
+        min-height: 50px;
+    }
+
+    .toggle-text {
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .toggle-text .fa {
+        font-size: 16px;
+    }
+
+    .toggle-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+
+    .static-code-block {
+        font-size: 12px;
+        padding: 15px;
+    }
+
+    .mastery-section {
+        padding: 20px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 14px 32px;
+        font-size: 16px;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collapsible-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-section.expanded {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .collapsible-header {
+        padding: 12px 16px;
+        min-height: 48px;
+    }
+
+    .toggle-text {
+        font-size: 15px;
+        gap: 8px;
+    }
+
+    .toggle-text .fa {
+        font-size: 14px;
+    }
+
+    .toggle-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        min-width: 60px;
+        min-height: 36px;
+    }
+
+    .mastery-section {
+        padding: 15px;
+    }
+
+    .heasec-mastery-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-width: 160px;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* CSS基础（拓展）区域特殊宽度设置 */
+#section7.expanded {
+    min-width: 700px; /* 与其他区域保持一致的宽度 */
+    width: auto;
+}
+
+@media (min-width: 1200px) {
+    #section7.expanded {
+        min-width: 1080px; /* 与其他区域保持一致的宽度 */
+    }
+}
+
+@media (max-width: 768px) {
+    #section7.expanded {
+        width: 100%;
+        min-width: auto; /* 移动端展开时保持原有响应式设计 */
+    }
+}
+
+/* CSS基础语法说明区域样式 */
+.css-reference-section {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 12px;
+    border: 2px solid #667eea;
+}
+
+.css-reference-section > h4 {
+    color: #2d3748;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.css-reference-section > h4 .fa {
+    color: #667eea;
+    font-size: 20px;
+}
+
+/* 参考网格布局 */
+.ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* 参考项样式 */
+.ref-item {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.ref-item:hover {
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.ref-item h5 {
+    color: #2d3748;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 代码示例 */
+.code-example {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.code-example .css-selector {
+    color: #569cd6;
+}
+
+.code-example .css-property {
+    color: #9cdcfe;
+}
+
+.code-example .css-value {
+    color: #ce9178;
+}
+
+/* 参考描述 */
+.ref-desc {
+    color: #718096;
+    font-size: 13px;
+    margin: 10px 0 0 0;
+    line-height: 1.5;
+}
+
+/* 参考表格 */
+.ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.ref-table th,
+.ref-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ref-table th {
+    background: #f7fafc;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.ref-table td {
+    color: #4a5568;
+}
+
+.ref-table code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 12px;
+    color: #667eea;
+}
+
+/* 属性网格 */
+.props-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.prop-item {
+    background: #f7fafc;
+    padding: 8px 10px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.prop-item code {
+    background: #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 12px;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.prop-item span {
+    color: #718096;
+    font-size: 12px;
+}
+
+/* 盒子模型可视化 */
+.box-model-visual {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.box-margin {
+    background: #fed7d7;
+    border: 2px dashed #fc8181;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.box-border {
+    background: #feebc8;
+    border: 2px solid #f6ad55;
+    padding: 15px;
+    position: relative;
+}
+
+.box-padding {
+    background: #c6f6d5;
+    border: 2px solid #68d391;
+    padding: 12px;
+    position: relative;
+}
+
+.box-content {
+    background: #90cdf4;
+    border: 2px solid #4299e1;
+    padding: 10px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2d3748;
+    display: block;
+}
+
+/* 学习提示 */
+.ref-tip {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.ref-tip .fa {
+    color: #d97706;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.ref-tip strong {
+    color: #92400e;
+}
+
+/* CSS基础（拓展）区域响应式 */
+@media (max-width: 768px) {
+    .css-reference-section {
+        padding: 15px;
+    }
+
+    .ref-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .props-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ref-table {
+        font-size: 12px;
+    }
+
+    .ref-table th,
+    .ref-table td {
+        padding: 6px 8px;
+    }
+}

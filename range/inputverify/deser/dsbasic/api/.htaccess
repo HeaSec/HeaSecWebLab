@@ -1,0 +1,16 @@
+# HeaSec API安全配置
+# 禁止目录列表
+Options -Indexes
+
+# 禁止直接访问API文件（仅允许POST请求）
+<FilesMatch "\.php$">
+    # 允许正常的PHP请求
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# 禁止访问非PHP文件
+<FilesMatch "\.(sql|txt|log|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

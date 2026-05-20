@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳转成功 - JavaScript靶场</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .team-info {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h1>跳转成功！</h1>
+        <p>恭喜您成功使用JavaScript的Location对象完成了页面跳转！<br>
+        这是一个演示页面，用于展示BOM操作中的地址栏操作功能。</p>
+
+        <button class="back-button" onclick="goBack()">返回上一个页面</button>
+
+        <div class="team-info">
+            <p>天积安全靶场平台 - 日积寸功，乐享安全</p>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // 检测是否在iframe中运行
+            if (window.parent && window.parent !== window) {
+                // 在iframe中，使用iframe自己的历史记录返回
+                // 这样只会影响iframe，不会影响主窗口
+
+                // 检查iframe是否有历史记录可以返回
+                if (window.history.length > 1) {
+                    // 使用iframe的历史记录返回到BOM操作示例
+                    window.history.back();
+                } else {
+                    // 如果iframe没有历史记录，使用postMessage通知主窗口重新运行BOM示例
+
+                    try {
+                        // 通知主窗口重新运行BOM操作示例
+                        window.parent.postMessage({
+                            action: 'heasec_rerun_bom_example'
+                        }, '*');
+
+                        // 备用方案：等待一下然后显示提示
+                        setTimeout(function() {
+                            document.body.innerHTML = '<div style="text-align: center; padding: 50px;"><h2>请手动点击上方的"运行代码"按钮</h2><p>或刷新页面重新开始</p></div>';
+                        }, 500);
+                    } catch (e) {
+                        // 显示手动操作提示
+                        document.body.innerHTML = '<div style="text-align: center; padding: 50px;"><h2>请点击"运行代码"按钮重新开始</h2><p>或刷新页面重新加载示例</p></div>';
+                    }
+                }
+            } else {
+                // 不在iframe中，使用常规的history.back()
+                window.history.back();
+            }
+        }
+    </script>
+</body>
+</html>

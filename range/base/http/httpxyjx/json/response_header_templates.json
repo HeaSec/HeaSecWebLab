@@ -1,0 +1,225 @@
+{
+    "description": "HTTP响应头解析模板",
+    "version": "1.0.0",
+    "team": "HeaSec天积安全团队",
+    "templates": {
+        "Content-Type": {
+            "description": "告知客户端响应体的媒体类型。",
+            "common_values": {
+                "text/html; charset=UTF-8": {
+                    "current_value": "text/html; charset=UTF-8",
+                    "analysis": "本次响应头表示响应体是HTML文档，使用UTF-8字符编码。\n说明：这是网页的标准MIME类型，UTF-8支持所有Unicode字符。"
+                },
+                "application/json": {
+                    "current_value": "application/json",
+                    "analysis": "本次响应头表示响应体是JSON格式的数据。\n说明：常用于API接口返回数据，结构化数据交换。"
+                },
+                "text/plain": {
+                    "current_value": "text/plain",
+                    "analysis": "本次响应头表示响应体是纯文本数据。\n说明：最简单的文本格式，不包含任何格式化信息。"
+                },
+                "image/jpeg": {
+                    "current_value": "image/jpeg",
+                    "analysis": "本次响应头表示响应体是JPEG图片。\n说明：常见的图片格式，适用于照片和复杂图像。"
+                },
+                "application/octet-stream": {
+                    "current_value": "application/octet-stream",
+                    "analysis": "本次响应头表示响应体是二进制流数据。\n说明：通用二进制类型，常用于文件下载。"
+                },
+                "application/pdf": {
+                    "current_value": "application/pdf",
+                    "analysis": "本次响应头表示响应体是PDF文档。\n说明：PDF文档格式，常用于文档下载和在线查看。"
+                },
+                "text/css": {
+                    "current_value": "text/css",
+                    "analysis": "本次响应头表示响应体是CSS样式表。\n说明：层叠样式表，用于网页样式定义。"
+                },
+                "application/javascript": {
+                    "current_value": "application/javascript",
+                    "analysis": "本次响应头表示响应体是JavaScript代码。\n说明：客户端脚本语言，用于网页交互功能。"
+                }
+            }
+        },
+        "Content-Length": {
+            "description": "指示响应体的字节长度。",
+            "common_values": {
+                "1024": {
+                    "current_value": "1024",
+                    "analysis": "本次响应头表示响应体的字节长度为1024个字节。\n说明：帮助客户端了解响应体大小，便于进度显示和缓存管理。"
+                },
+                "0": {
+                    "current_value": "0",
+                    "analysis": "本次响应头表示响应体为空，字节长度为0。\n说明：常用于204状态码或HEAD请求的响应。"
+                }
+            }
+        },
+        "Set-Cookie": {
+            "description": "告知客户端设置Cookie，用于会话跟踪和状态管理。",
+            "common_values": {
+                "PHPSESSID=abc123def456; Path=/; HttpOnly": {
+                    "current_value": "PHPSESSID=abc123def456; Path=/; HttpOnly",
+                    "analysis": "本次响应头表示服务器设置了一个名为PHPSESSID的Cookie，值为abc123def456，作用域为整个网站，且设置了HttpOnly标志，防止JavaScript访问。\n说明：PHP会话Cookie，HttpOnly提高安全性。"
+                },
+                "username=claudetest; Expires=Wed, 09 Jun 2023 10:18:14 GMT; Secure": {
+                    "current_value": "username=claudetest; Expires=Wed, 09 Jun 2023 10:18:14 GMT; Secure",
+                    "analysis": "本次响应头表示服务器设置了一个名为username的Cookie，值为claudetest，过期时间为2023年6月9日，且设置了Secure标志，只能通过HTTPS传输。\n说明：用户信息Cookie，设置了过期时间和安全传输。"
+                },
+                "theme=dark; Max-Age=86400; SameSite=Strict": {
+                    "current_value": "theme=dark; Max-Age=86400; SameSite=Strict",
+                    "analysis": "本次响应头表示服务器设置了一个名为theme的Cookie，值为dark，有效期为86400秒（24小时），且设置了SameSite=Strict标志，防止跨站请求伪造。\n说明：用户偏好设置Cookie，增强了安全性。"
+                }
+            }
+        },
+        "Location": {
+            "description": "告知客户端重定向的目标URL，常用于3xx状态码响应。",
+            "common_values": {
+                "https://www.example.com/login": {
+                    "current_value": "https://www.example.com/login",
+                    "analysis": "本次响应头表示客户端应该重定向到https://www.example.com/login页面。\n说明：常用于需要登录才能访问的资源。"
+                },
+                "/dashboard": {
+                    "current_value": "/dashboard",
+                    "analysis": "本次响应头表示客户端应该重定向到相对路径/dashboard。\n说明：相对路径重定向，常用于内部页面跳转。"
+                }
+            }
+        },
+        "Server": {
+            "description": "告知客户端服务器软件信息。",
+            "common_values": {
+                "Apache/2.4.41 (Ubuntu)": {
+                    "current_value": "Apache/2.4.41 (Ubuntu)",
+                    "analysis": "本次响应头表示服务器软件为Apache，版本为2.4.41，运行在Ubuntu操作系统上。\n说明：Apache是流行的Web服务器软件。"
+                },
+                "nginx/1.18.0": {
+                    "current_value": "nginx/1.18.0",
+                    "analysis": "本次响应头表示服务器软件为nginx，版本为1.18.0。\n说明：nginx是高性能的Web服务器和反向代理。"
+                },
+                "Microsoft-IIS/10.0": {
+                    "current_value": "Microsoft-IIS/10.0",
+                    "analysis": "本次响应头表示服务器软件为Microsoft IIS，版本为10.0。\n说明：微软的Web服务器，常用于Windows Server环境。"
+                }
+            }
+        },
+        "X-Powered-By": {
+            "description": "告知客户端支持响应的应用程序信息。",
+            "common_values": {
+                "PHP/8.1.10": {
+                    "current_value": "PHP/8.1.10",
+                    "analysis": "本次响应头表示响应由PHP 8.1.10版本生成。\n说明：PHP是流行的服务器端脚本语言。"
+                },
+                "ASP.NET": {
+                    "current_value": "ASP.NET",
+                    "analysis": "本次响应头表示响应由ASP.NET框架生成。\n说明：微软的Web应用框架。"
+                },
+                "Express.js": {
+                    "current_value": "Express.js",
+                    "analysis": "本次响应头表示响应由Node.js的Express.js框架生成。\n说明：基于Node.js的Web应用框架。"
+                }
+            }
+        },
+        "Access-Control-Allow-Origin": {
+            "description": "指定哪些域名可以访问该资源，用于跨域资源共享(CORS)。",
+            "common_values": {
+                "*": {
+                    "current_value": "*",
+                    "analysis": "本次响应头表示任何域名都可以访问该资源，允许跨域请求。\n说明：最宽松的CORS策略，适用于公开API。"
+                },
+                "https://www.example.com": {
+                    "current_value": "https://www.example.com",
+                    "analysis": "本次响应头表示只有https://www.example.com域名可以访问该资源，限制了跨域访问。\n说明：较严格的CORS策略，提高了安全性。"
+                },
+                "null": {
+                    "current_value": "null",
+                    "analysis": "本次响应头表示不允许任何域名访问该资源。\n说明：最严格的CORS策略，完全禁止跨域访问。"
+                }
+            }
+        },
+        "Date": {
+            "description": "响应生成的日期和时间。",
+            "common_values": {
+                "Mon, 23 Oct 2023 08:12:31 GMT": {
+                    "current_value": "Mon, 23 Oct 2023 08:12:31 GMT",
+                    "analysis": "本次响应头表示响应生成的日期和时间为2023年10月23日星期一，08:12:31 GMT。\n说明：用于客户端缓存判断和调试。"
+                }
+            }
+        },
+        "Connection": {
+            "description": "告知客户端连接是否保持。",
+            "common_values": {
+                "keep-alive": {
+                    "current_value": "keep-alive",
+                    "analysis": "本次响应头表示服务器支持持久连接，客户端可以在一个连接上接收多个响应。\n说明：提高性能，减少连接建立开销。"
+                },
+                "close": {
+                    "current_value": "close",
+                    "analysis": "本次响应头表示服务器不支持持久连接，每个响应都需要建立新的连接。\n说明：简单连接模式，兼容性好。"
+                }
+            }
+        },
+        "Allow": {
+            "description": "告知客户端资源支持的HTTP方法。",
+            "common_values": {
+                "GET, POST, HEAD": {
+                    "current_value": "GET, POST, HEAD",
+                    "analysis": "本次响应头表示该资源支持GET、POST和HEAD三种HTTP方法。\n说明：告知客户端可用的操作方法。"
+                },
+                "GET, HEAD, OPTIONS, TRACE": {
+                    "current_value": "GET, HEAD, OPTIONS, TRACE",
+                    "analysis": "本次响应头表示该资源支持GET、HEAD、OPTIONS和TRACE四种HTTP方法。\n说明：只读资源的常用方法集合。"
+                }
+            }
+        },
+        "Cache-Control": {
+            "description": "指定响应的缓存策略。",
+            "common_values": {
+                "no-cache, no-store, must-revalidate": {
+                    "current_value": "no-cache, no-store, must-revalidate",
+                    "analysis": "本次响应头表示响应内容不能被缓存，必须重新验证。\n说明：适用于敏感数据或动态内容。"
+                },
+                "public, max-age=3600": {
+                    "current_value": "public, max-age=3600",
+                    "analysis": "本次响应头表示响应内容可以被缓存，有效期为3600秒。\n说明：适用于静态资源，提高性能。"
+                }
+            }
+        },
+        "ETag": {
+            "description": "提供资源的实体标签，用于条件请求。",
+            "common_values": {
+                "\"abc123def456\"": {
+                    "current_value": "\"abc123def456\"",
+                    "analysis": "本次响应头表示资源的ETag值为\"abc123def456\"。\n说明：用于缓存验证和条件请求，提高效率。"
+                }
+            }
+        },
+        "Last-Modified": {
+            "description": "指示资源最后修改时间，通常用于验证是继续使用缓存还是需要重新获取资源。",
+            "common_values": {
+                "Wed, 21 Oct 2023 07:28:00 GMT": {
+                    "current_value": "Wed, 21 Oct 2023 07:28:00 GMT",
+                    "analysis": "本次响应头表示资源的最后修改时间为2023年10月21日，07:28:00 GMT。\n说明：用于缓存验证和条件请求。"
+                }
+            }
+        },
+        "Refresh": {
+            "description": "指示浏览器在指定时间后刷新当前页面或跳转到指定URL，是一种非标准的HTTP响应头，但被广泛支持。",
+            "common_values": {
+                "5": {
+                    "current_value": "5",
+                    "analysis": "本次响应头表示浏览器将在5秒后自动刷新当前页面。\n说明：常用于需要定时刷新的页面，如实时数据展示、进度监控等。"
+                },
+                "5; url=/login": {
+                    "current_value": "5; url=/login",
+                    "analysis": "本次响应头表示浏览器将在5秒后跳转到/login页面。\n说明：常用于登录过期后的跳转提示页面，给用户几秒钟阅读提示信息。"
+                },
+                "0; url=https://www.example.com": {
+                    "current_value": "0; url=https://www.example.com",
+                    "analysis": "本次响应头表示浏览器将立即跳转到https://www.example.com。\n说明：0秒延迟表示立即跳转，类似于Location响应头的效果。"
+                },
+                "3; url=/dashboard": {
+                    "current_value": "3; url=/dashboard",
+                    "analysis": "本次响应头表示浏览器将在3秒后跳转到/dashboard页面。\n说明：常用于操作成功后的跳转，给用户短暂的反馈时间。"
+                }
+            }
+        }
+    }
+}

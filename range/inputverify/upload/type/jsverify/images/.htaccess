@@ -1,0 +1,5 @@
+# 阻止访问secret.php文件
+<Files "secret.php">
+    Order allow,deny
+    Deny from all
+</Files>

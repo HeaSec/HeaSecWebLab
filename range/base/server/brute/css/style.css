@@ -1,0 +1,221 @@
+/**
+ * HeaSec天积安全团队 - 暴力破解靶场样式
+ * 版本: v1.0.0
+ * 创建日期: 2025-12-09
+ * 团队: 天积安全 (HeavenlySecret)
+ * 说明: 此文件已整合到heasec_range.css中，仅保留站点特定样式
+ */
+
+/* ==========================================
+   站点特定样式调整
+   ========================================== */
+
+/* 登录页面垂直居中布局 */
+.tech-container {
+    min-height: calc(100vh - 300px); /* 减去header和footer的高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 增加登录卡片的最小宽度 */
+.tech-card {
+    min-width: 480px; /* 从320px提升50%到480px */
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 卡片内容区域优化 */
+.tech-card-body {
+    padding: 35px 30px; /* 增加内部间距 */
+}
+
+/* 表单组间距调整 */
+.form-group {
+    margin-bottom: 25px; /* 增加表单元素之间的间距 */
+}
+
+/* 输入框高度和宽度调整 */
+.tech-input {
+    height: 48px; /* 增加输入框高度 */
+    font-size: 16px; /* 增大字体 */
+    width: 100%; /* 使输入框占满容器宽度 */
+    padding: 0 15px; /* 增加左右内边距 */
+    box-sizing: border-box; /* 确保padding不影响总宽度 */
+}
+
+/* 表单标签样式优化 */
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* 确保提示文字从新行开始 */
+.alert p.alert-hint {
+    margin-left: 0;
+    text-indent: 0;
+    flex-basis: 100%;
+}
+
+/* 特殊的alert布局处理 */
+.alert > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+
+/* .alert .alert-hint 调整 */
+.alert .alert-hint {
+    align-self: flex-start;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* 登录表单特定样式 */
+.tech-form {
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.tech-input[readonly] {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* 表单操作按钮 */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap; /* 允许按钮在空间不足时换行 */
+    align-items: center;
+}
+
+/* 绿色成功按钮样式 - 继承tech-btn的基础样式 */
+.tech-btn-success {
+    background: linear-gradient(135deg, var(--heasec-success-color) 0%, #1e7e34 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tech-btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.tech-btn-success::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.tech-btn-success:hover::before {
+    left: 100%;
+}
+
+/* 确保按钮在成功登录后平滑显示 */
+.form-actions .tech-btn-success {
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 检测结果区域 */
+.detection-result {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 错误状态提示 */
+.alert-hint small {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+/* 成功状态提示 */
+.alert-success .alert-hint small {
+    color: #155724;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tech-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 250px);
+    }
+
+    .tech-card {
+        min-width: 100%;
+        max-width: none;
+    }
+
+    .tech-card-body {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tech-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* 小屏幕优化 - 适配手机屏幕 */
+@media (max-width: 480px) {
+    .tech-container {
+        padding: 15px 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .tech-input {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .form-actions {
+        gap: 10px;
+    }
+}

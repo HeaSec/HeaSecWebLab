@@ -1,0 +1,776 @@
+/**
+ * HeaSec天积安全团队 - 漏洞挖掘卡片样式
+ * Vulnerability Card Styles
+ * 版本: v1.0.0
+ * 创建日期: 2026-03-07
+ * 团队: 天积安全 (HeavenlySecret)
+ */
+
+/* ========== 漏洞挖掘卡片容器 ========== */
+.heasec-vuln-card {
+    --vuln-primary: #e74c3c;
+    --vuln-secondary: #c0392b;
+    --vuln-success: #27ae60;
+    --vuln-warning: #f39c12;
+    --vuln-info: #3498db;
+    --vuln-border-radius: 8px;
+}
+
+/* ========== 分数显示区域 ========== */
+.vuln-score-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+    margin: 15px 0;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.05));
+    border-radius: var(--vuln-border-radius);
+}
+
+.vuln-score-display .score-current {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--vuln-primary);
+}
+
+.vuln-score-display .score-divider {
+    font-size: 1.5rem;
+    color: #999;
+    margin: 0 2px;
+}
+
+.vuln-score-display .score-max {
+    font-size: 1.5rem;
+    color: #666;
+}
+
+.vuln-score-display .score-label {
+    font-size: 1rem;
+    color: #666;
+    margin-left: 4px;
+}
+
+/* ========== 漏洞记录列表 ========== */
+.vuln-records-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--vuln-border-radius);
+    background: #fafafa;
+}
+
+.vuln-record-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #999;
+}
+
+.vuln-record-empty i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.vuln-record-empty span {
+    font-size: 0.95rem;
+}
+
+.vuln-record-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+.vuln-record-item:last-child {
+    border-bottom: none;
+}
+
+.vuln-record-item:hover {
+    background: #f5f5f5;
+}
+
+.vuln-record-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.vuln-record-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--vuln-primary);
+}
+
+.vuln-record-type i {
+    font-size: 0.75rem;
+}
+
+.vuln-record-url {
+    font-size: 0.9rem;
+    color: #333;
+    font-family: 'Consolas', 'Monaco', monospace;
+    word-break: break-all;
+}
+
+.vuln-record-param {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.vuln-record-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    margin-left: 15px;
+}
+
+.vuln-record-score {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--vuln-success), #219a52);
+    border-radius: 12px;
+}
+
+.vuln-record-time {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* ========== 漏洞提交表单 ========== */
+.vuln-submit-panel {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(41, 128, 185, 0.02));
+    border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.vuln-submit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.vuln-submit-header h4 {
+    margin: 0;
+}
+
+.vuln-help-btn {
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--vuln-info);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.vuln-help-btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.vuln-help-btn:active {
+    transform: translateY(0);
+}
+
+.vuln-help-btn i {
+    font-size: 0.9rem;
+}
+
+.vuln-submit-form .form-group {
+    margin-bottom: 15px;
+}
+
+.vuln-submit-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.vuln-submit-form label i {
+    margin-right: 6px;
+    color: var(--vuln-info);
+}
+
+.vuln-submit-form .required {
+    color: var(--vuln-primary);
+    margin-left: 2px;
+}
+
+.vuln-input,
+.vuln-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 2px solid #ddd;
+    border-radius: var(--vuln-border-radius);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: white;
+}
+
+.vuln-input:focus,
+.vuln-select:focus {
+    outline: none;
+    border-color: var(--vuln-info);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.vuln-input::placeholder {
+    color: #aaa;
+}
+
+.vuln-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* ========== 提交按钮 ========== */
+.form-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.vuln-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vuln-submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.vuln-submit-btn:active {
+    transform: translateY(0);
+}
+
+.vuln-submit-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.vuln-submit-btn .btn-loading {
+    display: none;
+}
+
+.vuln-submit-btn.loading .btn-text {
+    display: none;
+}
+
+.vuln-submit-btn.loading .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ========== 提交消息提示 ========== */
+.vuln-submit-message {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: var(--vuln-border-radius);
+    font-size: 0.9rem;
+    display: none;
+}
+
+.vuln-submit-message.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.vuln-submit-message.success {
+    background: rgba(39, 174, 96, 0.1);
+    border: 1px solid rgba(39, 174, 96, 0.3);
+    color: #27ae60;
+}
+
+.vuln-submit-message.error {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+.vuln-submit-message.warning {
+    background: rgba(243, 156, 18, 0.1);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    color: #f39c12;
+}
+
+.vuln-submit-message i {
+    margin-right: 8px;
+}
+
+/* ========== 多参数表单样式 ========== */
+.vuln-params-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.vuln-param-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.vuln-param-item .vuln-param-name {
+    flex: 1;
+    min-width: 0;
+}
+
+.vuln-param-item .vuln-param-location {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.vuln-param-item .vuln-param-remove,
+.vuln-param-item .vuln-param-add {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* 参数标签样式（记录列表中） */
+.vuln-record-params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.vuln-param-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.vuln-param-tag .param-location {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+}
+
+.vuln-param-tag.get {
+    background: #3498db;
+    color: white;
+}
+
+.vuln-param-tag.post {
+    background: #9b59b6;
+    color: white;
+}
+
+.vuln-param-tag.head {
+    background: #e67e22;
+    color: white;
+}
+
+/* ========== 动画效果 ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.vuln-record-item.new-record {
+    animation: slideIn 0.4s ease;
+    background: rgba(39, 174, 96, 0.1);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+    .vuln-score-display .score-current {
+        font-size: 2rem;
+    }
+
+    .vuln-score-display .score-max {
+        font-size: 1.2rem;
+    }
+
+    .vuln-record-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .vuln-record-meta {
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .form-actions {
+        text-align: center;
+    }
+
+    .vuln-submit-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .vuln-score-display {
+        padding: 8px;
+    }
+
+    .vuln-score-display .score-current {
+        font-size: 1.75rem;
+    }
+
+    .vuln-record-info {
+        gap: 2px;
+    }
+
+    .vuln-record-url {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========== 暗色主题支持 ========== */
+@media (prefers-color-scheme: dark) {
+    .heasec-vuln-card {
+        --vuln-bg: #1a1a2e;
+        --vuln-text: #eee;
+        --vuln-border: #333;
+    }
+
+    .vuln-score-display {
+        background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.1));
+    }
+
+    .vuln-score-display .score-max {
+        color: #aaa;
+    }
+
+    .vuln-records-list {
+        background: #1a1a2e;
+        border-color: #333;
+    }
+
+    .vuln-record-item:hover {
+        background: #252540;
+    }
+
+    .vuln-record-url {
+        color: #ddd;
+    }
+
+    .vuln-input,
+    .vuln-select {
+        background: #1a1a2e;
+        border-color: #444;
+        color: #eee;
+    }
+
+    .vuln-input:focus,
+    .vuln-select:focus {
+        border-color: var(--vuln-info);
+    }
+
+    .vuln-submit-panel {
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.05));
+        border-color: rgba(52, 152, 219, 0.3);
+    }
+
+    .vuln-submit-form label {
+        color: #ccc;
+    }
+}
+
+/* ========== 高对比度模式 ========== */
+@media (prefers-contrast: high) {
+
+    .vuln-input,
+    .vuln-select {
+        border-width: 3px;
+    }
+
+    .vuln-record-score {
+        border: 2px solid white;
+    }
+}
+
+/* ========== 减少动画模式 ========== */
+@media (prefers-reduced-motion: reduce) {
+
+    .vuln-submit-message.show,
+    .vuln-record-item.new-record {
+        animation: none;
+    }
+
+    .vuln-submit-btn {
+        transition: none;
+    }
+}
+
+/* ========== 填写说明模态框 ========== */
+.heasec-vuln-help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.heasec-vuln-help-modal .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.heasec-vuln-help-modal .modal-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heasec-vuln-help-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.heasec-vuln-help-modal .modal-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.heasec-vuln-help-modal .modal-title i {
+    color: #fff;
+    margin-right: 8px;
+}
+
+.heasec-vuln-help-modal .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    line-height: 1;
+}
+
+.heasec-vuln-help-modal .modal-close:hover {
+    color: #333;
+}
+
+.heasec-vuln-help-modal .modal-content {
+    padding: 20px;
+}
+
+.heasec-vuln-help-modal .modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+/* ========== 帮助说明内容 ========== */
+.vuln-help-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.vuln-help-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.vuln-help-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.vuln-help-section h4 i {
+    color: var(--vuln-info);
+    margin-right: 8px;
+}
+
+.vuln-help-section p {
+    margin: 8px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.vuln-help-section ul {
+    margin: 8px 0;
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.vuln-help-section li {
+    margin: 5px 0;
+}
+
+.vuln-help-section code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--vuln-primary);
+    font-size: 0.9rem;
+}
+
+.vuln-help-example {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-top: 10px;
+}
+
+.vuln-help-example p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.vuln-help-example code {
+    background: #e8e8e8;
+}
+
+/* ========== 暗色主题支持 - 模态框 ========== */
+@media (prefers-color-scheme: dark) {
+    .heasec-vuln-help-modal .modal-container {
+        background: #1a1a2e;
+    }
+
+    .heasec-vuln-help-modal .modal-header {
+        border-color: #333;
+    }
+
+    .heasec-vuln-help-modal .modal-title {
+        color: #eee;
+    }
+
+    .heasec-vuln-help-modal .modal-close {
+        color: #888;
+    }
+
+    .heasec-vuln-help-modal .modal-close:hover {
+        color: #fff;
+    }
+
+    .heasec-vuln-help-modal .modal-footer {
+        border-color: #333;
+    }
+
+    .vuln-help-section h4 {
+        color: #ddd;
+    }
+
+    .vuln-help-section p,
+    .vuln-help-section ul {
+        color: #bbb;
+    }
+
+    .vuln-help-section code {
+        background: #2a2a3e;
+        color: #ff6b6b;
+    }
+
+    .vuln-help-example {
+        background: #252540;
+        border-color: #333;
+    }
+
+    .vuln-help-example code {
+        background: #2a2a3e;
+    }
+}

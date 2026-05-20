@@ -1,0 +1,510 @@
+/**
+ * HeaSec天积安全团队 - 华丽恭喜消息组件
+ * Luxury Congratulations Modal Component
+ * 版本: v1.0.0
+ * 创建日期: 2025-11-08
+ * 团队: 天积安全 (HeavenlySecret)
+ *
+ * 专为成就解锁设计的华丽恭喜消息组件
+ */
+
+/* CSS变量定义 - 华丽风格 */
+:root {
+    /* 金色渐变系列 */
+    --heasec-congrats-primary: #FFD700;
+    --heasec-congrats-secondary: #FFA500;
+    --heasec-congrats-accent: #B8860B;
+    --heasec-congrats-shadow: #8B4513;
+
+    /* 动画时长 */
+    --congrats-entrance-duration: 1.2s;
+    --congrats-exit-duration: 0.6s;
+    --congrats-particle-duration: 2s;
+
+    /* 尺寸变量 - 适度放大（比原始尺寸增大50%） */
+    --congrats-modal-width: 675px; /* 450px * 1.5 */
+    --congrats-modal-padding: 60px; /* 40px * 1.5 */
+    --congrats-button-padding: 22px 52px; /* 15px 35px * 1.5 */
+
+    /* 发光强度 */
+    --congrats-glow-intensity: 0.9;
+    --congrats-shadow-intensity: 0.8;
+}
+
+/* 主弹窗容器 */
+.heasec-congrats-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20000;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.heasec-congrats-modal.show {
+    display: block;
+    animation: congratsFadeIn var(--congrats-entrance-duration) ease-out forwards;
+    pointer-events: auto;
+}
+
+.heasec-congrats-modal.closing {
+    animation: congratsFadeOut var(--congrats-exit-duration) ease-out forwards;
+}
+
+/* 遮罩层 */
+.heasec-congrats-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    animation: overlayFadeIn 0.5s ease-out;
+}
+
+/* 主容器 */
+.heasec-congrats-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background: linear-gradient(135deg,
+        rgba(255, 215, 0, 0.1) 0%,
+        rgba(255, 165, 0, 0.15) 50%,
+        rgba(184, 134, 11, 0.1) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 25px;
+    padding: var(--congrats-modal-padding);
+    min-width: var(--congrats-modal-width);
+    max-width: 90vw;
+    box-shadow:
+        0 0 50px rgba(255, 215, 0, var(--congrats-glow-intensity)),
+        0 0 100px rgba(255, 165, 0, 0.5),
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: congratsEntrance var(--congrats-entrance-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+    will-change: transform, filter;
+}
+
+.heasec-congrats-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(255, 165, 0, 0.15) 0%, transparent 50%);
+    animation: congratsGlowRotate 8s linear infinite;
+    pointer-events: none;
+}
+
+/* 标题区域 */
+.heasec-congrats-title {
+    text-align: center;
+    margin-bottom: 38px; /* 25px * 1.5 */
+    position: relative;
+    z-index: 10;
+}
+
+.heasec-congrats-title h2 {
+    font-size: 63px; /* 42px * 1.5 */
+    font-weight: 700;
+    background: linear-gradient(135deg,
+        var(--heasec-congrats-primary) 0%,
+        var(--heasec-congrats-secondary) 50%,
+        var(--heasec-congrats-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    margin: 0;
+    line-height: 1.2;
+    animation: congratsTitleGlow 2s ease-in-out infinite alternate;
+}
+
+/* 修复emoji字符颜色问题 - 保持emoji原有颜色 */
+.heasec-congrats-title h2 .emoji-preserver {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+    text-shadow: none !important;
+    animation: none !important;
+    display: inline-block;
+    /* 确保emoji正确显示 */
+    color: initial;
+    font-style: normal;
+    font-weight: inherit;
+}
+
+/* 兼容其他可能的emoji类名 */
+.heasec-congrats-title h2 .emoji,
+.heasec-congrats-title h2 *[data-emoji],
+.heasec-congrats-title h2 .emoji-char {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+    text-shadow: none !important;
+    animation: none !important;
+    display: inline-block;
+    color: initial;
+    font-style: normal;
+    font-weight: inherit;
+}
+
+/* 消息内容 */
+.heasec-congrats-content {
+    text-align: center;
+    margin-bottom: 45px; /* 30px * 1.5 */
+    position: relative;
+    z-index: 10;
+}
+
+.heasec-congrats-message {
+    font-size: 30px; /* 20px * 1.5 */
+    color: rgba(255, 255, 255, 0.9);
+    margin: 15px 0;
+    line-height: 1.6;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+}
+
+/* 按钮区域 */
+.heasec-congrats-actions {
+    display: flex;
+    gap: 22px; /* 15px * 1.5 */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+    margin-top: 38px; /* 25px * 1.5 */
+}
+
+.heasec-congrats-button {
+    background: linear-gradient(135deg,
+        var(--heasec-congrats-primary) 0%,
+        var(--heasec-congrats-secondary) 50%,
+        var(--heasec-congrats-accent) 100%);
+    color: white;
+    border: none;
+    padding: var(--congrats-button-padding);
+    border-radius: 50px;
+    font-size: 27px; /* 18px * 1.5 */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 8px 25px rgba(255, 215, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    will-change: transform, box-shadow;
+}
+
+.heasec-congrats-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent);
+    transition: left 0.6s ease;
+}
+
+.heasec-congrats-button:hover::before {
+    left: 100%;
+}
+
+.heasec-congrats-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(255, 215, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg,
+        var(--heasec-congrats-primary) 0%,
+        var(--heasec-congrats-secondary) 40%,
+        var(--heasec-congrats-accent) 100%);
+}
+
+.heasec-congrats-button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+        0 6px 20px rgba(255, 215, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 下一靶场按钮特殊样式 - 与主按钮保持一致的样式 */
+.heasec-congrats-next-button {
+    background: linear-gradient(135deg,
+        var(--heasec-congrats-primary) 0%,
+        var(--heasec-congrats-secondary) 50%,
+        var(--heasec-congrats-accent) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.heasec-congrats-next-button::after {
+    content: '→';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.heasec-congrats-next-button:hover::after {
+    right: 15px;
+    opacity: 1;
+}
+
+.heasec-congrats-next-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(255, 215, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg,
+        var(--heasec-congrats-primary) 0%,
+        var(--heasec-congrats-secondary) 40%,
+        var(--heasec-congrats-accent) 100%);
+}
+
+.heasec-congrats-next-button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+        0 6px 20px rgba(255, 215, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+
+/* 粒子效果容器 */
+.heasec-congrats-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.congrats-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, var(--heasec-congrats-primary) 0%, transparent 70%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px var(--heasec-congrats-primary),
+        0 0 20px var(--heasec-congrats-secondary);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* 粒子动画 */
+@keyframes congratsParticleFloat {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0) rotate(0deg);
+    }
+    15% {
+        opacity: 1;
+        transform: translate(var(--tx1), var(--ty1)) scale(1.5) rotate(90deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx2), var(--ty2)) scale(0.3) rotate(360deg);
+    }
+}
+
+/* 粒子运动轨迹定义 */
+.congrats-particle:nth-child(1) {
+    --tx1: -80px; --ty1: -80px; --tx2: -150px; --ty2: -200px;
+    animation-delay: 0.8s; animation-duration: 2.5s;
+}
+.congrats-particle:nth-child(2) {
+    --tx1: 80px; --ty1: -80px; --tx2: 150px; --ty2: -200px;
+    animation-delay: 0.9s; animation-duration: 2.8s;
+}
+.congrats-particle:nth-child(3) {
+    --tx1: 120px; --ty1: 20px; --tx2: 220px; --ty2: 50px;
+    animation-delay: 1s; animation-duration: 2.3s;
+}
+.congrats-particle:nth-child(4) {
+    --tx1: -120px; --ty1: 20px; --tx2: -220px; --ty2: 50px;
+    animation-delay: 1.1s; animation-duration: 2.6s;
+}
+.congrats-particle:nth-child(5) {
+    --tx1: 0px; --ty1: 100px; --tx2: 0px; --ty2: 200px;
+    animation-delay: 1.2s; animation-duration: 2.4s;
+}
+.congrats-particle:nth-child(6) {
+    --tx1: -60px; --ty1: -60px; --tx2: -120px; --ty2: -100px;
+    animation-delay: 1.3s; animation-duration: 2.7s;
+}
+.congrats-particle:nth-child(7) {
+    --tx1: 60px; --ty1: -60px; --tx2: 120px; --ty2: -100px;
+    animation-delay: 1.4s; animation-duration: 2.2s;
+}
+.congrats-particle:nth-child(8) {
+    --tx1: 100px; --ty1: 40px; --tx2: 180px; --ty2: 80px;
+    animation-delay: 1.5s; animation-duration: 2.9s;
+}
+
+.heasec-congrats-modal.show .congrats-particle {
+    animation: congratsParticleFloat var(--congrats-particle-duration) ease-out infinite;
+}
+
+/* 主要动画效果 */
+@keyframes congratsFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes congratsFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes overlayFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes congratsEntrance {
+    0% {
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(6px) brightness(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(0.85);
+        filter: blur(1px) brightness(0.85);
+        opacity: 0.7;
+    }
+    85% {
+        transform: translate(-50%, -50%) scale(1.01);
+        filter: blur(0px) brightness(0.98);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0) brightness(1);
+        opacity: 1;
+    }
+}
+
+@keyframes congratsTitleGlow {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    }
+    100% {
+        filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 215, 0, 0.9));
+    }
+}
+
+@keyframes congratsGlowRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    :root {
+        --congrats-modal-width: 525px; /* 350px * 1.5 */
+        --congrats-modal-padding: 45px; /* 30px * 1.5 */
+        --congrats-button-padding: 18px 42px; /* 12px 28px * 1.5 */
+    }
+
+    .heasec-congrats-container {
+        min-width: var(--congrats-modal-width);
+        padding: var(--congrats-modal-padding);
+    }
+
+    .heasec-congrats-title h2 {
+        font-size: 48px; /* 32px * 1.5 */
+    }
+
+    .heasec-congrats-message {
+        font-size: 27px; /* 18px * 1.5 */
+    }
+
+    .heasec-congrats-button {
+        font-size: 24px; /* 16px * 1.5 */
+        padding: var(--congrats-button-padding);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --congrats-modal-width: 450px; /* 300px * 1.5 */
+        --congrats-modal-padding: 38px; /* 25px * 1.5 */
+    }
+
+    .heasec-congrats-title h2 {
+        font-size: 42px; /* 28px * 1.5 */
+    }
+
+    .heasec-congrats-message {
+        font-size: 24px; /* 16px * 1.5 */
+    }
+}
+
+/* 性能优化 */
+.heasec-congrats-container,
+.heasec-congrats-particles,
+.congrats-particle {
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+    .heasec-congrats-modal,
+    .heasec-congrats-container,
+    .congrats-particle {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .heasec-congrats-container {
+        transform: translate(-50%, -50%) scale(1);
+        filter: none;
+    }
+}
