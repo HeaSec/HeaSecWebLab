@@ -42,6 +42,19 @@ if (!file_exists($imagesDir)) {
     mkdir($imagesDir, 0755, true);
 }
 
+// 进入新关卡时自动清理images目录（仅GET请求且本次会话首次访问时执行，避免干扰上传和重置操作）
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && empty($_SESSION['heasec_antiwaf2_images_cleaned'])) {
+    $files = glob($imagesDir . '*');
+    if ($files !== false) {
+        foreach ($files as $file) {
+            if (is_file($file) && basename($file) !== 'secret.php') {
+                @unlink($file);
+            }
+        }
+    }
+    $_SESSION['heasec_antiwaf2_images_cleaned'] = true;
+}
+
 // 处理AJAX重置请求（返回JSON）
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'reset') {
     header('Content-Type: application/json');
@@ -76,20 +89,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         $deletedCount = 0;
         $failedFiles = [];
 
-        error_log('[HeaSec antiwaf2] 找到文件数量: ' . count($files));
+        error_log('[HeaSec antiwaf2] 找到文件数量: ' . ($files !== false ? count($files) : 0));
 
-        foreach ($files as $file) {
-            $fileName = basename($file);
-            if (is_file($file) && $fileName !== 'secret.php') {
-                if (unlink($file)) {
-                    $deletedCount++;
-                    error_log('[HeaSec antiwaf2] 删除成功: ' . $fileName);
-                } else {
-                    $failedFiles[] = $fileName;
-                    error_log('[HeaSec antiwaf2] 删除失败: ' . $fileName);
+        if ($files !== false) {
+            foreach ($files as $file) {
+                $fileName = basename($file);
+                if (is_file($file) && $fileName !== 'secret.php') {
+                    if (unlink($file)) {
+                        $deletedCount++;
+                        error_log('[HeaSec antiwaf2] 删除成功: ' . $fileName);
+                    } else {
+                        $failedFiles[] = $fileName;
+                        error_log('[HeaSec antiwaf2] 删除失败: ' . $fileName);
+                    }
                 }
             }
         }
+
+        // 清除首次访问标记，以便下次访问时重新清理
+        unset($_SESSION['heasec_antiwaf2_images_cleaned']);
 
         error_log('[HeaSec antiwaf2] 删除完成: 成功' . $deletedCount . '个, 失败' . count($failedFiles) . '个');
 

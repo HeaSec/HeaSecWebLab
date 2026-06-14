@@ -9,7 +9,9 @@
 # 允许PHP文件执行（为了让用户能够成功利用漏洞进行学习）
 AddType application/x-httpd-php .php
 AddHandler php5-script .php
+<IfModule mod_fcgid.c>
 AddHandler fcgid-script .php
+</IfModule>
 
 # 允许目录列表（便于查看上传的文件）
 Options +Indexes

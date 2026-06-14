@@ -1,6 +1,6 @@
 {
   "database": {
-    "host": "localhost",
+    "host": "db",
     "port": 3306,
     "username": "root",
     "password": "root",
@@ -11,7 +11,5 @@
     "show_uninitialized_ranges": true
   },
   "version": "1.01",
-  "created": "2025-11-18",
-  "updated": "2025-11-23",
-  "description": "HeaSec 网络安全靶场 - 统一数据库配置文件"
+  "description": "HeaSec 靶场 - 容器环境数据库配置（host 指向 compose 服务名 db）"
 }

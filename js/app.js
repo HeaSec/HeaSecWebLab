@@ -1,7 +1,7 @@
 /**
  * HeaSec Vue前台应用
  * @package HeavenlySecret\Frontend
- * @version HeaSec v1.0.0
+ * @version HeaSec v1.0.1
  */
 
 // 等待DOM加载完成后初始化Vue
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 slogan: '日积寸功，乐享安全'
             },
             siteName: '天积安全靶场平台',
-            version: 'v1.0.0',
+            version: 'v1.01',
             apiBase: 'api/heasec/',
 
             // 数据状态
@@ -1613,7 +1613,7 @@ window.HeaSec = window.HeaSec || {
         slogan: '日积寸功，乐享安全'
     },
     siteName: '天积安全靶场平台',
-    version: 'v1.0.0',
+    version: 'v1.01',
     config: {
         enableLogging: true,
         enableErrorTracking: true,

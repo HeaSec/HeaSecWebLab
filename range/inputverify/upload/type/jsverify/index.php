@@ -285,7 +285,7 @@ require_once $commonBasePath . 'components/secret-card/includes/HeaSec_SecretCar
         'emptyMessage' => '请输入秘密',
         'congratsTitle' => '恭喜你掌握了一个新技能',
         'congratsMessage' => '你成功理解了前端JS校验绕过漏洞的危害！',
-        'rangeCode' => 'jsbypass'
+        'rangeCode' => 'jsverify'
     ]);
     ?>
 </div>

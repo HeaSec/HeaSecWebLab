@@ -3,7 +3,7 @@
  * 天积安全团队配置文件
  *
  * @package HeavenlySecret
- * @version HeaSec v1.0.0
+ * @version HeaSec v1.0.1
  * @since 2025-10-15
  */
 
@@ -15,7 +15,7 @@ define('HEASEC_TEAM_SLOGAN', '日积寸功，乐享安全');
 define('HEASEC_SITE_NAME', '天积安全靶场平台');
 
 // 系统版本配置
-define('HEASEC_VERSION', 'v1.0.0');
+define('HEASEC_VERSION', 'v1.01');
 define('HEASEC_BUILD', '20261015');
 
 // 安全配置

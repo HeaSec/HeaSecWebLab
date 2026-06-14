@@ -38,15 +38,32 @@ if (!file_exists($imagesDir)) {
     mkdir($imagesDir, 0755, true);
 }
 
+// 进入新关卡时自动清理images目录（仅GET请求且本次会话首次访问时执行，避免干扰上传和重置操作）
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && empty($_SESSION['heasec_antiwaf_images_cleaned'])) {
+    $files = glob($imagesDir . '*');
+    if ($files !== false) {
+        foreach ($files as $file) {
+            if (is_file($file) && basename($file) !== 'secret.php') {
+                @unlink($file);
+            }
+        }
+    }
+    $_SESSION['heasec_antiwaf_images_cleaned'] = true;
+}
+
 // 处理重置请求（表单POST提交）
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reset') {
     // 删除images目录中的所有文件（除了secret.php）
     $files = glob($imagesDir . '*');
-    foreach ($files as $file) {
-        if (is_file($file) && basename($file) !== 'secret.php') {
-            @unlink($file);
+    if ($files !== false) {
+        foreach ($files as $file) {
+            if (is_file($file) && basename($file) !== 'secret.php') {
+                @unlink($file);
+            }
         }
     }
+    // 清除首次访问标记，以便重定向后重新清理
+    unset($_SESSION['heasec_antiwaf_images_cleaned']);
     // 重定向回当前页面，避免刷新时重复提交
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;

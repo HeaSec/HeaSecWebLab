@@ -100,6 +100,50 @@
 - 前台页面右上角支持一键重置数据库，可按需勾选是否重置靶场数据和进度
 - 数据库前缀：`heasec_`，`heasec_cms` 为前台数据库，其他为靶场数据库
 
+### 安装步骤（Docker）
+
+> 已安装 Docker 的用户可选择此方式，无需安装 PHPStudy。
+
+1. **配置镜像加速器**（国内用户）：
+   - **Windows**（Docker Desktop）：打开 Docker Desktop → Settings → Docker Engine，在 JSON 配置中添加 `registry-mirrors`：
+     ```json
+     { "registry-mirrors": ["https://docker.1ms.run", "https://docker.m.daocloud.io"] }
+     ```
+     保存并重启 Docker。
+   - **Linux**：编辑或创建 `/etc/docker/daemon.json`，写入：
+     ```json
+     { "registry-mirrors": ["https://docker.1ms.run", "https://docker.m.daocloud.io"] }
+     ```
+     然后执行 `sudo systemctl restart docker` 重启服务。
+2. **构建并启动**：在项目根目录（`docker-compose.yml` 所在目录）打开终端，执行：
+   ```bash
+   docker compose up -d --build
+   ```
+   首次构建需要编译 PHP 扩展，约 3-5 分钟；
+   💡后续启动只需执行 `docker compose up -d`，无需再次构建。
+3. **访问靶场**：打开浏览器访问 `http://localhost:8080/`，首次访问会自动提示初始化数据库。
+
+<details>
+<summary>📖 Docker 常用命令</summary>
+
+```bash
+# 启动（已构建过则不需要 --build）
+docker compose up -d
+
+# 停止
+docker compose down
+
+# 重置靶场（删除数据卷，下次 up 时恢复初始状态）
+docker compose down -v
+
+# 查看日志
+docker compose logs -f
+
+# 重新构建（修改代码后）
+docker compose up -d --build
+```
+</details>
+
 
 
 ## 靶场使用指南

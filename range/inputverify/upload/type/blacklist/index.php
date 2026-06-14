@@ -32,6 +32,9 @@ $useDatabase = true;  // 此靶场使用数据库
 // 引入核心检测类
 require_once __DIR__ . '/includes/HeaSec_UploadBypassDetector.php';
 
+// 引入上传结果闪存组件（PRG模式，防止刷新/重置时POST表单重复提交）
+require_once __DIR__ . '/includes/HeaSec_UploadResultFlash.php';
+
 // 创建上传目录
 $uploadDir = __DIR__ . '/uploads/';
 if (!file_exists($uploadDir)) {
@@ -66,6 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['upload_file'])) {
             }
         }
     }
+
+    // PRG模式：上传结果存入session闪存，并302重定向到GET请求
+    // 目的：让最终页面以GET方式加载，避免重置时location.reload()重复提交POST表单
+    HeaSec_UploadResultFlash::storeAndRedirect($uploadResult);
 }
 
 // 处理重置请求
@@ -83,6 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         'should_block' => false,
         'achievement' => false
     ];
+}
+
+// PRG模式：GET请求时从session闪存读取上传结果（一次性消费）
+// 仅当存在闪存时覆盖，避免影响其他场景（如表单重置POST）的$uploadResult
+$flashResult = HeaSec_UploadResultFlash::readOnce();
+if ($flashResult !== null) {
+    $uploadResult = $flashResult;
 }
 
 // 获取已上传的文件列表
@@ -140,8 +154,7 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['js' => false]);
                 <!-- 传统文件选择区域 -->
                 <div class="form-group" style="margin-bottom: 20px; margin-top: 20px;">
                     <label class="file-input-wrapper">
-                        <input type="file" class="file-input" id="upload_file" accept="*/*"
-                            onchange="validateFileType();" required>
+                        <input type="file" class="file-input" id="upload_file" accept="*/*">
                         <i class="fa fa-folder-open"></i> 选择文件
                     </label>
                     <button type="submit" class="upload-button">
@@ -266,9 +279,10 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['js' => false]);
         const uploadFile = document.getElementById('upload_file');
         if (uploadFile) {
             uploadFile.addEventListener('change', function () {
-                const fileName = this.files[0] ? this.files[0].name : '';
-                if (fileName) {
-                    console.log('已选择文件:', fileName);
+                const files = this.files;
+                if (files.length > 0) {
+                    // 同步文件到拖拽输入框（参考 upload_base 模式）
+                    syncFileInputs(files[0]);
                 }
             });
         }

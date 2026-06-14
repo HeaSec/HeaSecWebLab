@@ -4,11 +4,6 @@
  * 版本: v3.0.0
  * 创建日期: 2026-03-12
  * 团队: 天积安全 (HeavenlySecret)
- *
- * 第三关：双重上传数据包绕过
- * - WAF 只检测第一个 multipart 上传部分的内容
- * - 漏洞点：攻击者构造两个上传部分，第一个是正常文件，第二个是恶意文件
- * - WAF 检测第一个通过后放行，但服务端保存的是第二个文件
  */
 
 // 设置响应头
@@ -43,6 +38,19 @@ if (!file_exists($imagesDir)) {
     mkdir($imagesDir, 0755, true);
 }
 
+// 进入新关卡时自动清理images目录（仅GET请求且本次会话首次访问时执行，避免干扰上传和重置操作）
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && empty($_SESSION['heasec_antiwaf3_images_cleaned'])) {
+    $files = glob($imagesDir . '*');
+    if ($files !== false) {
+        foreach ($files as $file) {
+            if (is_file($file) && basename($file) !== 'secret.php') {
+                @unlink($file);
+            }
+        }
+    }
+    $_SESSION['heasec_antiwaf3_images_cleaned'] = true;
+}
+
 // 处理AJAX重置请求（返回JSON）
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'reset') {
     header('Content-Type: application/json');
@@ -73,20 +81,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         $deletedCount = 0;
         $failedFiles = [];
 
-        error_log('[HeaSec antiwaf3] 找到文件数量: ' . count($files));
+        error_log('[HeaSec antiwaf3] 找到文件数量: ' . ($files !== false ? count($files) : 0));
 
-        foreach ($files as $file) {
-            $fileName = basename($file);
-            if (is_file($file) && $fileName !== 'secret.php') {
-                if (unlink($file)) {
-                    $deletedCount++;
-                    error_log('[HeaSec antiwaf3] 删除成功: ' . $fileName);
-                } else {
-                    $failedFiles[] = $fileName;
-                    error_log('[HeaSec antiwaf3] 删除失败: ' . $fileName);
+        if ($files !== false) {
+            foreach ($files as $file) {
+                $fileName = basename($file);
+                if (is_file($file) && $fileName !== 'secret.php') {
+                    if (unlink($file)) {
+                        $deletedCount++;
+                        error_log('[HeaSec antiwaf3] 删除成功: ' . $fileName);
+                    } else {
+                        $failedFiles[] = $fileName;
+                        error_log('[HeaSec antiwaf3] 删除失败: ' . $fileName);
+                    }
                 }
             }
         }
+
+        // 清除首次访问标记，以便下次访问时重新清理
+        unset($_SESSION['heasec_antiwaf3_images_cleaned']);
 
         error_log('[HeaSec antiwaf3] 删除完成: 成功' . $deletedCount . '个, 失败' . count($failedFiles) . '个');
 
@@ -723,8 +736,8 @@ require_once $commonBasePath . 'components/secret-card/includes/HeaSec_SecretCar
         'errorMessage' => '验证失败，这不是我的秘密！',
         'emptyMessage' => '请输入秘密',
         'congratsTitle' => '恭喜你掌握了一个新技能',
-        'congratsMessage' => '你成功理解了双重上传数据包绕过 WAF 的原理！',
-        'rangeCode' => 'antiwaf3'
+        'congratsMessage' => '你成功理解了Content-Type混淆绕过WAF 的原理！',
+        'rangeCode' => 'antiwaf'
     ]);
     ?>
 </div>
