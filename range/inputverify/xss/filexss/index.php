@@ -48,19 +48,12 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['svg_file'])) {
         $hasUpload = true;
 
-        // 调用上传API进行验证
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/api/upload.php');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'file' => new CURLFile($_FILES['svg_file']['tmp_name'], $_FILES['svg_file']['type'], $_FILES['svg_file']['name']),
-            'type' => 'svg'
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($response, true);
+        // 调用上传处理函数（直接 require，避免 HTTP 自连带来的 host/port 兼容问题）
+        require_once __DIR__ . '/api/upload.php';
+        $result = heasec_handle_file_upload(
+            ['file' => $_FILES['svg_file']],
+            ['type' => 'svg']
+        );
 
         if ($result && $result['success']) {
             $uploadSuccess = true;

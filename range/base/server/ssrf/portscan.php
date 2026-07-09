@@ -50,6 +50,16 @@ $configJson = json_decode(file_get_contents($projectRoot . '/config/config.json'
 $dbHost = $configJson['database']['host'] ?? 'localhost';
 $dbPort = $configJson['database']['port'] ?? 3306;
 
+// 计算用于页面展示的目标主机地址
+// docker 环境下 host 可能是容器服务名（如 db），解析为容器内网 IP 以便学员探测
+if ($dbHost === 'localhost') {
+    $displayHost = '127.0.0.1';
+} else {
+    $resolved = @gethostbyname($dbHost);
+    // gethostbyname 解析失败时会原样返回入参，需校验是否为有效 IP，失败则降级显示原值
+    $displayHost = filter_var($resolved, FILTER_VALIDATE_IP) ? $resolved : $dbHost;
+}
+
 // 获取数据库连接
 try {
     $pdo = HeaSec_Database::getConnection('heasec_base');
@@ -87,7 +97,7 @@ require_once $commonBasePath . 'includes/header.php';
                 <span class="alert-hint">
                     <small>
                         请利用SSRF漏洞探测目标内网服务器开放的端口。<br>
-                        目标主机：<strong id="db-host"><?php echo htmlspecialchars($dbHost === 'localhost' ? '127.0.0.1' : $dbHost); ?></strong><br>
+                        目标主机：<strong id="db-host"><?php echo htmlspecialchars($displayHost); ?></strong><br>
                     </small>
                 </span>
             </div>

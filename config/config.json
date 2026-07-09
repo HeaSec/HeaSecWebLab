@@ -10,7 +10,7 @@
     "check_range_databases": true,
     "show_uninitialized_ranges": true
   },
-  "version": "1.01",
+  "version": "1.02",
   "created": "2025-11-18",
   "updated": "2025-11-23",
   "description": "HeaSec 网络安全靶场 - 统一数据库配置文件"

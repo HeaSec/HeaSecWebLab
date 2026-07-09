@@ -54,22 +54,12 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image_file'])) {
         $hasUpload = true;
 
-        // 调用上传API进行验证
-        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-        $host = $_SERVER['HTTP_HOST'];
-        $baseUrl = $protocol . '://' . $host . dirname($_SERVER['PHP_SELF']);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $baseUrl . '/api/upload.php');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'file' => new CURLFile($_FILES['image_file']['tmp_name'], $_FILES['image_file']['type'], $_FILES['image_file']['name']),
-            'type' => 'image'
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($response, true);
+        // 调用上传处理函数（直接 require，避免 HTTP 自连带来的 host/port 兼容问题）
+        require_once __DIR__ . '/api/upload.php';
+        $result = heasec_handle_file_upload(
+            ['file' => $_FILES['image_file']],
+            ['type' => 'image']
+        );
 
         if ($result && $result['success']) {
             $uploadSuccess = true;

@@ -4,57 +4,52 @@
  * 版本: v1.0.0
  * 创建日期: 2026-03-03
  * 团队: 天积安全 (HeavenlySecret)
+ *
+ * 本文件双重身份：
+ *  - 被直接访问（HTTP POST /api/upload.php）时，作为独立 API 输出 JSON
+ *  - 被 level1/2/3 require 时，仅暴露 heasec_handle_file_upload() 函数，不输出
+ * 这样绕开了原先 level.php 用 cURL 自连导致的 host/port 兼容问题。
  */
 
-// 设置响应头
-header('X-HeavenlySecret: HeaSec 文件相关XSS上传API v1.0.0');
-header('Content-Type: application/json; charset=utf-8');
+/**
+ * 处理文件上传：校验 + 落盘
+ *
+ * @param array $files 形如 $_FILES 的数组，需含 'file' 键
+ * @param array $post  形如 $_POST 的数组，需含 'type' 键（svg|pdf|image）
+ * @return array {success:bool, message?:string, file_path?:string, content?:string}
+ */
+function heasec_handle_file_upload($files, $post) {
+    if (!isset($files['file']) || $files['file']['error'] !== UPLOAD_ERR_OK) {
+        return ['success' => false, 'message' => '[HeaSec] 文件上传失败，请重试'];
+    }
 
-// 只允许POST请求
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode([
-        'success' => false,
-        'message' => '[HeaSec] 只允许POST请求'
-    ]);
-    exit;
-}
+    $fileType = isset($post['type']) ? $post['type'] : '';
+    if (!in_array($fileType, ['svg', 'pdf', 'image'])) {
+        return ['success' => false, 'message' => '[HeaSec] 无效的文件类型参数'];
+    }
 
-// 检查文件是否上传
-if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-    http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => '[HeaSec] 文件上传失败，请重试'
-    ]);
-    exit;
-}
+    $file = $files['file'];
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileMime = $file['type'];
 
-// 获取文件类型参数
-$fileType = isset($_POST['type']) ? $_POST['type'] : '';
+    // 上传目录
+    $uploadDir = __DIR__ . '/../uploads/temp/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
 
-// 验证文件类型参数
-if (!in_array($fileType, ['svg', 'pdf', 'image'])) {
-    http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => '[HeaSec] 无效的文件类型参数'
-    ]);
-    exit;
-}
-
-$file = $_FILES['file'];
-$fileName = $file['name'];
-$fileTmpName = $file['tmp_name'];
-$fileSize = $file['size'];
-$fileMime = $file['type'];
-
-// 上传目录
-$uploadDir = __DIR__ . '/../uploads/temp/';
-
-// 确保上传目录存在
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
+    switch ($fileType) {
+        case 'svg':
+            return validateSvg($fileTmpName, $fileName, $fileSize, $fileMime);
+        case 'pdf':
+            return validatePdf($fileTmpName, $fileName, $fileSize, $fileMime, $uploadDir);
+        case 'image':
+            return validateImage($fileTmpName, $fileName, $fileSize, $fileMime, $uploadDir);
+        default:
+            return ['success' => false, 'message' => '未知的文件类型'];
+    }
 }
 
 /**
@@ -172,43 +167,41 @@ function validateImage($file, $fileName, $fileSize, $fileMime, $uploadDir) {
     ];
 }
 
-// 根据文件类型进行验证
-try {
-    switch ($fileType) {
-        case 'svg':
-            $result = validateSvg($fileTmpName, $fileName, $fileSize, $fileMime);
-            break;
-        case 'pdf':
-            $result = validatePdf($fileTmpName, $fileName, $fileSize, $fileMime, $uploadDir);
-            break;
-        case 'image':
-            $result = validateImage($fileTmpName, $fileName, $fileSize, $fileMime, $uploadDir);
-            break;
-        default:
-            $result = ['success' => false, 'message' => '未知的文件类型'];
-    }
+// === HTTP API 入口：仅当被直接访问时执行（保留攻击向量） ===
+if (realpath($_SERVER['SCRIPT_FILENAME']) === realpath(__FILE__)) {
+    header('X-HeavenlySecret: HeaSec 文件相关XSS上传API v1.0.0');
+    header('Content-Type: application/json; charset=utf-8');
 
-    if ($result['success']) {
-        echo json_encode([
-            'success' => true,
-            'message' => $result['message'] ?? '文件上传成功',
-            'file_path' => $result['file_path'] ?? '',
-            'content' => $result['content'] ?? ''
-        ]);
-    } else {
-        http_response_code(400);
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
         echo json_encode([
             'success' => false,
-            'message' => '[HeaSec] ' . $result['message']
+            'message' => '[HeaSec] 只允许POST请求'
         ]);
+        exit;
     }
 
-} catch (Exception $e) {
-    error_log('[HeaSec] 上传API错误: ' . $e->getMessage());
-    http_response_code(500);
+    $result = heasec_handle_file_upload($_FILES, $_POST);
+
+    if (!$result['success']) {
+        http_response_code(400);
+        // validate 函数返回的错误 message 不带前缀，这里补齐 [HeaSec] 前缀（与原行为一致）
+        $msg = $result['message'];
+        if (strpos($msg, '[HeaSec]') !== 0) {
+            $msg = '[HeaSec] ' . $msg;
+        }
+        echo json_encode([
+            'success' => false,
+            'message' => $msg
+        ]);
+        exit;
+    }
+
     echo json_encode([
-        'success' => false,
-        'message' => '[HeaSec] 服务器内部错误'
+        'success' => true,
+        'message' => $result['message'] ?? '文件上传成功',
+        'file_path' => $result['file_path'] ?? '',
+        'content' => $result['content'] ?? ''
     ]);
+    exit;
 }
-?>

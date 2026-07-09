@@ -69,18 +69,19 @@
             var form = document.getElementById(containerId + '-form');
             if (!form) return;
 
-            // 绑定动态添加参数按钮
-            var addParamBtn = form.querySelector('.vuln-param-add');
-            if (addParamBtn) {
-                addParamBtn.addEventListener('click', function () {
-                    self.addParamItem(containerId);
-                });
-            }
-
-            // 绑定删除参数按钮（事件委托）
+            // 绑定参数添加/删除按钮（统一事件委托）
+            // 注意：必须用委托，addParamItem 动态生成的新行也含 .vuln-param-add 按钮，
+            // 若用 querySelector 仅能命中首行按钮，会导致只有第一行的"+"可点击。
             var paramsContainer = document.getElementById(containerId + '-params');
             if (paramsContainer) {
                 paramsContainer.addEventListener('click', function (e) {
+                    // 添加参数：任意一行的"+"按钮都应能新增一行
+                    var addBtn = e.target.closest('.vuln-param-add');
+                    if (addBtn) {
+                        self.addParamItem(containerId);
+                        return;
+                    }
+                    // 删除参数：至少保留一行
                     var removeBtn = e.target.closest('.vuln-param-remove');
                     if (removeBtn) {
                         var paramItem = removeBtn.closest('.vuln-param-item');

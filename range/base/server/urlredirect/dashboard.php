@@ -292,6 +292,34 @@ require_once $commonBasePath . 'includes/header.php';
 </div>
 
 <?php
+/**
+ * 成就弹窗修正脚本（内联）
+ * 缘由：公共成就卡片组件 achievement-card.js 用 thresholds.length 判断「全部完成」，
+ *       而本靶场 thresholds=[1,3,5]（3颗星，但完成需累计 5 种绕过方式），
+ *       导致掌握 3、4 种时即误判为「全部完成」并显示完成文案。
+ * 修正：覆盖 showCongrats，将 totalStars 修正为 thresholds 的最大值（最后一个阈值）。
+ * 时序：公共组件由 renderAchievementCard 同步输出 <script>，本内联脚本位于其后，
+ *       同步加载保证 HeaSecAchievementCongrats 已定义，覆盖在 DOMContentLoaded 触发前完成。
+ */
+?>
+<script>
+(function () {
+    'use strict';
+    if (!window.HeaSecAchievementCongrats || !window.HeaSecAchievementCongrats.showCongrats) {
+        return;
+    }
+    var originalShowCongrats = window.HeaSecAchievementCongrats.showCongrats;
+    window.HeaSecAchievementCongrats.showCongrats = function (starCount, config) {
+        // 将「完成所需总数」修正为 thresholds 最大值（最后一个阈值）
+        if (config && config.thresholds && config.thresholds.length > 0) {
+            config.totalStars = config.thresholds[config.thresholds.length - 1];
+        }
+        return originalShowCongrats.call(this, starCount, config);
+    };
+})();
+</script>
+
+<?php
 // 引入公共底部
 require_once $commonBasePath . 'includes/footer.php';
 ?>

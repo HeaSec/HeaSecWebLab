@@ -37,7 +37,22 @@ try {
 
     $requestScheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $requestHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-    $expectedPath = '/heasecdev/range/logic/brokenac/vertbp/vertbp_level3/edit.php';
+
+    // 根据 edit.php 的实际文件位置推导其在 Web 根目录下的相对路径，
+    // 避免硬编码部署路径，使靶场可自适应不同部署环境（子目录、Docker 内网等）。
+    // edit.php 位于当前接口所在 api/ 目录的上一级（vertbp_level3/）目录下。
+    $editPhpFsPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'edit.php';
+    $docRoot = isset($_SERVER['DOCUMENT_ROOT']) ? rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') : '';
+    $expectedPath = '';
+    if ($docRoot !== '' && is_file($editPhpFsPath)) {
+        // 统一为正斜杠比较以兼容 Windows；按文档根长度截取得到相对 Web 路径
+        $normalizedFsPath = str_replace('\\', '/', $editPhpFsPath);
+        $normalizedDocRoot = str_replace('\\', '/', $docRoot);
+        if (stripos($normalizedFsPath, $normalizedDocRoot) === 0) {
+            $expectedPath = '/' . ltrim(substr($normalizedFsPath, strlen($normalizedDocRoot)), '/');
+        }
+    }
+
     $refererHost = $parsedReferer['host'];
     if (isset($parsedReferer['port'])) {
         $refererHost .= ':' . $parsedReferer['port'];

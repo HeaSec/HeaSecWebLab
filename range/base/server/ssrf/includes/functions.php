@@ -384,11 +384,26 @@ function resetRangeData($pdo, $sessionId) {
 /**
  * 动态生成元数据接口的完整URL
  *
+ * docker 环境下，$_SERVER['HTTP_HOST'] 为宿主机映射地址（如 localhost:8080），
+ * 容器内 curl 无法通过该地址访问自身 web 服务，故改用容器内网 IP 生成 URL，
+ * 确保服务端 SSRF 请求可达。
+ *
  * @return string 元数据接口的完整URL
  */
 function generateMetadataUrl() {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'];
+
+    // docker 环境下改用容器内网地址，避免宿主机映射地址在容器内不可达
+    if (isRunningInDocker()) {
+        $containerIp = getContainerInternalIp();
+        if ($containerIp !== '') {
+            // 容器内 web 服务固定监听 80 端口（见 docker-compose.yml 的端口映射 8080:80），
+            // SSRF 直接用默认 80 端口访问，不带端口后缀。
+            // 注意：不能用 $_SERVER['SERVER_PORT']，apache SAPI 下它会透传 Host 头端口（8080）而非监听端口（80）
+            $host = $containerIp;
+        }
+    }
 
     // 从当前脚本路径推导靶场根目录
     $scriptDir = dirname(__DIR__); // 指向 ssrf/ 目录
@@ -399,4 +414,41 @@ function generateMetadataUrl() {
     $relativePath = ltrim($relativePath, '/');
 
     return $protocol . '://' . $host . '/' . $relativePath . '/lcapi/metadata.php';
+}
+
+/**
+ * 检测当前是否运行在 docker 容器内
+ *
+ * 通过容器根目录下的 /.dockerenv 标识文件判断，该文件由 docker 自动创建。
+ *
+ * @return bool 是否在 docker 容器内运行
+ */
+function isRunningInDocker() {
+    return file_exists('/.dockerenv');
+}
+
+/**
+ * 获取当前容器在 docker 内网中的 IP 地址
+ *
+ * 优先使用 web 服务器绑定的 SERVER_ADDR，降级通过主机名解析，
+ * 用于在 docker 环境下生成容器内可达的 URL。
+ *
+ * @return string 容器内网 IP，获取失败时返回空字符串
+ */
+function getContainerInternalIp() {
+    // 优先使用 web 服务器绑定的内网地址
+    if (isset($_SERVER['SERVER_ADDR'])
+        && filter_var($_SERVER['SERVER_ADDR'], FILTER_VALIDATE_IP)
+        && $_SERVER['SERVER_ADDR'] !== '0.0.0.0'
+    ) {
+        return $_SERVER['SERVER_ADDR'];
+    }
+
+    // 降级：解析当前主机名获取内网 IP
+    $ip = @gethostbyname(gethostname());
+    if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        return $ip;
+    }
+
+    return '';
 }
