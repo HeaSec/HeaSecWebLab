@@ -199,21 +199,31 @@ class HeaSec_UploadBypassDetector {
     /**
      * 检测截断绕过
      *
-     * @param string $filename 文件名
+     * 检测文件名中是否包含真实的二进制空字节（0x00）。
+     * 真实业务场景中，攻击者会借助抓包工具在文件名里插入原始空字节
+     * （如 shell.php\x00.jpg），以此欺骗只检查末尾扩展名的黑名单校验，
+     * 而文件系统在空字节处截断后实际落地为 shell.php。
+     *
+     * 注意：默认 PHP 环境（enable_post_data_reading 开启）会在解析 multipart
+     * 时就将文件名在空字节处截断，$_FILES['name'] 拿不到 \x00；本检测依赖
+     * Docker(mod_php) 环境下由 index.php 从 php://input 原始解析得到的完整文件名。
+     * 仅当空字节之前的片段以黑名单扩展名（.php）结尾时，才视为一次真正的截断绕过。
+     *
+     * @param string $filename 文件名（可能包含原始空字节）
      * @return bool 是否为截断绕过
      */
     private function isTruncationBypass($filename) {
-        // 检测 %00 截断
-        if (strpos($filename, '%00') !== false) {
-            return true;
+        // 定位第一个二进制空字节（0x00）
+        $nullPos = strpos($filename, "\x00");
+        if ($nullPos === false) {
+            return false;
         }
 
-        // 检测其他截断字符
-        if (preg_match('/\.php%00/i', $filename)) {
-            return true;
-        }
+        // 取空字节之前的片段，判断其扩展名是否命中黑名单
+        $beforeNull = substr($filename, 0, $nullPos);
+        $extension = strtolower(pathinfo($beforeNull, PATHINFO_EXTENSION));
 
-        return false;
+        return in_array('.' . $extension, $this->blacklist);
     }
 
     /**

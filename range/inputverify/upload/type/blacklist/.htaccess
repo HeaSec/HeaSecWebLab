@@ -1,0 +1,13 @@
+# HeaSec天积安全团队 - 文件上传黑名单绕过靶场 目录级配置
+#
+# 作用：在 Docker(php:7.3-apache, mod_php) 环境下关闭 POST 体自动解析，
+#       使 index.php 能从 php://input 读取原始请求体、检测真实空字节(\x00)截断。
+#
+# 兼容性：
+#   - 使用 <IfModule mod_php7.c> 守卫，仅当加载了 mod_php7 时才生效；
+#   - phpStudy(php7.3.4nts + FastCGI) 未加载 mod_php7，本段自动跳过，
+#     维持 enable_post_data_reading 默认开启，$_FILES 正常工作，不受影响；
+#   - 若 AllowOverride 未开启，Apache 会忽略本文件，同样不影响运行。
+<IfModule mod_php7.c>
+    php_value enable_post_data_reading 0
+</IfModule>

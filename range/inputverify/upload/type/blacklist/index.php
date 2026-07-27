@@ -35,6 +35,9 @@ require_once __DIR__ . '/includes/HeaSec_UploadBypassDetector.php';
 // 引入上传结果闪存组件（PRG模式，防止刷新/重置时POST表单重复提交）
 require_once __DIR__ . '/includes/HeaSec_UploadResultFlash.php';
 
+// 引入原始 multipart 解析器（用于 Docker 环境下从 php://input 读取原始文件名）
+require_once __DIR__ . '/includes/HeaSec_RawMultipartParser.php';
+
 // 创建上传目录
 $uploadDir = __DIR__ . '/uploads/';
 if (!file_exists($uploadDir)) {
@@ -42,37 +45,77 @@ if (!file_exists($uploadDir)) {
 }
 
 // 处理文件上传
+// 说明：普通环境（如 phpStudy/FastCGI）从 $_FILES 获取上传文件；
+// Docker(mod_php) 环境下 .htaccess 关闭了 enable_post_data_reading，此时 $_FILES
+// 为空，需从 php://input 读取原始请求体并手动解析，以拿到未被 PHP 截断的原始
+// 文件名（含二进制空字节 \x00），从而支撑真实的空字节截断绕过检测。
 $uploadResult = null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['upload_file'])) {
-    $detector = new HeaSec_UploadBypassDetector();
-    $uploadResult = $detector->processUpload($_FILES['upload_file']);
+$contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+$isUploadPost = $_SERVER['REQUEST_METHOD'] === 'POST'
+    && stripos($contentType, 'multipart/form-data') === 0
+    && !isset($_GET['action']); // 排除重置/初始化等操作（由公共 header 处理）
 
-    // 如果上传成功且未被阻止，保存文件
-    if ($uploadResult && $uploadResult['success'] && !$uploadResult['should_block']) {
-        $uploadedFile = $_FILES['upload_file'];
-        $fileName = basename($uploadedFile['name']);
+if ($isUploadPost) {
+    // 归一化后的文件信息数组与内容
+    $file = null;
+    $rawContent = null; // 原始解析模式下保存文件内容，普通模式为 null
 
-        // 安全的文件名处理
-        $fileName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $fileName);
-        $fileName = trim($fileName, '._-');
-
-        if (!empty($fileName) && strlen($fileName) <= 255) {
-            $targetPath = $uploadDir . $fileName;
-
-            // 文件大小限制（10MB）
-            $maxSize = 10 * 1024 * 1024;
-            if ($uploadedFile['size'] <= $maxSize) {
-                // 移动上传的文件
-                if (!move_uploaded_file($uploadedFile['tmp_name'], $targetPath)) {
-                    $uploadResult['message'] = '文件上传成功，但保存失败！';
-                }
+    if (isset($_FILES['upload_file'])) {
+        // 普通模式：直接使用 PHP 解析好的 $_FILES
+        $file = $_FILES['upload_file'];
+    } else {
+        // 原始解析模式：从 php://input 读取并解析 multipart 请求体
+        $rawBody = file_get_contents('php://input');
+        if ($rawBody !== false && $rawBody !== '') {
+            $parsed = HeaSec_RawMultipartParser::parseFirstFile($rawBody, $contentType);
+            if ($parsed !== null) {
+                $file = [
+                    'name'     => $parsed['name'],   // 保留原始文件名（含 \x00）
+                    'size'     => $parsed['size'],
+                    'error'    => UPLOAD_ERR_OK,
+                    'tmp_name' => '',
+                ];
+                $rawContent = $parsed['content'];
             }
         }
     }
 
-    // PRG模式：上传结果存入session闪存，并302重定向到GET请求
-    // 目的：让最终页面以GET方式加载，避免重置时location.reload()重复提交POST表单
-    HeaSec_UploadResultFlash::storeAndRedirect($uploadResult);
+    if ($file !== null) {
+        $detector = new HeaSec_UploadBypassDetector();
+        $uploadResult = $detector->processUpload($file);
+
+        // 如果上传成功且未被阻止，保存文件
+        if ($uploadResult && $uploadResult['success'] && !$uploadResult['should_block']) {
+            // 安全的文件名处理（先剔除空字节，避免 basename 处理异常）
+            $fileName = basename(str_replace("\x00", '_', $file['name']));
+            $fileName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $fileName);
+            $fileName = trim($fileName, '._-');
+
+            if (!empty($fileName) && strlen($fileName) <= 255) {
+                $targetPath = $uploadDir . $fileName;
+
+                // 文件大小限制（10MB）
+                $maxSize = 10 * 1024 * 1024;
+                if ($file['size'] <= $maxSize) {
+                    if ($rawContent !== null) {
+                        // 原始解析模式：直接写入解析得到的内容
+                        if (file_put_contents($targetPath, $rawContent) === false) {
+                            $uploadResult['message'] = '文件上传成功，但保存失败！';
+                        }
+                    } else {
+                        // 普通模式：移动上传的临时文件
+                        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+                            $uploadResult['message'] = '文件上传成功，但保存失败！';
+                        }
+                    }
+                }
+            }
+        }
+
+        // PRG模式：上传结果存入session闪存，并302重定向到GET请求
+        // 目的：让最终页面以GET方式加载，避免重置时location.reload()重复提交POST表单
+        HeaSec_UploadResultFlash::storeAndRedirect($uploadResult);
+    }
 }
 
 // 处理重置请求

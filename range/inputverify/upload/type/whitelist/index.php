@@ -23,6 +23,9 @@ $version = 'v1.0.0';
 // 设置公共组件的基础路径（从靶场目录到range/common/的相对路径）
 $commonBasePath = '../../../../common/';
 
+// 引入原始 multipart 解析器（用于 Docker 环境下从 php://input 读取原始文件名）
+require_once __DIR__ . '/includes/HeaSec_RawMultipartParser.php';
+
 // 设置重置功能相关变量
 $initSqlFile = __DIR__ . '/database/init_database.sql';
 $databaseName = 'heasec_inputverify';
@@ -51,11 +54,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 // 文件上传处理逻辑
+// 说明：普通环境（如 phpStudy/FastCGI）从 $_FILES 获取上传文件；
+// Docker(mod_php) 环境下 .htaccess 关闭了 enable_post_data_reading，此时 $_FILES
+// 为空，需从 php://input 读取原始请求体并手动解析，以拿到未被 PHP 截断的原始
+// 文件名（含二进制空字节 \x00），从而支撑真实的空字节截断绕过检测。
 $uploadResult = null;
 $newAchievement = false;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['upload_file'])) {
-    $uploadResult = handleFileUpload($_FILES['upload_file']);
+$contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+$isUploadPost = $_SERVER['REQUEST_METHOD'] === 'POST'
+    && stripos($contentType, 'multipart/form-data') === 0
+    && !isset($_GET['action']); // 排除重置/初始化等操作（由公共 header 处理）
+
+if ($isUploadPost) {
+    if (isset($_FILES['upload_file'])) {
+        // 普通模式：直接使用 PHP 解析好的 $_FILES
+        $uploadResult = handleFileUpload($_FILES['upload_file']);
+    } else {
+        // 原始解析模式：从 php://input 读取并解析 multipart 请求体
+        $rawBody = file_get_contents('php://input');
+        if ($rawBody !== false && $rawBody !== '') {
+            $parsed = HeaSec_RawMultipartParser::parseFirstFile($rawBody, $contentType);
+            if ($parsed !== null) {
+                $file = [
+                    'name'        => $parsed['name'],   // 保留原始文件名（含 \x00）
+                    'size'        => $parsed['size'],
+                    'error'       => UPLOAD_ERR_OK,
+                    'tmp_name'    => '',
+                    'raw_content' => $parsed['content'], // 原始解析模式携带文件内容
+                ];
+                $uploadResult = handleFileUpload($file);
+            }
+        }
+    }
 }
 
 // 获取已上传的文件列表
@@ -139,10 +170,18 @@ function handleFileUpload($file)
         mkdir($uploadDir, 0755, true);
     }
 
-    $safeFilename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', $filename);
+    // 文件名安全处理（先剔除空字节，避免异常）
+    $safeFilename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', str_replace("\x00", '', $filename));
     $uploadPath = $uploadDir . $safeFilename;
 
-    if (move_uploaded_file($tmp_name, $uploadPath)) {
+    // 落盘：原始解析模式直接写入内容，普通模式移动临时文件
+    if (isset($file['raw_content'])) {
+        $saved = (file_put_contents($uploadPath, $file['raw_content']) !== false);
+    } else {
+        $saved = move_uploaded_file($tmp_name, $uploadPath);
+    }
+
+    if ($saved) {
         return [
             'success' => true,
             'message' => '图片上传成功！',
@@ -164,8 +203,8 @@ function checkBypassMethods($filename, $extension)
 {
     $lowerFilename = strtolower($filename);
 
-    // 1. Apache解析漏洞绕过 (.jpg.php)
-    if (preg_match('/\.(jpg|jpeg|png|gif)\.php$/', $lowerFilename)) {
+    // 1. Apache解析漏洞绕过 (.php.jpg)
+    if (preg_match('/\.php\.(jpg|jpeg|png|gif)$/', $lowerFilename)) {
         return [
             'bypassed' => true,
             'method' => 'Apache解析漏洞绕过',
@@ -173,17 +212,17 @@ function checkBypassMethods($filename, $extension)
         ];
     }
 
-    // 2. Windows尾随点截断特性绕过 (.php.)
-    if (preg_match('/\.php\.$/', $lowerFilename)) {
+    // 2. 截断绕过 (.php+NULL字节0x00+.jpg)：POST不会自动解码%00，攻击者需二进制改包注入真实0x00
+    if (preg_match('/\.php\x00\.(jpg|jpeg|png|gif)$/', $lowerFilename)) {
         return [
             'bypassed' => true,
-            'method' => 'Windows尾随点截断特性绕过',
-            'message' => '恭喜你，成功通过Windows尾随点截断特性上传了文件'
+            'method' => '截断绕过',
+            'message' => '恭喜你，成功通过截断绕过上传了文件'
         ];
     }
 
-    // 3. NTFS交换数据流绕过 (.php::DATA)
-    if (preg_match('/\.php::data$/', $lowerFilename)) {
+    // 3. NTFS交换数据流绕过 (.php:.jpg)：ADS流名带白名单后缀骗过pathinfo，落盘变shell.php
+    if (preg_match('/\.php:.*\.(jpg|jpeg|png|gif)$/', $lowerFilename)) {
         return [
             'bypassed' => true,
             'method' => 'NTFS交换数据流',
@@ -430,8 +469,7 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['congrats' => true]);
                 <!-- 传统文件选择区域 -->
                 <div class="form-group" style="margin-bottom: 20px; margin-top: 20px;">
                     <label class="file-input-wrapper">
-                        <input type="file" name="upload_file" class="file-input" id="upload_file" accept="*/*"
-                            onchange="validateFileType();" required>
+                        <input type="file" class="file-input" id="upload_file" accept="*/*">
                         <i class="fa fa-folder-open"></i> 选择文件
                     </label>
                     <button type="submit" class="upload-button">
@@ -594,9 +632,10 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['congrats' => true]);
         const uploadFile = document.getElementById('upload_file');
         if (uploadFile) {
             uploadFile.addEventListener('change', function () {
-                const fileName = this.files[0] ? this.files[0].name : '';
-                if (fileName) {
-                    console.log('已选择文件:', fileName);
+                const files = this.files;
+                if (files.length > 0) {
+                    // 同步文件到拖拽输入框（参考 blacklist 模式）
+                    syncFileInputs(files[0]);
                 }
             });
         }
@@ -662,11 +701,11 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['congrats' => true]);
     }
 
     /**
-     * 同步文件到两个输入框
+     * 同步文件到拖拽输入框
+     * 注意：只同步到dropzoneInput，避免重复上传
      */
     function syncFileInputs(file) {
         const dropzoneInput = document.getElementById('upload_file_dropzone');
-        const uploadFile = document.getElementById('upload_file');
 
         // 创建一个新的FileList对象（通过DataTransfer）
         const dataTransfer = new DataTransfer();
@@ -674,9 +713,6 @@ echo HeaSec_StarSystem::renderAssets($commonBasePath, ['congrats' => true]);
 
         if (dropzoneInput) {
             dropzoneInput.files = dataTransfer.files;
-        }
-        if (uploadFile) {
-            uploadFile.files = dataTransfer.files;
         }
     }
 
