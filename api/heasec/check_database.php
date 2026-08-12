@@ -9,6 +9,11 @@
  * ========================================
  */
 
+// JSON接口专用：关闭错误显示，防止任何 Warning/Notice 污染 JSON 响应导致前端解析失败
+// （HeaSec_log 仍通过 error_log() 正常记录日志，不受影响）
+error_reporting(0);
+ini_set('display_errors', '0');
+
 require_once __DIR__ . '/../../config/config.php';
 
 class HeaSec_DatabaseChecker
@@ -516,10 +521,16 @@ class HeaSec_DatabaseChecker
     private function findRangeDirectories($base_dir)
     {
         $directories = [];
-        $items = scandir($base_dir);
+        // @ 抑制并判空：遇到无法读取的目录（如 Windows 下名为 ... 的异常条目）直接跳过，
+        // 避免 scandir 警告污染 JSON 响应
+        $items = @scandir($base_dir);
+        if ($items === false) {
+            return $directories;
+        }
 
         foreach ($items as $item) {
-            if ($item === '.' || $item === '..') {
+            // 跳过当前目录(.)、上级目录(..)，以及含连续点的异常条目（如 ...、....）
+            if ($item === '.' || $item === '..' || strpos($item, '..') !== false) {
                 continue;
             }
 

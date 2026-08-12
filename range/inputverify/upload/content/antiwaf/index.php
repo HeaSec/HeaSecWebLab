@@ -138,6 +138,11 @@ function heasecWAFContentCheck($filePath) {
             $detectedFunctions[] = $func;
         }
     }
+    // 检测反引号执行运算符（等价 shell_exec，是绕过函数名关键字检测的常见手法）
+    // 仅在 PHP 代码上下文中检测，避免对二进制文件（如图片）产生误报
+    if (preg_match('/<\?/', $content) && preg_match('/`[^`]+`/', $content)) {
+        $detectedFunctions[] = 'backtick_operator';
+    }
 
     return [
         'detected' => count($detectedFunctions) > 0,

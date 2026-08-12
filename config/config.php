@@ -15,8 +15,8 @@ define('HEASEC_TEAM_SLOGAN', '日积寸功，乐享安全');
 define('HEASEC_SITE_NAME', '天积安全靶场平台');
 
 // 系统版本配置
-define('HEASEC_VERSION', 'v1.0.3');
-define('HEASEC_BUILD', '20260727');
+define('HEASEC_VERSION', 'v1.0.4');
+define('HEASEC_BUILD', '20260812');
 
 // 安全配置
 define('HEASEC_SECURITY_LEVEL', 1);

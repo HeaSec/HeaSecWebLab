@@ -203,6 +203,11 @@ function detectDangerousFunctions($content, $dangerousFunctions)
             $detectedFunctions[] = $func;
         }
     }
+    // 检测反引号执行运算符（等价 shell_exec，是绕过函数名关键字检测的常见手法）
+    // 仅在 PHP 代码上下文中检测，避免对二进制文件（如图片）产生误报
+    if (preg_match('/<\?/', $content) && preg_match('/`[^`]+`/', $content)) {
+        $detectedFunctions[] = 'backtick_operator';
+    }
     return $detectedFunctions;
 }
 
@@ -244,13 +249,11 @@ function heasecWAFContentCheck($filePath)
         'file'
     ];
 
-    // 读取文件前500个字符
-    $handle = @fopen($filePath, 'r');
-    if (!$handle) {
+    // 读取整个文件内容进行完整检测，避免仅在文件头部检测导致恶意代码隐藏在文件尾部而绕过WAF
+    $content = @file_get_contents($filePath);
+    if ($content === false) {
         return ['detected' => false, 'functions' => [], 'decoding_path' => '', 'needs_decode' => false];
     }
-    $content = fread($handle, 500);
-    fclose($handle);
 
     $decodingPath = 'original';
     $needsDecode = false; // 标记是否需要解码保存
