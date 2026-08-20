@@ -117,18 +117,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
         // 【漏洞点】Windows 下使用后台进程执行延迟验证
         // 注意：这里故意不使用 escapeshellarg，让攻击者有机会通过条件竞争访问临时文件
         // 使用 pclose(popen()) 在后台启动独立进程，避免阻塞当前请求
+        //
+        // 命令拼接注意事项（修复历史 BUG）：
+        // 1. $imagesDir 原以目录分隔符(\)结尾，进入双引号后 "...\images\" 的末尾 \" 会被
+        //    CMD 解释为转义引号（而非 分隔符+闭合引号），导致该参数引号不闭合，后续 token
+        //    全部错位，CMD 会把 verify-delayed.php 路径当作要打开的文件，触发本地弹窗。
+        //    修复：传命令前 rtrim 去掉结尾分隔符。
+        // 2. start 命令会把第一个引号参数当作窗口标题，故显式补一个空标题 ""。
+        // 3. 末尾 > NUL 2>&1 重定向子进程输出，杜绝任何 stdout/stderr 经 popen 管道泄漏。
         $command = sprintf(
-            '"%s" "%s" "%s" "%s" "%s" "%s"',
+            '"" "%s" "%s" "%s" "%s" "%s" "%s"',
             $phpBinary,
             $verifyScript,
             $tmpPath,
             $fileExtension,
-            $imagesDir,
+            rtrim($imagesDir, '\\/'),
             $randomFileName
         );
 
-        // Windows 下使用 start /B 在后台执行，不等待进程结束
-        pclose(popen('start /B ' . $command, 'r'));
+        // Windows 下使用 start /B 在后台执行，不等待进程结束；输出重定向到 NUL 避免泄漏
+        pclose(popen('start /B ' . $command . ' > NUL 2>&1', 'r'));
 
         // 【漏洞点】在响应中返回临时文件URL
         // 攻击者可以立即获知文件路径，在审核期间访问
@@ -136,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
 
         $response = json_encode([
             'success' => true,
-            'message' => '上传成功！文件正在审核中，预计30秒内完成...',
+            'message' => '上传成功！文件正在审核中，预计30秒内完成，请刷新页面查看审核结果',
             'filename' => $randomFileName,
             'original_name' => $originalFileName,
             'tmp_url' => $tmpUrl,

@@ -21,8 +21,11 @@ if ($argc < 5) {
 
 $tmpPath = $argv[1];          // 临时文件完整路径
 $fileExtension = $argv[2];    // 文件扩展名
-$imagesDir = $argv[3];        // 正式目录路径
+$imagesDir = $argv[3];        // 正式目录路径（调用方已去除尾部分隔符以兼容CMD引号解析）
 $randomFileName = $argv[4];   // 随机文件名
+
+// 规范化目录路径：确保以目录分隔符结尾，避免后续拼接时文件名粘连
+$imagesDir = rtrim($imagesDir, '\\/') . DIRECTORY_SEPARATOR;
 
 // 延迟30秒后执行验证（攻击者有时间窗口访问临时文件）
 sleep(30);

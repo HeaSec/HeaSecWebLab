@@ -17,7 +17,7 @@ $pageTitle = '条件竞争上传靶场';
 $rangeName = '条件竞争上传③';
 $showVersion = false;
 $showResetButton = true;
-$version = 'v1.0.0';
+$version = 'v1.1.0';
 
 // 关卡配置
 $currentLevel = 3;
@@ -144,7 +144,7 @@ require_once $commonBasePath . 'components/secret-card/includes/HeaSec_SecretCar
 
             <!-- 已上传文件列表 -->
             <?php if (!empty($uploadedFiles)): ?>
-            <div style="margin-top: 30px;">
+            <div class="uploaded-files-wrap" style="margin-top: 30px;">
                 <h4>已上传的文件：</h4>
                 <table class="files-table">
                     <thead>

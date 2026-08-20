@@ -11,6 +11,7 @@
     var currentLevel = 1;
     var isFinalLevel = false;
     var nextPage = '';
+    var hasPassed = false;
 
     // 第二关状态轮询相关
     var statusCheckInterval = null;
@@ -21,11 +22,13 @@
      * @param {number} config.level - 关卡编号
      * @param {boolean} config.isFinalLevel - 是否是最后一关
      * @param {string} config.nextPage - 下一关页面URL
+     * @param {boolean} config.hasPassed - 当前关卡是否已通关（用于刷新后恢复"下一关"按钮）
      */
     window.initRaceCondition = function(config) {
         currentLevel = config.level || 1;
         isFinalLevel = config.isFinalLevel || false;
         nextPage = config.nextPage || '';
+        hasPassed = config.hasPassed || false;
 
         initDragUpload();
         bindUploadForm();
@@ -33,11 +36,26 @@
         bindNextLevelButton();
         listenSecretCardSuccess();
 
+        // 非最终关卡：若已通关，直接显示"下一关"按钮（支持刷新后状态恢复）
+        if (!isFinalLevel && hasPassed) {
+            showNextLevelButton();
+        }
+
         // 第二关初始化头像状态轮询
         if (currentLevel === 2) {
             initAvatarStatusPolling();
         }
     };
+
+    /**
+     * 显示"下一关"按钮区域
+     */
+    function showNextLevelButton() {
+        var nextLevelSection = document.getElementById('nextLevelSection');
+        if (nextLevelSection) {
+            nextLevelSection.style.display = 'block';
+        }
+    }
 
     /**
      * 监听密码验证成功事件
@@ -75,7 +93,7 @@
                         nextLevelSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 } else {
-                    console.error('服务器验证失败:', data.message);
+                    showMessage(data.message || '服务器验证失败', 'error');
                 }
             })
             .catch(function(err) {
@@ -154,8 +172,8 @@
                 '</div>';
             // 停止轮询
             stopStatusPolling();
-            // 刷新文件列表
-            setTimeout(refreshFileList, 1000);
+            // 局部刷新文件列表（不再整页 reload，避免丢失已显示的"下一关"按钮）
+            setTimeout(refreshFileListAjax, 1000);
         } else if (status === 'pending') {
             // 审核中 - 更新剩余时间
             var remainingTimeEl = document.getElementById('remainingTime');
@@ -461,10 +479,69 @@
     }
 
     /**
-     * 刷新文件列表
+     * 刷新文件列表（整页刷新）
+     * 仅用于上传/重置等无竞态风险的场景
      */
     function refreshFileList() {
         location.reload();
+    }
+
+    /**
+     * 局部刷新文件列表（不整页刷新）
+     * 第二关审核通过后调用，避免 reload 清掉"下一关"按钮
+     * 通过 list-files 接口获取最新列表并重建"已上传文件"区域
+     */
+    function refreshFileListAjax() {
+        var uploadSection = document.querySelector('.upload-section .tech-card-body');
+        if (!uploadSection) return;
+
+        fetch('api/level' + currentLevel + '/list-files.php')
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (!data.success) return;
+
+                var files = data.files || [];
+                // 移除旧的"已上传文件"区域和"暂无文件"提示
+                var oldList = uploadSection.querySelector('.uploaded-files-wrap');
+                if (oldList) oldList.remove();
+                var oldHint = uploadSection.querySelector('.no-files-hint');
+                if (oldHint) oldHint.remove();
+
+                // 重建文件列表或空提示
+                var html = '';
+                if (files.length > 0) {
+                    html = '<div class="uploaded-files-wrap" style="margin-top: 30px;">' +
+                        '<h4>已上传的文件：</h4>' +
+                        '<table class="files-table"><thead><tr>' +
+                        '<th>文件名</th><th>文件大小</th><th>预览</th>' +
+                        '</tr></thead><tbody>';
+                    files.forEach(function(file) {
+                        var sizeKb = (file.size / 1024).toFixed(2);
+                        html += '<tr>' +
+                            '<td>' + escapeHtml(file.name) + '</td>' +
+                            '<td class="file-size">' + sizeKb + ' KB</td>' +
+                            '<td><a href="' + escapeHtml(file.path) + '" target="_blank" class="file-link">' +
+                            '<i class="fa fa-eye"></i> 预览</a></td>' +
+                            '</tr>';
+                    });
+                    html += '</tbody></table>' +
+                        '<form id="resetForm" style="margin-top: 20px;">' +
+                        '<button type="button" id="resetBtn" class="reset-button">' +
+                        '<i class="fa fa-trash"></i> 重置文件列表</button>' +
+                        '</form></div>';
+                } else {
+                    html = '<div class="no-files-hint" style="margin-top: 20px;">' +
+                        '<i class="fa fa-inbox"></i> 暂无已上传的文件</div>';
+                }
+
+                uploadSection.insertAdjacentHTML('beforeend', html);
+
+                // 重新绑定重置按钮事件（DOM 被重建后原绑定失效）
+                bindResetButton();
+            })
+            .catch(function(err) {
+                // 静默失败
+            });
     }
 
     /**

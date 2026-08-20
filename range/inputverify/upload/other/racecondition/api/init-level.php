@@ -55,6 +55,7 @@ if (!file_exists($imagesDir)) {
 }
 
 // 重置images目录：删除用户上传的文件（保留secret.php和.htaccess）
+// 同时清空 tmp 子目录，避免上一关未审核完成的文件残留到下一关
 if (file_exists($imagesDir)) {
     $files = glob($imagesDir . '*');
     foreach ($files as $file) {
@@ -63,6 +64,17 @@ if (file_exists($imagesDir)) {
             if ($basename !== 'secret.php' && $basename !== '.htaccess') {
                 @unlink($file);
             }
+        }
+    }
+}
+
+// 清空 images/tmp 子目录中的所有文件（第二关临时审核目录）
+$tmpDir = $imagesDir . 'tmp/';
+if (is_dir($tmpDir)) {
+    $tmpFiles = glob($tmpDir . '*');
+    foreach ($tmpFiles as $file) {
+        if (is_file($file)) {
+            @unlink($file);
         }
     }
 }
