@@ -35,7 +35,16 @@ require_once __DIR__ . '/includes/functions.php';
 // 操作系统检测
 $isWindows = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 $osType = $isWindows ? 'Windows' : 'Linux';
-$separatorHint = $isWindows ? 'Windows: & 或 |' : 'Linux: ; 或 | 或 &&';
+
+// Linux 环境前置自检（检测工具与权限是否满足成就完成条件）
+$envCheck = getEnvironmentCheck();
+
+// 成就名称映射（用于环境警告展示）
+$achievementNames = [
+    'reverse_shell' => '成就一（反弹shell）',
+    'create_user'   => '成就二（系统渗透）',
+    'open_port'     => '成就三（计划任务）'
+];
 
 // 初始化业务数据
 $achievedCount = 0;
@@ -101,8 +110,25 @@ try {
                         <li><strong>【系统信息】</strong>当前运行环境：<?php echo htmlspecialchars($osType); ?></li>
                         <li><strong>【成就一】</strong>反弹shell — 通过命令注入建立反弹shell连接</li>
                         <li><strong>【成就二】</strong>系统渗透 — 创建指定的系统管理员用户</li>
-                        <li><strong>【成就三】</strong>计划任务 — 通过计划任务开启RDP服务</li>
+                        <li><strong>【成就三】</strong>计划任务 — <?php echo $isWindows ? '通过计划任务开启RDP服务' : '通过计划任务启动WEB服务'; ?></li>
                         <li><strong>【提示】</strong>你需要在本地搭建监听服务器来接收反弹shell连接</li>
+                        <?php if ($envCheck['needed'] && (!empty($envCheck['missing_tools']) || $envCheck['is_root'] === false)): ?>
+                        <li><strong>【环境检测】</strong>当前处于不完整的Linux环境
+                            <?php if (!empty($envCheck['missing_tools'])): ?>
+                            （缺失命令：<?php echo htmlspecialchars(implode('、', $envCheck['missing_tools'])); ?>）
+                            <?php endif; ?>
+                            <?php if ($envCheck['is_root'] === false): ?>
+                            （Web进程非root权限）
+                            <?php endif; ?>
+                            ，以下成就可能无法完成：
+                        </li>
+                        <?php foreach ($envCheck['issues'] as $issueType => $issueDesc): ?>
+                            <?php if ($issueDesc !== null): ?>
+                        <li><strong>【<?php echo $achievementNames[$issueType]; ?>】</strong><?php echo htmlspecialchars($issueDesc); ?></li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        <li>建议将靶场部署到具备完整工具链（crontab、python、useradd、ss/netstat）和root权限的Linux环境。</li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -145,9 +171,15 @@ try {
                     完成反弹shell后，在下方输入你监听服务器的IP和端口进行验证。<br>
                     系统将检测靶场服务器是否有到该IP:PORT的活跃出站连接来确认反弹shell已建立。</p>
                     <div class="verify-hint">
-                        <small><?php echo $isWindows ? 'Windows提示：可使用PowerShell反弹shell' : 'Linux提示：可使用bash反弹shell'; ?><br>
+                        <?php if ($isWindows): ?>
+                        <small>Windows提示：可使用PowerShell反弹shell<br>
                         <strong>重要：</strong>注入的反弹shell命令必须在后台运行，否则会导致诊断工具超时无响应。<br>
-                        <?php echo $isWindows ? 'Windows: 使用 start /B 前缀' : 'Linux: 命令末尾加 &'; ?></small>
+                        Windows: 使用 start /B 前缀</small>
+                        <?php else: ?>
+                        <small>Linux提示：可使用bash反弹shell；注意系统shell不支持 /dev/tcp，反弹命令需用 <code>bash -c "..."</code> 包裹执行<br>
+                        <strong>重要：</strong>注入的后台命令若继承诊断工具的标准输出管道，会导致诊断接口永久挂起，必须在后台运行并脱离标准流。<br>
+                        Linux: 形如 <code>bash -c "反弹命令" &lt;/dev/null &gt;/dev/null 2&gt;&amp;1 &amp;</code>（末尾 &amp; 放后台，重定向用于断开标准流继承）</small>
+                        <?php endif; ?>
                     </div>
                     <div class="verify-input-row">
                         <div class="verify-field">
@@ -200,11 +232,11 @@ try {
                             <?php endif; ?>
                         </span>
                     </div>
-                    <p class="verify-desc">通过命令注入漏洞创建计划任务来开启RDP远程桌面服务：<br>
+                    <p class="verify-desc">通过命令注入漏洞创建计划任务实现服务持久化：<br>
                     <?php if ($isWindows): ?>
                     Windows: 使用schtasks创建一个名为 <code>HeaSecRDP</code> 的计划任务，用于启动TermService（RDP服务）。
                     <?php else: ?>
-                    Linux: 使用crontab创建定时任务来开启SSH或远程桌面服务。
+                    Linux: 使用crontab创建一个包含 <code>HeaSecWeb</code> 标识的定时任务，任务内容为使用python启动WEB服务（命令示例：<code>python3 -m http.server 8888</code>）。
                     <?php endif; ?><br>
                     完成后点击验证按钮，系统将检查该计划任务是否存在。</p>
                     <div class="verify-actions">

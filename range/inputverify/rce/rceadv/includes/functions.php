@@ -104,7 +104,9 @@ function checkReverseShell($post, &$detail)
     if ($isWindows) {
         @exec('netstat -an 2>&1', $output);
     } else {
-        @exec('ss -tn state established 2>/dev/null || netstat -tn 2>/dev/null', $output);
+        // 注意：ss 使用 state established 过滤时会省略 State 列，导致输出无 ESTAB 字样，
+        // 因此这里查询全量连接（输出含 State 列），由下方统一按 ESTAB 状态匹配
+        @exec('ss -tn 2>/dev/null || netstat -tn 2>/dev/null', $output);
     }
 
     $connections = implode("\n", $output);
@@ -202,14 +204,147 @@ function checkOpenPort(&$detail)
         @exec('crontab -l 2>/dev/null', $output);
         $crontab = implode("\n", $output);
 
-        if (stripos($crontab, 'HeaSecRDP') !== false) {
-            $detail = '定时任务 HeaSecRDP 已存在（用于开启远程服务）';
+        if (stripos($crontab, 'HeaSecWeb') !== false) {
+            $detail = '定时任务 HeaSecWeb 已存在（用于启动WEB服务）';
             return true;
         }
 
-        $detail = '未检测到定时任务 HeaSecRDP，请确认已通过命令注入创建该定时任务';
+        $detail = '未检测到包含 HeaSecWeb 标识的定时任务，请确认已通过命令注入创建该定时任务';
         return false;
     }
+}
+
+/**
+ * 检测系统命令是否存在
+ *
+ * @param string $cmd 命令名
+ * @return bool 命令是否存在于 PATH 中
+ */
+function toolExists($cmd)
+{
+    exec('command -v ' . escapeshellarg($cmd) . ' 2>/dev/null', $output, $returnVar);
+    return $returnVar === 0;
+}
+
+/**
+ * Linux 环境前置自检（Windows 环境直接返回无需检测）
+ *
+ * 检测完成各成就所需的系统工具与 root 权限，用于页面加载时提示
+ * 用户当前环境是否具备完成全部成就的条件
+ *
+ * @return array {
+ *   needed: bool,            是否为需要检测的Linux环境
+ *   is_root: bool|null,      Web进程是否以root运行（无法检测时为null）
+ *   missing_tools: string[], 缺失的命令名列表
+ *   issues: array{           各成就的环境问题（null表示不受影响）
+ *     reverse_shell: string|null,
+ *     create_user: string|null,
+ *     open_port: string|null
+ *   }
+ * }
+ */
+function getEnvironmentCheck()
+{
+    $result = [
+        'needed'        => false,
+        'is_root'       => null,
+        'missing_tools' => [],
+        'issues'        => [
+            'reverse_shell' => null,
+            'create_user'   => null,
+            'open_port'     => null
+        ]
+    ];
+
+    // Windows 环境按默认部署方式运行，无需自检
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        return $result;
+    }
+
+    $result['needed'] = true;
+
+    // 权限检测：Web进程是否以root运行（影响创建用户等系统级操作）
+    if (function_exists('posix_getuid')) {
+        $result['is_root'] = (posix_getuid() === 0);
+    }
+
+    // 工具存在性检测
+    $hasPython      = toolExists('python3') || toolExists('python');
+    $hasCrontab     = toolExists('crontab');
+    $hasUserTools   = toolExists('useradd') && toolExists('usermod') && toolExists('chpasswd');
+    $hasNetTools    = toolExists('ss') || toolExists('netstat');
+
+    // 汇总缺失命令清单（用于页面展示）
+    if (!$hasPython) {
+        $result['missing_tools'][] = 'python';
+    }
+    if (!$hasCrontab) {
+        $result['missing_tools'][] = 'crontab';
+    }
+    if (!$hasUserTools) {
+        $result['missing_tools'][] = 'useradd/usermod/chpasswd';
+    }
+    if (!$hasNetTools) {
+        $result['missing_tools'][] = 'ss/netstat';
+    }
+
+    // 归纳各成就的环境问题
+    if (!$hasNetTools) {
+        $result['issues']['reverse_shell'] = '缺少 ss/netstat 命令，无法验证反弹shell连接';
+    }
+    if (!$hasUserTools || $result['is_root'] === false) {
+        $reasons = [];
+        if (!$hasUserTools) {
+            $reasons[] = '缺少用户管理命令（useradd/usermod/chpasswd）';
+        }
+        if ($result['is_root'] === false) {
+            $reasons[] = 'Web进程非root权限';
+        }
+        $result['issues']['create_user'] = implode('；', $reasons) . '，无法完成创建系统用户操作';
+    }
+    if (!$hasCrontab || !$hasPython) {
+        $reasons = [];
+        if (!$hasCrontab) {
+            $reasons[] = '缺少 crontab 命令，无法创建定时任务';
+        }
+        if (!$hasPython) {
+            $reasons[] = '缺少 python 命令，定时任务内容无法执行';
+        }
+        $result['issues']['open_port'] = implode('；', $reasons);
+    }
+
+    return $result;
+}
+
+/**
+ * 获取指定成就验证所需的验证工具环境问题（仅Linux环境）
+ *
+ * 只拦截"验证逻辑本身无法执行"的情况（如 crontab 命令缺失导致
+ * 无法读取定时任务），与"任务未完成"的验证失败区分开
+ *
+ * @param string $type 成就类型（reverse_shell/create_user/open_port）
+ * @return string|null 环境问题文案，null表示验证工具可用
+ */
+function getVerifyEnvironmentIssue($type)
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        return null;
+    }
+
+    switch ($type) {
+        case 'reverse_shell':
+            if (!toolExists('ss') && !toolExists('netstat')) {
+                return '当前环境缺少 ss/netstat 命令，无法检测反弹shell连接';
+            }
+            break;
+        case 'open_port':
+            if (!toolExists('crontab')) {
+                return '当前环境缺少 crontab 命令，无法检测定时任务';
+            }
+            break;
+    }
+
+    return null;
 }
 
 /**

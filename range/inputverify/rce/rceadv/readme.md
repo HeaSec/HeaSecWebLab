@@ -22,7 +22,7 @@
 - 你需要自己在本地搭建监听服务器来接收反弹shell
 - 注入的反弹shell命令**必须在后台运行**，否则会导致诊断工具超时无响应
   - Windows: 使用 `start /B` 前缀
-  - Linux: 命令末尾加 `&`
+  - Linux: 系统shell不支持 /dev/tcp，反弹命令需用 `bash -c "..."` 包裹；后台命令若继承诊断工具的输出管道会使其永久挂起，需脱离标准流，形如 `bash -c "反弹命令" </dev/null >/dev/null 2>&1 &`
 - 当前系统环境信息已在任务提示中显示，注意选择适合的命令注入方式
 - 某些操作可能需要多条命令分步执行
 - 完成操作后记得在"成就验证"中点击验证
@@ -32,7 +32,9 @@
 Web服务器需以管理员/root权限运行：
 
 - Windows: phpstudy默认以管理员权限运行
-- Linux: 需确保Web进程有创建用户和设置计划任务的权限
+- Linux: 需确保Web进程以root权限运行，且具备以下工具：crontab、python（python3）、useradd/usermod/chpasswd、ss/netstat
+
+Linux 环境下靶场会在任务提示区自动进行环境自检，工具缺失或权限不足时会提示当前处于不完整的Linux环境、相应成就可能无法完成。
 
 ## ⚠️ Windows风险提示
 

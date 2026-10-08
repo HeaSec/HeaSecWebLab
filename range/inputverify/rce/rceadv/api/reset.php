@@ -31,8 +31,8 @@ try {
         @exec('schtasks /delete /tn "HeaSecRDP" /f 2>&1');
     } else {
         @exec('userdel -r heasec 2>&1');
-        // 移除crontab中的HeaSecRDP定时任务
-        @exec('(crontab -l 2>/dev/null | grep -v HeaSecRDP) | crontab - 2>/dev/null');
+        // 移除crontab中的HeaSecWeb定时任务
+        @exec('(crontab -l 2>/dev/null | grep -v HeaSecWeb) | crontab - 2>/dev/null');
     }
 
     // 使用事务清除全部成就记录

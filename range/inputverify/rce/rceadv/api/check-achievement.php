@@ -21,6 +21,12 @@ $isWindows = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 $result = false;
 $detail = '';
 
+// Linux 环境下先做验证工具预检，区分"环境不完整"与"任务未完成"两类失败
+$verifyEnvIssue = getVerifyEnvironmentIssue($type);
+if ($verifyEnvIssue !== null) {
+    sendJsonResponse(false, $verifyEnvIssue . '，当前处于不完整的Linux环境，建议将靶场部署到合适的Linux环境后重试');
+}
+
 switch ($type) {
     case 'reverse_shell':
         $result = checkReverseShell($_POST, $detail);
